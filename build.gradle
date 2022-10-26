@@ -1,0 +1,57 @@
+plugins {
+	id 'org.springframework.boot' version '2.7.5'
+	id 'io.spring.dependency-management' version '1.0.15.RELEASE'
+	id 'java'
+}
+
+group = 'kr.co.numble'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '11'
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	// mysql
+	implementation 'mysql:mysql-connector-java:8.0.30'
+
+	// validation
+	implementation 'org.springframework.boot:spring-boot-starter-validation'
+
+	// JPA
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+
+	// jwt
+	implementation 'io.jsonwebtoken:jjwt:0.9.1'
+
+	// lombok
+	implementation 'org.projectlombok:lombok'
+	annotationProcessor 'org.projectlombok:lombok'
+
+	// test
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+	// redis
+	implementation 'org.springframework.boot:spring-boot-starter-data-redis'
+
+	// security
+	implementation 'org.springframework.boot:spring-boot-starter-security'
+
+	// configuration
+	annotationProcessor "org.springframework.boot:spring-boot-configuration-processor"
+
+	// test
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testImplementation 'org.springframework.security:spring-security-test'
+
+	// web
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+
+	// apache commons
+	implementation 'org.apache.commons:commons-lang3:3.12.0'
+}
+
+test {
+	useJUnitPlatform()
+}
