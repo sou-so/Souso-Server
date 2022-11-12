@@ -11,6 +11,7 @@ public enum GlobalErrorCode {
     // 401
     EXPIRED_JWT(401, "Expired Jwt"),
     INVALID_JWT(401, "Invalid Jwt"),
+    PASSWORD_MISMATCH(401,  "Password Mismatch"),
 
     // 403
     FORBIDDEN(403, "FORBIDDEN"),
@@ -18,9 +19,11 @@ public enum GlobalErrorCode {
 
     // 404
     USER_NOT_FOUND(404, "User Not Found"),
+    REFRESH_TOKEN_NOT_FOUND(404, "RefreshToken Not Found"),
 
     // 409
     ALREADY_USER_EXIST(409, "Already User Exist"),
+    ALREADY_NICKNAME_EXIST(409, "Already Email Exist"),
 
     // 500
     INTERNAL_SERVER_ERROR(500, "Internal Server Error");
