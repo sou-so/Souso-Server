@@ -3,7 +3,7 @@ package kr.co.numble.numble.domain.user.facade;
 import kr.co.numble.numble.domain.user.domain.User;
 import kr.co.numble.numble.domain.user.domain.repository.UserRepository;
 import kr.co.numble.numble.domain.user.exception.AlreadyNicknameExistException;
-import kr.co.numble.numble.global.exception.AlreadyUserExistException;
+import kr.co.numble.numble.domain.user.exception.AlreadyUserExistException;
 import kr.co.numble.numble.global.exception.UserNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
