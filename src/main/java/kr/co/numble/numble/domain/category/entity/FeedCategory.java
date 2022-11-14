@@ -29,8 +29,7 @@ public class FeedCategory {
     private Category category;
 
     @Builder
-    public FeedCategory(FeedCategoryId id, Feed feed, Category category) {
-        this.id = id;
+    public FeedCategory(Feed feed, Category category) {
         this.feed = feed;
         this.category = category;
     }

@@ -14,7 +14,7 @@ import javax.validation.constraints.Size;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
-@Table(name = "tbl_post")
+@Table(name = "tbl_feed")
 public class Feed extends BaseTimeEntity {
 
     @Id
