@@ -30,6 +30,7 @@ public class FeedCategory {
 
     @Builder
     public FeedCategory(Feed feed, Category category) {
+        this.id = new FeedCategoryId(feed.getId(), category.getId());
         this.feed = feed;
         this.category = category;
     }
