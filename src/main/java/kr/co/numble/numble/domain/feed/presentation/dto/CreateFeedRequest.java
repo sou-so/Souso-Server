@@ -20,7 +20,6 @@ public class CreateFeedRequest {
     private String content;
 
     @NotBlank(message = "title은 Null, 오직 공백만을 허용하지 않습니다.")
-    @JsonProperty("categoryId")
     private Long categoryId;
 
 }
