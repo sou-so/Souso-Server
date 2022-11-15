@@ -49,6 +49,9 @@ public class SecurityConfig {
                 .antMatchers(HttpMethod.DELETE, "/users/logout").authenticated()
                 .antMatchers(HttpMethod.DELETE, "/users/leave").authenticated()
 
+                // feeds
+                .antMatchers(HttpMethod.POST ,"/feeds").authenticated()
+
                 .anyRequest().denyAll()
 
                 .and()
