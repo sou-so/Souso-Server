@@ -20,7 +20,7 @@ public class CategoryQueryService {
     public CategoryListResponse execute() {
         List<CategoryResponse> categories = categoryRepository.findAll()
                 .stream()
-                .map(c -> new CategoryResponse(c.getId(), c.getCategoryName(), c.getCategoryImageUrl()))
+                .map(CategoryResponse::new)
                 .collect(Collectors.toList());
         return new CategoryListResponse(categories.size(), categories);
     }
