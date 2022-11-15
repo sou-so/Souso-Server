@@ -50,7 +50,10 @@ public class SecurityConfig {
                 .antMatchers(HttpMethod.DELETE, "/users/leave").authenticated()
 
                 // feeds
-                .antMatchers(HttpMethod.POST ,"/feeds").authenticated()
+                .antMatchers(HttpMethod.POST ,"/feeds").permitAll()
+
+                // categories
+                .antMatchers(HttpMethod.GET ,"/categories").permitAll()
 
                 .anyRequest().denyAll()
 
