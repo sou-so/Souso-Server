@@ -1,6 +1,7 @@
 package kr.co.numble.numble.domain.category.entity;
 
 import kr.co.numble.numble.domain.feed.domain.Feed;
+import kr.co.numble.numble.global.entity.BaseTimeEntity;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -12,7 +13,7 @@ import javax.persistence.*;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
 @Table(name = "tbl_feed_category")
-public class FeedCategory {
+public class FeedCategory extends BaseTimeEntity {
 
     @EmbeddedId
     private FeedCategoryId id;
@@ -23,14 +24,19 @@ public class FeedCategory {
     private Feed feed;
 
 
-    @MapsId("categoryId")
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id", nullable = false)
     private Category category;
 
     @Builder
     public FeedCategory(Feed feed, Category category) {
-        this.id = new FeedCategoryId(feed.getId(), category.getId());
+        this.id = new FeedCategoryId(feed.getId());
+        this.feed = feed;
+        this.category = category;
+    }
+
+    public void updateFeedCategory(Feed feed, Category category) {
         this.feed = feed;
         this.category = category;
     }

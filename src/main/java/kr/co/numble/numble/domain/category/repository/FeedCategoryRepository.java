@@ -6,4 +6,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface FeedCategoryRepository extends JpaRepository<FeedCategory, FeedCategoryId> {
 
+    FeedCategory findFeedCategoryByFeedId(Long feedId);
+
 }

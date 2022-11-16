@@ -16,11 +16,13 @@ public enum GlobalErrorCode {
     // 403
     FORBIDDEN(403, "FORBIDDEN"),
     NOT_VALID_USER_ROLE(403, "Not Valid User Role"),
+    NOT_VALID_USER(403, "Not Valid User"),
 
     // 404
     USER_NOT_FOUND(404, "User Not Found"),
     REFRESH_TOKEN_NOT_FOUND(404, "RefreshToken Not Found"),
-    FEED_CATEGORY_NOT_FOUND(404, "Feed Category Not Found"),
+    CATEGORY_NOT_FOUND(404, "Category Not Found"),
+    FEED_NOT_FOUND(404, "Feed Not Found"),
 
     // 409
     ALREADY_USER_EXIST(409, "Already User Exist"),

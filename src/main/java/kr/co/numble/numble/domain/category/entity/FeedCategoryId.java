@@ -13,11 +13,8 @@ public class FeedCategoryId implements Serializable {
 
     private Long feedId;
 
-    private Long categoryId;
-
     @Builder
-    public FeedCategoryId(Long feedId, Long categoryId) {
+    public FeedCategoryId(Long feedId) {
         this.feedId = feedId;
-        this.categoryId = categoryId;
     }
 }

@@ -7,7 +7,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.EntityListeners;
 import javax.persistence.MappedSuperclass;
-import java.time.ZonedDateTime;
+import java.time.LocalDateTime;
 
 @Getter
 @MappedSuperclass
@@ -15,8 +15,8 @@ import java.time.ZonedDateTime;
 public class BaseTimeEntity {
 
     @CreatedDate
-    private final ZonedDateTime createdAt = ZonedDateTime.now();
+    private LocalDateTime createdAt = LocalDateTime.now();
 
     @LastModifiedDate
-    private final ZonedDateTime modifiedAt = ZonedDateTime.now();
+    private LocalDateTime modifiedAt = LocalDateTime.now();
 }
