@@ -51,6 +51,7 @@ public class SecurityConfig {
 
                 // feeds
                 .antMatchers(HttpMethod.POST ,"/feeds").permitAll()
+                .antMatchers(HttpMethod.PATCH, "/feeds/**").permitAll()
 
                 // categories
                 .antMatchers(HttpMethod.GET ,"/categories").permitAll()
