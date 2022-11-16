@@ -3,6 +3,7 @@ package kr.co.numble.numble.domain.feed.presentation;
 import kr.co.numble.numble.domain.feed.presentation.dto.CreateFeedRequest;
 import kr.co.numble.numble.domain.feed.presentation.dto.UpdateFeedRequest;
 import kr.co.numble.numble.domain.feed.service.CreateFeedService;
+import kr.co.numble.numble.domain.feed.service.DeleteFeedService;
 import kr.co.numble.numble.domain.feed.service.UpdateFeedService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -17,6 +18,7 @@ public class FeedController {
 
     private final CreateFeedService createFeedService;
     private final UpdateFeedService updateFeedService;
+    private final DeleteFeedService deleteFeedService;
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
@@ -27,5 +29,10 @@ public class FeedController {
     @PatchMapping("/{feed-id}")
     public void updateFeed(@RequestBody @Valid UpdateFeedRequest request, @PathVariable("feed-id") Long feedId) {
         updateFeedService.execute(request, feedId);
+    }
+
+    @DeleteMapping("/{feed-id}")
+    public void deleteFeed(@PathVariable("feed-id") Long feedId) {
+        deleteFeedService.execute(feedId);
     }
 }
