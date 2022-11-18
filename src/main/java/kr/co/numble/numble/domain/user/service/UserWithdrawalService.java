@@ -12,8 +12,8 @@ import javax.transaction.Transactional;
 @Service
 public class UserWithdrawalService {
 
-    private UserFacade userFacade;
-    private UserRepository userRepository;
+    private final UserFacade userFacade;
+    private final UserRepository userRepository;
 
     @Transactional
     public void execute() {
