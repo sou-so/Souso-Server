@@ -2,6 +2,7 @@ package kr.co.numble.numble.domain.feed.presentation;
 
 import kr.co.numble.numble.domain.feed.presentation.dto.CreateFeedRequest;
 import kr.co.numble.numble.domain.feed.presentation.dto.UpdateFeedRequest;
+import kr.co.numble.numble.domain.feed.service.AddLikeService;
 import kr.co.numble.numble.domain.feed.service.CreateFeedService;
 import kr.co.numble.numble.domain.feed.service.DeleteFeedService;
 import kr.co.numble.numble.domain.feed.service.UpdateFeedService;
@@ -19,6 +20,7 @@ public class FeedController {
     private final CreateFeedService createFeedService;
     private final UpdateFeedService updateFeedService;
     private final DeleteFeedService deleteFeedService;
+    private final AddLikeService addLikeService;
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
@@ -34,5 +36,10 @@ public class FeedController {
     @DeleteMapping("/{feed-id}")
     public void deleteFeed(@PathVariable("feed-id") Long feedId) {
         deleteFeedService.execute(feedId);
+    }
+
+    @PostMapping("/{feed-id}/like")
+    public void like(@PathVariable("feed-id") Long feedId) {
+        addLikeService.execute(feedId);
     }
 }
