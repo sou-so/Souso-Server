@@ -59,4 +59,8 @@ public class Feed extends BaseTimeEntity {
     public void addLike() {
         this.likeCount++;
     }
+
+    public void subLike(){
+        this.likeCount--;
+    }
 }

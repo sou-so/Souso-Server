@@ -49,7 +49,7 @@ public class SecurityConfig {
                 .antMatchers(HttpMethod.DELETE, "/users/logout").authenticated()
                 .antMatchers(HttpMethod.DELETE, "/users/leave").authenticated()
 
-                // feeds
+                // feeds & like
                 .antMatchers(HttpMethod.POST, "/feeds/**").authenticated()
                 .antMatchers(HttpMethod.PATCH, "/feeds/**").authenticated()
                 .antMatchers(HttpMethod.DELETE, "/feeds/**").authenticated()
