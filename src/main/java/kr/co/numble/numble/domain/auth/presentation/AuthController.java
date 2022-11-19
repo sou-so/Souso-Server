@@ -1,8 +1,10 @@
 package kr.co.numble.numble.domain.auth.presentation;
 
 import io.swagger.annotations.ApiOperation;
+import kr.co.numble.numble.domain.auth.presentation.dto.request.CheckAuthCodeRequest;
 import kr.co.numble.numble.domain.auth.presentation.dto.request.UserSignInRequest;
 import kr.co.numble.numble.domain.auth.presentation.dto.response.UserTokenResponse;
+import kr.co.numble.numble.domain.auth.service.CheckAuthCodeExistsService;
 import kr.co.numble.numble.domain.auth.service.CheckNicknameExistService;
 import kr.co.numble.numble.domain.auth.service.UserSignInService;
 import lombok.RequiredArgsConstructor;
@@ -20,6 +22,8 @@ public class AuthController {
 
     private final UserSignInService userSignInService;
     private final CheckNicknameExistService checkNicknameExistService;
+    private final CheckAuthCodeExistsService checkAuthCodeExistsService;
+
 
     @ApiOperation(value = "로그인")
     @PostMapping("/token")
@@ -31,5 +35,11 @@ public class AuthController {
     @RequestMapping(value = "/nickname", method = RequestMethod.HEAD)
     public void checkNicknameExist(@NotBlank @RequestParam(name = "nickname") String nickname) {
         checkNicknameExistService.execute(nickname);
+    }
+
+    @ApiOperation(value = "인증번호 체크")
+    @RequestMapping(value = "/verification-codes", method = RequestMethod.HEAD)
+    public void checkAuthCodeExists(@Valid CheckAuthCodeRequest request) {
+        checkAuthCodeExistsService.execute(request);
     }
 }

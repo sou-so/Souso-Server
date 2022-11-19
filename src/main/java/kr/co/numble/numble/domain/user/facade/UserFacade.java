@@ -1,5 +1,6 @@
 package kr.co.numble.numble.domain.user.facade;
 
+import kr.co.numble.numble.domain.auth.exception.PhoneNumberMatchedException;
 import kr.co.numble.numble.domain.user.domain.User;
 import kr.co.numble.numble.domain.user.domain.repository.UserRepository;
 import kr.co.numble.numble.domain.user.exception.AlreadyNicknameExistException;
@@ -38,6 +39,12 @@ public class UserFacade {
     public void checkNicknameExists(String nickname) {
         if (userRepository.findByNickname(nickname).isPresent()) {
             throw AlreadyNicknameExistException.EXCEPTION;
+        }
+    }
+
+    public void checkUserPhoneNumber(String phoneNumber) {
+        if (userRepository.findByPhoneNumber(phoneNumber).isPresent()) {
+            throw PhoneNumberMatchedException.EXCEPTION;
         }
     }
 }

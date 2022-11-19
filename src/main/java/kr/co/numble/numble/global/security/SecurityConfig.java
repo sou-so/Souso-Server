@@ -48,6 +48,9 @@ public class SecurityConfig {
                 .antMatchers(HttpMethod.POST, "/users/token").permitAll()
                 .antMatchers(HttpMethod.DELETE, "/users/logout").authenticated()
                 .antMatchers(HttpMethod.DELETE, "/users/leave").authenticated()
+                .antMatchers(HttpMethod.HEAD, "/users/verification-codes").permitAll()
+                .antMatchers(HttpMethod.POST, "/users/verification-codes").permitAll()
+
 
                 // feeds & like
                 .antMatchers(HttpMethod.POST, "/feeds/**").authenticated()
