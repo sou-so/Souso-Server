@@ -51,8 +51,11 @@ dependencies {
 	// apache commons
 	implementation 'org.apache.commons:commons-lang3:3.12.0'
 
-	//swagger
+	// swagger
 	implementation 'io.springfox:springfox-boot-starter:3.0.0'
+
+	// coolsms(휴대폰인증)
+	implementation group: 'net.nurigo', name: 'javaSDK', version: '2.2'
 }
 
 test {

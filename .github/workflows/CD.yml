@@ -46,3 +46,6 @@ jobs:
             REDIS_HOST=${{ secrets.REDIS_HOST }}
             REDIS_PORT=${{ secrets.REDIS_PORT }}
             REDIS_PASSWORD=${{ secrets.REDIS_PASSWORD }}
+            COOLSMS_API_KEY=${{ secrets.COOLSMS_API_KEY }}
+            COOLSMS_SECRET_KEY=${{ secrets.COOLSMS_SECRET_KEY }}
+            COOLSMS_PHONE_NUMBER=${{ secrets.COOLSMS_PHONE_NUMBER }}

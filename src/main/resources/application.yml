@@ -5,7 +5,7 @@ spring:
   mvc:
     pathmatch:
       matching-strategy: ant_path_matcher
-      
+
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: ${JDBC_URL}
@@ -36,6 +36,13 @@ jwt:
   secret-key: ${JWT_SECRET_KEY:souso}
   access-exp: ${JWT_ACCESS_EXP:7200}
   refresh-exp: ${JWT_REFRESH_EXP:123456789}
+
+coolsms:
+  key: ${COOLSMS_API_KEY}
+  secret: ${COOLSMS_SECRET_KEY}
+  phone-number: ${COOLSMS_PHONE_NUMBER}
+
+
 
 logging:
   level:
