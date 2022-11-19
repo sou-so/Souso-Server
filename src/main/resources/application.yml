@@ -21,6 +21,11 @@ spring:
       ddl-auto: update
     open-in-view: false
 
+  redis:
+    port: ${REDIS_PORT}
+    host: ${REDIS_HOST}
+    password: ${REDIS_PASSWORD}
+
   jackson:
     property-naming-strategy: SNAKE_CASE
 

@@ -43,7 +43,6 @@ jobs:
             DB_USER=${{ secrets.DB_USER }}
             DB_PWD=${{ secrets.DB_PWD }}
             JWT_SECRET_KEY=${{ secrets.JWT_SECRET_KEY }}
-            JWT_ACCESS_EXP=${{ secrets.JWT_ACCESS_EXP }}
-            JWT_REFRESH_EXP=${{ secrets.JWT_REFRESH_EXP }}
             REDIS_HOST=${{ secrets.REDIS_HOST }}
             REDIS_PORT=${{ secrets.REDIS_PORT }}
+            REDIS_PASSWORD=${{ secrets.REDIS_PASSWORD }}
