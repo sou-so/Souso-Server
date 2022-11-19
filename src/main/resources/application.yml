@@ -22,8 +22,8 @@ spring:
     open-in-view: false
 
   redis:
-    port: ${REDIS_PORT}
-    host: ${REDIS_HOST}
+    host: ${REDIS_HOST:localhost}
+    port: ${REDIS_PORT:6379}
     password: ${REDIS_PASSWORD}
 
   jackson:
