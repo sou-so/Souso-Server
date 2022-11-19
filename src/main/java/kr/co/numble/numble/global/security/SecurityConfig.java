@@ -58,6 +58,9 @@ public class SecurityConfig {
                 // categories
                 .antMatchers(HttpMethod.GET, "/categories").permitAll()
 
+                // swagger
+                .antMatchers("/swagger*/**", "/v3/api-docs").permitAll()
+
                 .anyRequest().denyAll()
 
                 .and()
