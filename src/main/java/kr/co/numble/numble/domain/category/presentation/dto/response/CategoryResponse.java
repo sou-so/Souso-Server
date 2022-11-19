@@ -15,6 +15,6 @@ public class CategoryResponse {
     public CategoryResponse(Category category) {
         this.categoryId = category.getId();
         this.categoryName = category.getCategoryName();
-        this.categoryImageUrl = getCategoryImageUrl();
+        this.categoryImageUrl = category.getCategoryImageUrl();
     }
 }
