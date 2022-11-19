@@ -1,5 +1,6 @@
 package kr.co.numble.numble.domain.category.presentation;
 
+import io.swagger.annotations.ApiOperation;
 import kr.co.numble.numble.domain.category.presentation.dto.response.CategoryListResponse;
 import kr.co.numble.numble.domain.category.service.CategoryQueryService;
 import lombok.RequiredArgsConstructor;
@@ -14,6 +15,7 @@ public class CategoryController {
 
     private final CategoryQueryService categoryQueryService;
 
+    @ApiOperation(value = "총 카테고리 정보")
     @GetMapping
     public CategoryListResponse getAllCategory() {
         return categoryQueryService.execute();
