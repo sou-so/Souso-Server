@@ -28,9 +28,9 @@ spring:
     timeout-per-shutdown-phase: 30s
 
 jwt:
-  secret-key: ${JWT_SECRET_KEY}
-  access-exp: ${JWT_ACCESS_EXP}
-  refresh-exp: ${JWT_REFRESH_EXP}
+  secret-key: ${JWT_SECRET_KEY:souso}
+  access-exp: ${JWT_ACCESS_EXP:1234567}
+  refresh-exp: ${JWT_REFRESH_EXP:123456789}
 
 logging:
   level:
