@@ -1,4 +1,4 @@
-package kr.co.numble.numble.infrastructure.sms.coolsms;
+package kr.co.numble.numble.global.property.coolsms;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
