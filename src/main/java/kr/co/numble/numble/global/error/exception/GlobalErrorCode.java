@@ -12,6 +12,7 @@ public enum GlobalErrorCode {
     EXPIRED_JWT(401, "Expired Jwt"),
     INVALID_JWT(401, "Invalid Jwt"),
     PASSWORD_MISMATCH(401,  "Password Mismatch"),
+    INVALID_CODE(401, "Invalid Code"),
 
     // 403
     FORBIDDEN(403, "FORBIDDEN"),
@@ -23,11 +24,13 @@ public enum GlobalErrorCode {
     REFRESH_TOKEN_NOT_FOUND(404, "RefreshToken Not Found"),
     CATEGORY_NOT_FOUND(404, "Category Not Found"),
     FEED_NOT_FOUND(404, "Feed Not Found"),
+    USER_AUTH_CODE_NOT_FOUND(404, "User AuthCode Not Found"),
+
 
     // 409
     ALREADY_USER_EXIST(409, "Already User Exist"),
     ALREADY_NICKNAME_EXIST(409, "Already Email Exist"),
-
+    ALREADY_PHONE_NUMBER_EXIST(409, "Already Phone Number Exist"),
 
 
 
