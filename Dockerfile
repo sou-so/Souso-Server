@@ -18,5 +18,8 @@ ENV JWT_SECRET_KEY=${JWT_SECRET_KEY}
 ENV REDIS_HOST=${REDIS_HOST}
 ENV REDIS_PORT=${REDIS_PORT}
 ENV REDIS_PASSWORD=${REDIS_PASSWORD}
+ENV COOLSMS_API_KEY=${COOLSMS_API_KEY}
+ENV COOLSMS_SECRET_KEY=${COOLSMS_SECRET_KEY}
+ENV COOLSMS_PHONE_NUMBER=${COOLSMS_PHONE_NUMBER}
 
 ENTRYPOINT ["java","-jar","-Dspring.datasource.url=${JDBC_URL}","-Dspring.datasource.username=${DB_USER}", "-Dspring.datasource.password=${DB_PWD}", "-Dspring.jwt.secret-key=${JWT_SECRET_KEY}", "-Dspring.redis.host=${REDIS_HOST}", "-Dspring.redis.port=${REDIS_PORT}", "-Dspring.redis.password=${REDIS_PASSWORD}", "-Dspring.coolsms.key=${COOLSMS_API_KEY}", "-Dspring.coolsms.secret=${COOLSMS_SECRET_KEY}", "-Dspring.coolsms.phone-number=${COOLSMS_PHONE_NUMBER}", "/app.jar"]
