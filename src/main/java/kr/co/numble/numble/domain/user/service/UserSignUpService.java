@@ -36,6 +36,7 @@ public class UserSignUpService {
                 .phoneNumber(request.getPhoneNumber())
                 .role(UserRole.USER)
                 .nickname(request.getNickname())
+                .birth(request.getBirth())
                 .build());
 
         String accessToken = jwtTokenProvider.generateAccessToken(user.getEmail());
