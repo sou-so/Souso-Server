@@ -29,10 +29,6 @@ public class Feed extends BaseTimeEntity {
     private Long id;
 
     @NotNull
-    @Size(min = 3, max = 30)
-    private String title;
-
-    @NotNull
     private String content;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -44,15 +40,13 @@ public class Feed extends BaseTimeEntity {
     private Long likeCount;
 
     @Builder
-    public Feed(String title, String content, User user, Long likeCount) {
-        this.title = title;
+    public Feed(String content, User user, Long likeCount) {
         this.content = content;
         this.user = user;
         this.likeCount = likeCount;
     }
 
-    public void updateFeed(String title, String content) {
-        this.title = title;
+    public void updateFeed(String content) {
         this.content = content;
     }
 

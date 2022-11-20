@@ -4,6 +4,7 @@ import kr.co.numble.numble.domain.category.entity.FeedCategory;
 import kr.co.numble.numble.domain.category.repository.FeedCategoryRepository;
 import kr.co.numble.numble.domain.feed.domain.Feed;
 import kr.co.numble.numble.domain.feed.exception.FeedNotFoundException;
+import kr.co.numble.numble.domain.feed.repository.FeedImageRepository;
 import kr.co.numble.numble.domain.feed.repository.FeedRepository;
 import kr.co.numble.numble.domain.user.domain.User;
 import kr.co.numble.numble.domain.user.exception.NotValidUserException;
@@ -19,6 +20,7 @@ public class DeleteFeedService {
     private final UserFacade userFacade;
     private final FeedRepository feedRepository;
     private final FeedCategoryRepository feedCategoryRepository;
+    private final FeedImageRepository feedImageRepository;
 
     @Transactional
     public void execute(Long feedId) {
@@ -30,6 +32,7 @@ public class DeleteFeedService {
             throw NotValidUserException.EXCEPTION;
         }
 
+        feedImageRepository.deleteAllByFeed(feed);
         feedCategoryRepository.deleteByFeed(feed);
         feedRepository.delete(feed);
 
