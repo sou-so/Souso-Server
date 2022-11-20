@@ -8,6 +8,6 @@ public class InvalidCodeException extends NumbleException {
             new InvalidCodeException();
 
     private InvalidCodeException() {
-        super(GlobalErrorCode.NOT_VALID_USER);
+        super(GlobalErrorCode.INVALID_CODE);
     }
 }

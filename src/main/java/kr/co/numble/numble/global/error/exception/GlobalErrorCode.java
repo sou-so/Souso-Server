@@ -30,7 +30,7 @@ public enum GlobalErrorCode {
     // 409
     ALREADY_USER_EXIST(409, "Already User Exist"),
     ALREADY_NICKNAME_EXIST(409, "Already Email Exist"),
-    PHONE_NUMBER_MATCHED(409, "Already Phone Number Exist"),
+    ALREADY_PHONE_NUMBER_EXIST(409, "Already Phone Number Exist"),
 
 
 
