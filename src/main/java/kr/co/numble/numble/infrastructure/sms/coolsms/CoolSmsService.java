@@ -1,5 +1,6 @@
 package kr.co.numble.numble.infrastructure.sms.coolsms;
 
+import kr.co.numble.numble.global.property.coolsms.CoolSmsProperties;
 import kr.co.numble.numble.infrastructure.sms.SmsUtil;
 import lombok.RequiredArgsConstructor;
 import net.nurigo.java_sdk.api.Message;
