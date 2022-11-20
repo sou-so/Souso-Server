@@ -49,3 +49,8 @@ jobs:
             COOLSMS_API_KEY=${{ secrets.COOLSMS_API_KEY }}
             COOLSMS_SECRET_KEY=${{ secrets.COOLSMS_SECRET_KEY }}
             COOLSMS_PHONE_NUMBER=${{ secrets.COOLSMS_PHONE_NUMBER }}
+            S3_ACCESS_KEY=${{ secrets.S3_ACCESS_KEY }}
+            S3_SECRET_KEY=${{ secrets.S3_SECRET_KEY }}
+            S3_BUCKET=${{ secrets.S3_BUCKET }}
+            S3_REGION=${{ secrets.S3_REGION }}
+

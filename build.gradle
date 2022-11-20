@@ -56,6 +56,9 @@ dependencies {
 
 	// coolsms(휴대폰인증)
 	implementation group: 'net.nurigo', name: 'javaSDK', version: '2.2'
+
+	// s3
+	implementation 'org.springframework.cloud:spring-cloud-starter-aws:2.2.6.RELEASE'
 }
 
 test {
