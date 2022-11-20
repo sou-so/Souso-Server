@@ -42,8 +42,6 @@ coolsms:
   secret: ${COOLSMS_SECRET_KEY}
   phone-number: ${COOLSMS_PHONE_NUMBER}
 
-
-
 logging:
   level:
     com:
