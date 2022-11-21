@@ -22,15 +22,12 @@ public class Feed extends BaseTimeEntity {
     @PrePersist
     public void prePersist() {
         this.likeCount = this.likeCount == null ? 0 : this.likeCount;
+        this.bookmarkCount = this.bookmarkCount == null ? 0 : this.bookmarkCount;
     }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @NotNull
-    @Size(min = 3, max = 30)
-    private String title;
 
     @NotNull
     private String content;
@@ -43,16 +40,19 @@ public class Feed extends BaseTimeEntity {
     @ColumnDefault("0")
     private Long likeCount;
 
+    @NotNull
+    @ColumnDefault("0")
+    private Long bookmarkCount;
+
     @Builder
-    public Feed(String title, String content, User user, Long likeCount) {
-        this.title = title;
+    public Feed(String content, User user, Long likeCount, Long bookmarkCount) {
         this.content = content;
         this.user = user;
         this.likeCount = likeCount;
+        this.bookmarkCount = bookmarkCount;
     }
 
-    public void updateFeed(String title, String content) {
-        this.title = title;
+    public void updateFeed(String content) {
         this.content = content;
     }
 
@@ -62,5 +62,13 @@ public class Feed extends BaseTimeEntity {
 
     public void subLike(){
         this.likeCount--;
+    }
+
+    public void addBookmark() {
+        this.bookmarkCount++;
+    }
+
+    public void subBookmark(){
+        this.bookmarkCount--;
     }
 }
