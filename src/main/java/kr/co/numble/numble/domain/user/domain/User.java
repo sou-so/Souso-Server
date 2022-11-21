@@ -44,17 +44,22 @@ public class User extends BaseTimeEntity {
     private String nickname;
 
     @NotNull
+    @Size(max = 8)
+    private String birth;
+
+    @NotNull
     @Enumerated(EnumType.STRING)
     @Column(length = 5)
     private UserRole role;
 
     @Builder
-    public User(String email, String password, String name, String phoneNumber, String nickname, UserRole role) {
+    public User(String email, String password, String name, String phoneNumber, String nickname, String birth, UserRole role) {
         this.email = email;
         this.password = password;
         this.name = name;
         this.phoneNumber = phoneNumber;
         this.nickname = nickname;
+        this.birth = birth;
         this.role = role;
     }
 
