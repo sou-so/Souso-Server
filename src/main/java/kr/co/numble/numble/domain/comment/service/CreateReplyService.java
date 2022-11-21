@@ -22,14 +22,14 @@ public class CreateReplyService {
     private final CommentRepository commentRepository;
 
     @Transactional
-    public void execute(Long feedId, Long commentId, CreateReplyRequest request) {
+    public void execute(Long commentId, CreateReplyRequest request) {
         User user = userFacade.getCurrentUser();
-
-        Feed feed = feedRepository.findById(feedId)
-                .orElseThrow(() -> FeedNotFoundException.EXCEPTION);
 
         Comment parentComment = commentRepository.findById(commentId)
                 .orElseThrow(() -> CommentNotFoundException.EXCEPTION);
+
+        Feed feed = feedRepository.findById(parentComment.getFeed().getId())
+                .orElseThrow(() -> FeedNotFoundException.EXCEPTION);
 
         Comment comment = Comment.builder()
                 .feed(feed)

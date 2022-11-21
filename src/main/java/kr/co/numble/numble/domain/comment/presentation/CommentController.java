@@ -28,10 +28,8 @@ public class CommentController {
 
     @ApiOperation(value = "답글 등록")
     @ResponseStatus(HttpStatus.CREATED)
-    @PostMapping("/{feed-id}/reply/{comment-id}")
-    public void createReply(@PathVariable("feed-id") Long feedId,
-                            @PathVariable("comment-id") Long commentId,
-                            @RequestBody @Valid CreateReplyRequest request) {
-        createReplyService.execute(feedId, commentId, request);
+    @PostMapping("/reply/{comment-id}")
+    public void createReply(@PathVariable("comment-id") Long commentId, @RequestBody @Valid CreateReplyRequest request) {
+        createReplyService.execute(commentId, request);
     }
 }
