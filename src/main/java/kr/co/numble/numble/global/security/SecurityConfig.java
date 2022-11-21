@@ -52,7 +52,7 @@ public class SecurityConfig {
                 .antMatchers(HttpMethod.POST, "/users/verification-codes").permitAll()
 
 
-                // feeds & like
+                // feeds & like & bookmark
                 .antMatchers(HttpMethod.POST, "/feeds/**").authenticated()
                 .antMatchers(HttpMethod.PATCH, "/feeds/**").authenticated()
                 .antMatchers(HttpMethod.DELETE, "/feeds/**").authenticated()
