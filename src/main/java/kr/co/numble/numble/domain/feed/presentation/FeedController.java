@@ -1,13 +1,19 @@
 package kr.co.numble.numble.domain.feed.presentation;
 
 import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.media.Schema;
 import kr.co.numble.numble.domain.feed.presentation.dto.CreateFeedRequest;
 import kr.co.numble.numble.domain.feed.presentation.dto.UpdateFeedRequest;
 import kr.co.numble.numble.domain.feed.service.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 @RequiredArgsConstructor
@@ -24,14 +30,14 @@ public class FeedController {
     @ApiOperation(value = "게시글 등록")
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
-    public void createFeed(@RequestBody @Valid CreateFeedRequest request) {
-        createFeedService.execute(request);
+    public void createFeed(@RequestPart List<MultipartFile> images, @RequestPart @Valid CreateFeedRequest request) {
+        createFeedService.execute(images, request);
     }
 
     @ApiOperation(value = "게시글 수정")
     @PatchMapping("/{feed-id}")
-    public void updateFeed(@RequestBody @Valid UpdateFeedRequest request, @PathVariable("feed-id") Long feedId) {
-        updateFeedService.execute(request, feedId);
+    public void updateFeed(@RequestPart List<MultipartFile> images, @RequestPart @Valid UpdateFeedRequest request, @PathVariable("feed-id") Long feedId) {
+        updateFeedService.execute(images, request, feedId);
     }
 
     @ApiOperation(value = "게시글 삭제")
