@@ -19,6 +19,11 @@ import javax.validation.constraints.NotNull;
 @Table(name = "tbl_comment")
 public class Comment extends BaseTimeEntity {
 
+    @PrePersist
+    public void prePersist() {
+        this.parentComment = this.parentComment == null ? this : this.parentComment;
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
