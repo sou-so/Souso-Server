@@ -24,12 +24,9 @@ public class Category extends BaseTimeEntity {
     @Length(max = 10)
     private String categoryName;
 
-    @Column(nullable = false)
-    private String categoryImageUrl;
 
     @Builder
-    public Category(String categoryName, String categoryImageUrl) {
+    public Category(String categoryName) {
         this.categoryName = categoryName;
-        this.categoryImageUrl = categoryImageUrl;
     }
 }
