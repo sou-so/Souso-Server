@@ -20,14 +20,9 @@ public class FeedViewCount {
     private Long viewCount;
 
     @Builder
-    public FeedViewCount(Long feedId, Long viewCount) {
+    public FeedViewCount(Long feedId) {
         this.feedId = feedId;
-        this.viewCount = viewCount;
-    }
-
-    @PrePersist
-    public void prePersist() {
-        this.viewCount = this.viewCount == null ? 0 : this.viewCount;
+        this.viewCount = 0L;
     }
 
     public void addViewCount(){
