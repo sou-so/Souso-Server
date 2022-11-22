@@ -1,5 +1,6 @@
 package kr.co.numble.numble.domain.category.presentation.dto.response;
 
+import com.querydsl.core.annotations.QueryProjection;
 import io.swagger.annotations.ApiModelProperty;
 import kr.co.numble.numble.domain.category.entity.Category;
 import lombok.AllArgsConstructor;
@@ -15,6 +16,7 @@ public class CategoryResponse {
     @ApiModelProperty(value = "카테고리 이름", example = "동네생활")
     private String categoryName;
 
+    @QueryProjection
     public CategoryResponse(Category category) {
         this.categoryId = category.getId();
         this.categoryName = category.getCategoryName();
