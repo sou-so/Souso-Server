@@ -19,12 +19,6 @@ import javax.validation.constraints.Size;
 @Table(name = "tbl_feed")
 public class Feed extends BaseTimeEntity {
 
-    @PrePersist
-    public void prePersist() {
-        this.likeCount = this.likeCount == null ? 0 : this.likeCount;
-        this.bookmarkCount = this.bookmarkCount == null ? 0 : this.bookmarkCount;
-    }
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -50,6 +44,12 @@ public class Feed extends BaseTimeEntity {
         this.user = user;
         this.likeCount = likeCount;
         this.bookmarkCount = bookmarkCount;
+    }
+
+    @PrePersist
+    public void prePersist() {
+        this.likeCount = this.likeCount == null ? 0 : this.likeCount;
+        this.bookmarkCount = this.bookmarkCount == null ? 0 : this.bookmarkCount;
     }
 
     public void updateFeed(String content) {

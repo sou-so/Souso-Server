@@ -46,4 +46,10 @@ public class Comment extends BaseTimeEntity {
         this.feed = feed;
         this.parentComment = parentComment;
     }
+
+    @PrePersist
+    public void prePersist() {
+        this.parentComment = this.parentComment == null ? this : this.parentComment;
+    }
+
 }

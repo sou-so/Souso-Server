@@ -57,6 +57,8 @@ public class SecurityConfig {
                 .antMatchers(HttpMethod.PATCH, "/feeds/**").authenticated()
                 .antMatchers(HttpMethod.DELETE, "/feeds/**").authenticated()
 
+                // comments
+                .antMatchers(HttpMethod.POST, "/comments/**").authenticated()
 
                 // categories
                 .antMatchers(HttpMethod.GET, "/categories").permitAll()
