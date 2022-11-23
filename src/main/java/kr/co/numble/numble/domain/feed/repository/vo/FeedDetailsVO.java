@@ -1,22 +1,23 @@
-package kr.co.numble.numble.domain.feed.presentation.dto;
+package kr.co.numble.numble.domain.feed.presentation.dto.response;
 
+import com.querydsl.core.annotations.QueryProjection;
 import io.swagger.annotations.ApiModelProperty;
-import kr.co.numble.numble.domain.category.presentation.dto.response.CategoryResponse;
-import kr.co.numble.numble.domain.user.presentation.dto.response.AuthorResponse;
-import lombok.Builder;
+import kr.co.numble.numble.domain.category.repository.vo.CategoryVO;
+import kr.co.numble.numble.domain.user.presentation.dto.response.AuthorVO;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
 @Getter
-@Builder
-public class FeedDetailsResponse {
+@NoArgsConstructor
+public class FeedDetailsVO {
 
     @ApiModelProperty(value = "카테고리")
-    private CategoryResponse category;
+    private CategoryVO categoryVO;
     @ApiModelProperty(value = "작성자")
-    private AuthorResponse author;
+    private AuthorVO authorVO;
     @ApiModelProperty(value = "내용", example = "동네 모임하기 좋은 카페 추천해요.")
     private String content;
     @ApiModelProperty(value = "게시글 이미지", example = "https://souso-bucket.s3.ap-northeast-2.amazonaws.com/logo.svg")
@@ -29,5 +30,15 @@ public class FeedDetailsResponse {
     private LocalDateTime createdAt;
     @ApiModelProperty(value = "조회수", example = "10")
     private Long viewCount;
+
+    @QueryProjection
+    public FeedDetailsVO(CategoryVO categoryVO, AuthorVO authorVO, String content, Boolean isLike, Boolean isBookmark, LocalDateTime createdAt) {
+        this.categoryVO = categoryVO;
+        this.authorVO = authorVO;
+        this.content = content;
+        this.isLike = isLike;
+        this.isBookmark = isBookmark;
+        this.createdAt = createdAt;
+    }
 
 }

@@ -1,13 +1,11 @@
 package kr.co.numble.numble.domain.user.presentation.dto.response;
 
+import com.querydsl.core.annotations.QueryProjection;
 import io.swagger.annotations.ApiModelProperty;
-import lombok.Builder;
 import lombok.Getter;
 
 @Getter
-@Builder
-public class AuthorResponse {
-
+public class AuthorVO {
     @ApiModelProperty(value = "유저 식별 ID", example = "1")
     private final Long userId;
     @ApiModelProperty(value = "닉네임", example = "소소")
@@ -16,5 +14,13 @@ public class AuthorResponse {
     private final String birth;
     @ApiModelProperty(value = "프로필 이미지", example = "https://souso-bucket.s3.ap-northeast-2.amazonaws.com/logo.svg")
     private final String profileImageUrl;
+
+    @QueryProjection
+    public AuthorVO(Long userId, String nickname, String birth, String profileImageUrl) {
+        this.userId = userId;
+        this.nickname = nickname;
+        this.birth = birth;
+        this.profileImageUrl = profileImageUrl;
+    }
 
 }

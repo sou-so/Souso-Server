@@ -1,10 +1,9 @@
 package kr.co.numble.numble.domain.feed.repository;
 
-import kr.co.numble.numble.domain.feed.presentation.dto.response.FeedDetailsResponse;
-import kr.co.numble.numble.domain.user.domain.User;
+import kr.co.numble.numble.domain.feed.presentation.dto.response.FeedDetailsVO;
 
 public interface FeedRepositoryCustom {
 
-    FeedDetailsResponse queryFeedDetails(Long FeedId, Long userId);
+    FeedDetailsVO queryFeedDetails(Long FeedId, Long userId);
 
 }

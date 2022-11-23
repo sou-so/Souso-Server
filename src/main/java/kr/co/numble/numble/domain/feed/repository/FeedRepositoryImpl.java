@@ -1,10 +1,11 @@
 package kr.co.numble.numble.domain.feed.repository;
 
+import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
-import kr.co.numble.numble.domain.category.presentation.dto.response.QCategoryResponse;
-import kr.co.numble.numble.domain.feed.presentation.dto.response.FeedDetailsResponse;
-import kr.co.numble.numble.domain.feed.presentation.dto.response.QFeedDetailsResponse;
-import kr.co.numble.numble.domain.user.presentation.dto.response.QAuthorResponse;
+import kr.co.numble.numble.domain.category.repository.vo.QCategoryVO;
+import kr.co.numble.numble.domain.feed.presentation.dto.response.FeedDetailsVO;
+import kr.co.numble.numble.domain.feed.presentation.dto.response.QFeedDetailsVO;
+import kr.co.numble.numble.domain.user.presentation.dto.response.QAuthorVO;
 import lombok.RequiredArgsConstructor;
 
 import static kr.co.numble.numble.domain.bookmark.entity.QFeedBookmark.feedBookmark;
@@ -18,11 +19,14 @@ public class FeedRepositoryImpl implements FeedRepositoryCustom {
     private final JPAQueryFactory query;
 
     @Override
-    public FeedDetailsResponse queryFeedDetails(Long feedId, Long userId) {
+    public FeedDetailsVO queryFeedDetails(Long feedId, Long userId) {
         return query
-                .select(new QFeedDetailsResponse(
-                        new QCategoryResponse(feedCategory.category),
-                        new QAuthorResponse(
+                .select(new QFeedDetailsVO(
+                        new QCategoryVO(
+                                feedCategory.category.id,
+                                feedCategory.category.categoryName
+                        ),
+                        new QAuthorVO(
                                 feed.user.id.as("userId"),
                                 feed.user.nickname.as("nickname"),
                                 feed.user.birth.as("birth"),

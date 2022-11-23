@@ -2,8 +2,8 @@ package kr.co.numble.numble.domain.feed.presentation;
 
 import io.swagger.annotations.ApiOperation;
 import kr.co.numble.numble.domain.feed.presentation.dto.CreateFeedRequest;
+import kr.co.numble.numble.domain.feed.presentation.dto.FeedDetailsResponse;
 import kr.co.numble.numble.domain.feed.presentation.dto.UpdateFeedRequest;
-import kr.co.numble.numble.domain.feed.presentation.dto.response.FeedDetailsResponse;
 import kr.co.numble.numble.domain.feed.service.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
