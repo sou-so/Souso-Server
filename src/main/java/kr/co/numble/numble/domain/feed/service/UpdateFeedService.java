@@ -1,15 +1,15 @@
 package kr.co.numble.numble.domain.feed.service;
 
-import kr.co.numble.numble.domain.category.entity.Category;
-import kr.co.numble.numble.domain.category.entity.FeedCategory;
+import kr.co.numble.numble.domain.category.domain.Category;
+import kr.co.numble.numble.domain.category.domain.FeedCategory;
+import kr.co.numble.numble.domain.category.domain.repository.FeedCategoryRepository;
 import kr.co.numble.numble.domain.category.facade.CategoryFacade;
-import kr.co.numble.numble.domain.category.repository.FeedCategoryRepository;
 import kr.co.numble.numble.domain.feed.domain.Feed;
 import kr.co.numble.numble.domain.feed.domain.FeedImage;
+import kr.co.numble.numble.domain.feed.domain.repository.FeedImageRepository;
+import kr.co.numble.numble.domain.feed.domain.repository.FeedRepository;
 import kr.co.numble.numble.domain.feed.exception.FeedNotFoundException;
-import kr.co.numble.numble.domain.feed.presentation.dto.UpdateFeedRequest;
-import kr.co.numble.numble.domain.feed.repository.FeedImageRepository;
-import kr.co.numble.numble.domain.feed.repository.FeedRepository;
+import kr.co.numble.numble.domain.feed.presentation.dto.request.UpdateFeedRequest;
 import kr.co.numble.numble.domain.user.domain.User;
 import kr.co.numble.numble.domain.user.exception.NotValidUserException;
 import kr.co.numble.numble.domain.user.facade.UserFacade;

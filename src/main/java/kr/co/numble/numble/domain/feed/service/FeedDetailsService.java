@@ -1,20 +1,20 @@
 package kr.co.numble.numble.domain.feed.service;
 
 import kr.co.numble.numble.domain.category.presentation.dto.response.CategoryResponse;
-import kr.co.numble.numble.domain.category.repository.vo.CategoryVO;
+import kr.co.numble.numble.domain.category.domain.repository.vo.CategoryVO;
 import kr.co.numble.numble.domain.feed.domain.Feed;
 import kr.co.numble.numble.domain.feed.domain.FeedImage;
 import kr.co.numble.numble.domain.feed.exception.FeedNotFoundException;
-import kr.co.numble.numble.domain.feed.presentation.dto.FeedDetailsResponse;
+import kr.co.numble.numble.domain.feed.presentation.dto.response.FeedDetailsResponse;
 import kr.co.numble.numble.domain.feed.presentation.dto.response.FeedDetailsVO;
-import kr.co.numble.numble.domain.feed.repository.FeedImageRepository;
-import kr.co.numble.numble.domain.feed.repository.FeedRepository;
+import kr.co.numble.numble.domain.feed.domain.repository.FeedImageRepository;
+import kr.co.numble.numble.domain.feed.domain.repository.FeedRepository;
 import kr.co.numble.numble.domain.user.domain.User;
 import kr.co.numble.numble.domain.user.facade.UserFacade;
 import kr.co.numble.numble.domain.user.presentation.dto.response.AuthorResponse;
 import kr.co.numble.numble.domain.user.presentation.dto.response.AuthorVO;
-import kr.co.numble.numble.domain.viewcount.FeedViewCountRepository;
-import kr.co.numble.numble.domain.viewcount.entity.FeedViewCount;
+import kr.co.numble.numble.domain.viewcount.domain.repository.FeedViewCountRepository;
+import kr.co.numble.numble.domain.viewcount.domain.FeedViewCount;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

@@ -1,7 +1,7 @@
 package kr.co.numble.numble.domain.category.presentation.dto.response;
 
 import io.swagger.annotations.ApiModelProperty;
-import kr.co.numble.numble.domain.category.entity.Category;
+import kr.co.numble.numble.domain.category.domain.Category;
 import lombok.Builder;
 import lombok.Getter;
 

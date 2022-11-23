@@ -2,9 +2,9 @@ package kr.co.numble.numble.domain.category.presentation.dto.response;
 
 
 import io.swagger.annotations.ApiModelProperty;
-import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+
 import java.util.List;
 
 @Getter

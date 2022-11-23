@@ -1,19 +1,15 @@
 package kr.co.numble.numble.domain.feed.service;
 
 import kr.co.numble.numble.domain.feed.domain.Feed;
+import kr.co.numble.numble.domain.feed.domain.repository.FeedRepository;
 import kr.co.numble.numble.domain.feed.exception.FeedNotFoundException;
-import kr.co.numble.numble.domain.feed.repository.FeedRepository;
-import kr.co.numble.numble.domain.like.entity.FeedLike;
-import kr.co.numble.numble.domain.like.entity.FeedLikeId;
-import kr.co.numble.numble.domain.like.repository.FeedLikeRepository;
+import kr.co.numble.numble.domain.like.domain.FeedLike;
+import kr.co.numble.numble.domain.like.domain.repository.FeedLikeRepository;
 import kr.co.numble.numble.domain.user.domain.User;
-import kr.co.numble.numble.domain.user.exception.NotValidUserException;
 import kr.co.numble.numble.domain.user.facade.UserFacade;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.Optional;
 
 @RequiredArgsConstructor
 @Service
