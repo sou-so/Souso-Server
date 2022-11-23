@@ -10,6 +10,8 @@ import kr.co.numble.numble.domain.feed.repository.FeedImageRepository;
 import kr.co.numble.numble.domain.feed.repository.FeedRepository;
 import kr.co.numble.numble.domain.user.domain.User;
 import kr.co.numble.numble.domain.user.facade.UserFacade;
+import kr.co.numble.numble.domain.viewcount.FeedViewCountRepository;
+import kr.co.numble.numble.domain.viewcount.entity.FeedViewCount;
 import kr.co.numble.numble.infrastructure.image.s3.S3Facade;
 import lombok.RequiredArgsConstructor;
 import org.springframework.expression.spel.ast.NullLiteral;
@@ -29,6 +31,7 @@ public class CreateFeedService {
     private final FeedRepository feedRepository;
     private final FeedCategoryRepository feedCategoryRepository;
     private final FeedImageRepository feedImageRepository;
+    private final FeedViewCountRepository feedViewCountRepository;
     private final S3Facade s3Facade;
 
     @Transactional
@@ -56,6 +59,11 @@ public class CreateFeedService {
                 .category(categoryFacade.getCategoryById(request.getCategoryId()))
                 .build();
 
+        FeedViewCount feedViewCount = FeedViewCount.builder()
+                .feedId(feed.getId())
+                .build();
+
+        feedViewCountRepository.save(feedViewCount);
         feedCategoryRepository.save(feedCategory);
     }
 }

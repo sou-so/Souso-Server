@@ -2,6 +2,7 @@ package kr.co.numble.numble.domain.feed.presentation;
 
 import io.swagger.annotations.ApiOperation;
 import kr.co.numble.numble.domain.feed.presentation.dto.CreateFeedRequest;
+import kr.co.numble.numble.domain.feed.presentation.dto.FeedDetailsResponse;
 import kr.co.numble.numble.domain.feed.presentation.dto.UpdateFeedRequest;
 import kr.co.numble.numble.domain.feed.service.*;
 import lombok.RequiredArgsConstructor;
@@ -24,6 +25,7 @@ public class FeedController {
     private final SubLikeService subLikeService;
     private final AddBookmarkService addBookmarkService;
     private final SubBookmarkService subBookmarkService;
+    private final FeedDetailsService feedDetailsService;
 
     @ApiOperation(value = "게시글 등록")
     @ResponseStatus(HttpStatus.CREATED)
@@ -42,6 +44,12 @@ public class FeedController {
     @DeleteMapping("/{feed-id}")
     public void deleteFeed(@PathVariable("feed-id") Long feedId) {
         deleteFeedService.execute(feedId);
+    }
+
+    @ApiOperation(value = "게시글 상세 조회")
+    @GetMapping("/{feed-id}")
+    public FeedDetailsResponse getFeed(@PathVariable("feed-id") Long feedId) {
+        return feedDetailsService.execute(feedId);
     }
 
     @ApiOperation(value = "게시글 좋아요")
@@ -69,4 +77,5 @@ public class FeedController {
     public void unBookmark(@PathVariable("feed-id") Long feedId) {
         subBookmarkService.execute(feedId);
     }
+
 }

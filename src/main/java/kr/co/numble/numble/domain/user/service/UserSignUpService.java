@@ -8,6 +8,7 @@ import kr.co.numble.numble.domain.user.presentation.dto.request.UserSignUpReques
 import kr.co.numble.numble.global.enums.UserRole;
 import kr.co.numble.numble.global.property.jwt.JwtProperties;
 import kr.co.numble.numble.global.security.jwt.JwtTokenProvider;
+import kr.co.numble.numble.infrastructure.image.DefaultImage;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -36,6 +37,7 @@ public class UserSignUpService {
                 .phoneNumber(request.getPhoneNumber())
                 .role(UserRole.USER)
                 .nickname(request.getNickname())
+                .profileImageUrl(DefaultImage.USER_PROFILE_IMAGE)
                 .birth(request.getBirth())
                 .build());
 

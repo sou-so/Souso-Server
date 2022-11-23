@@ -7,6 +7,8 @@ import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.redis.core.RedisHash;
 
+import javax.persistence.PrePersist;
+
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @RedisHash
@@ -22,4 +24,9 @@ public class FeedViewCount {
         this.feedId = feedId;
         this.viewCount = 0L;
     }
+
+    public void addViewCount(){
+        this.viewCount++;
+    }
+
 }
