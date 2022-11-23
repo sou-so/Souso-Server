@@ -1,16 +1,19 @@
 package kr.co.numble.numble.domain.feed.domain.repository;
 
 import com.querydsl.jpa.impl.JPAQueryFactory;
+
+
 import kr.co.numble.numble.domain.category.domain.repository.vo.QCategoryVO;
-import kr.co.numble.numble.domain.feed.presentation.dto.response.FeedDetailsVO;
-import kr.co.numble.numble.domain.feed.presentation.dto.response.QFeedDetailsVO;
-import kr.co.numble.numble.domain.user.presentation.dto.response.QAuthorVO;
+import kr.co.numble.numble.domain.feed.domain.repository.vo.FeedDetailsVO;
+import kr.co.numble.numble.domain.feed.domain.repository.vo.QFeedDetailsVO;
+import kr.co.numble.numble.domain.user.domain.repository.vo.QAuthorVO;
 import lombok.RequiredArgsConstructor;
 
-import static kr.co.numble.numble.domain.bookmark.entity.QFeedBookmark.feedBookmark;
-import static kr.co.numble.numble.domain.category.entity.QFeedCategory.feedCategory;
+import static kr.co.numble.numble.domain.bookmark.domain.QFeedBookmark.feedBookmark;
+import static kr.co.numble.numble.domain.category.domain.QFeedCategory.feedCategory;
 import static kr.co.numble.numble.domain.feed.domain.QFeed.feed;
-import static kr.co.numble.numble.domain.like.entity.QFeedLike.feedLike;
+import static kr.co.numble.numble.domain.like.domain.QFeedLike.feedLike;
+
 
 @RequiredArgsConstructor
 public class FeedRepositoryImpl implements FeedRepositoryCustom {

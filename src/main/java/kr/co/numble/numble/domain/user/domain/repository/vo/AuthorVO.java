@@ -1,4 +1,4 @@
-package kr.co.numble.numble.domain.user.presentation.dto.response;
+package kr.co.numble.numble.domain.user.domain.repository.vo;
 
 import com.querydsl.core.annotations.QueryProjection;
 import io.swagger.annotations.ApiModelProperty;

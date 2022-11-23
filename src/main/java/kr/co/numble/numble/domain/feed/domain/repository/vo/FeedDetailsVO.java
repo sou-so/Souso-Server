@@ -1,9 +1,9 @@
-package kr.co.numble.numble.domain.feed.presentation.dto.response;
+package kr.co.numble.numble.domain.feed.domain.repository.vo;
 
 import com.querydsl.core.annotations.QueryProjection;
 import io.swagger.annotations.ApiModelProperty;
 import kr.co.numble.numble.domain.category.domain.repository.vo.CategoryVO;
-import kr.co.numble.numble.domain.user.presentation.dto.response.AuthorVO;
+import kr.co.numble.numble.domain.user.domain.repository.vo.AuthorVO;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
