@@ -50,6 +50,7 @@ public class SecurityConfig {
                 .antMatchers(HttpMethod.DELETE, "/users/leave").authenticated()
                 .antMatchers(HttpMethod.HEAD, "/users/verification-codes").permitAll()
                 .antMatchers(HttpMethod.POST, "/users/verification-codes").permitAll()
+                .antMatchers(HttpMethod.GET, "/users").authenticated()
 
 
                 // feeds & like & bookmark
