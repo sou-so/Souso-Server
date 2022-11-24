@@ -1,5 +1,6 @@
 package kr.co.numble.numble.domain.feed.service;
 
+import kr.co.numble.numble.domain.bookmark.domain.repository.FeedBookmarkRepository;
 import kr.co.numble.numble.domain.category.presentation.dto.response.CategoryResponse;
 import kr.co.numble.numble.domain.category.domain.repository.vo.CategoryVO;
 import kr.co.numble.numble.domain.feed.domain.Feed;
@@ -9,6 +10,7 @@ import kr.co.numble.numble.domain.feed.exception.FeedNotFoundException;
 import kr.co.numble.numble.domain.feed.presentation.dto.response.FeedDetailsResponse;
 import kr.co.numble.numble.domain.feed.domain.repository.FeedImageRepository;
 import kr.co.numble.numble.domain.feed.domain.repository.FeedRepository;
+import kr.co.numble.numble.domain.like.domain.repository.FeedLikeRepository;
 import kr.co.numble.numble.domain.user.domain.User;
 import kr.co.numble.numble.domain.user.domain.repository.vo.AuthorVO;
 import kr.co.numble.numble.domain.user.facade.UserFacade;
@@ -58,6 +60,8 @@ public class FeedDetailsService {
                 .isBookmark(feedDetailsVO.getIsBookmark())
                 .viewCount(feedViewCount.getViewCount())
                 .createdAt(feedDetailsVO.getCreatedAt())
+                .likeCount(feed.getLikeCount())
+                .bookmarkCount(feed.getBookmarkCount())
                 .build();
     }
 
