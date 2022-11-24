@@ -4,10 +4,8 @@ import io.swagger.annotations.ApiOperation;
 import kr.co.numble.numble.domain.auth.presentation.dto.response.UserTokenResponse;
 import kr.co.numble.numble.domain.user.presentation.dto.request.UserAuthCodeRequest;
 import kr.co.numble.numble.domain.user.presentation.dto.request.UserSignUpRequest;
-import kr.co.numble.numble.domain.user.service.UserAuthCodeService;
-import kr.co.numble.numble.domain.user.service.UserLogoutService;
-import kr.co.numble.numble.domain.user.service.UserSignUpService;
-import kr.co.numble.numble.domain.user.service.UserWithdrawalService;
+import kr.co.numble.numble.domain.user.presentation.dto.response.QueryMyProfileResponse;
+import kr.co.numble.numble.domain.user.service.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -23,6 +21,7 @@ public class UserController {
     private final UserLogoutService userLogoutService;
     private final UserWithdrawalService userWithdrawalService;
     private final UserAuthCodeService userAuthCodeService;
+    private final QueryMyProfileService queryMyProfileService;
 
     @ApiOperation(value = "회원가입")
     @ResponseStatus(HttpStatus.CREATED)
@@ -30,6 +29,7 @@ public class UserController {
     public UserTokenResponse userSignUp(@RequestBody @Valid UserSignUpRequest request) {
         return userSignUpService.execute(request);
     }
+
     @ApiOperation(value = "로그아웃")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping("/logout")
@@ -51,5 +51,10 @@ public class UserController {
         userAuthCodeService.execute(request);
     }
 
+    @ApiOperation(value = "MY 프로필 정보 조회")
+    @GetMapping
+    public QueryMyProfileResponse queryMyProfile() {
+        return queryMyProfileService.execute();
+    }
 
 }
