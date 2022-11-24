@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.redis.core.RedisHash;
+import org.springframework.data.redis.core.TimeToLive;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -17,10 +18,14 @@ public class FeedViewCount {
 
     private Long viewCount;
 
+    @TimeToLive
+    private Long expiredAt;
+
     @Builder
     public FeedViewCount(Long feedId) {
         this.feedId = feedId;
         this.viewCount = 0L;
+        this.expiredAt = -1L;
     }
 
     public void addViewCount(){
