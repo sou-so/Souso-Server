@@ -17,11 +17,9 @@ public class FeedDetailsVO {
     private CategoryVO categoryVO;
     private AuthorVO authorVO;
     private String content;
-    private List<String> imageUrl;
     private Boolean isLike;
     private Boolean isBookmark;
     private LocalDateTime createdAt;
-    private Long viewCount;
 
     @QueryProjection
     public FeedDetailsVO(CategoryVO categoryVO, AuthorVO authorVO, String content, Boolean isLike, Boolean isBookmark, LocalDateTime createdAt) {

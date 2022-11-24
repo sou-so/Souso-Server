@@ -29,5 +29,9 @@ public class FeedDetailsResponse {
     private LocalDateTime createdAt;
     @ApiModelProperty(value = "조회수", example = "10")
     private Long viewCount;
+    @ApiModelProperty(value = "좋아요 수", example = "10")
+    private Long likeCount;
+    @ApiModelProperty(value = "북마크 수", example = "10")
+    private Long bookmarkCount;
 
 }
