@@ -1,25 +1,23 @@
 package kr.co.numble.numble.domain.feed.service;
 
-import kr.co.numble.numble.domain.category.entity.FeedCategory;
+import kr.co.numble.numble.domain.category.domain.FeedCategory;
+import kr.co.numble.numble.domain.category.domain.repository.FeedCategoryRepository;
 import kr.co.numble.numble.domain.category.facade.CategoryFacade;
-import kr.co.numble.numble.domain.category.repository.FeedCategoryRepository;
 import kr.co.numble.numble.domain.feed.domain.Feed;
 import kr.co.numble.numble.domain.feed.domain.FeedImage;
-import kr.co.numble.numble.domain.feed.presentation.dto.CreateFeedRequest;
-import kr.co.numble.numble.domain.feed.repository.FeedImageRepository;
-import kr.co.numble.numble.domain.feed.repository.FeedRepository;
+import kr.co.numble.numble.domain.feed.domain.repository.FeedImageRepository;
+import kr.co.numble.numble.domain.feed.domain.repository.FeedRepository;
+import kr.co.numble.numble.domain.feed.presentation.dto.request.CreateFeedRequest;
 import kr.co.numble.numble.domain.user.domain.User;
 import kr.co.numble.numble.domain.user.facade.UserFacade;
-import kr.co.numble.numble.domain.viewcount.FeedViewCountRepository;
-import kr.co.numble.numble.domain.viewcount.entity.FeedViewCount;
+import kr.co.numble.numble.domain.viewcount.domain.FeedViewCount;
+import kr.co.numble.numble.domain.viewcount.domain.repository.FeedViewCountRepository;
 import kr.co.numble.numble.infrastructure.image.s3.S3Facade;
 import lombok.RequiredArgsConstructor;
-import org.springframework.expression.spel.ast.NullLiteral;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service

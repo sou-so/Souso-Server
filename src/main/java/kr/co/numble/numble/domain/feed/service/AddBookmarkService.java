@@ -1,10 +1,10 @@
 package kr.co.numble.numble.domain.feed.service;
 
-import kr.co.numble.numble.domain.bookmark.entity.FeedBookmark;
-import kr.co.numble.numble.domain.bookmark.repository.FeedBookmarkRepository;
+import kr.co.numble.numble.domain.bookmark.domain.FeedBookmark;
+import kr.co.numble.numble.domain.bookmark.domain.repository.FeedBookmarkRepository;
 import kr.co.numble.numble.domain.feed.domain.Feed;
 import kr.co.numble.numble.domain.feed.exception.FeedNotFoundException;
-import kr.co.numble.numble.domain.feed.repository.FeedRepository;
+import kr.co.numble.numble.domain.feed.domain.repository.FeedRepository;
 import kr.co.numble.numble.domain.user.domain.User;
 import kr.co.numble.numble.domain.user.facade.UserFacade;
 import lombok.RequiredArgsConstructor;

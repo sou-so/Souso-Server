@@ -1,12 +1,12 @@
 package kr.co.numble.numble.domain.comment.service;
 
-import kr.co.numble.numble.domain.comment.entity.Comment;
+import kr.co.numble.numble.domain.comment.domain.Comment;
 import kr.co.numble.numble.domain.comment.exception.CommentNotFoundException;
 import kr.co.numble.numble.domain.comment.presentation.dto.request.CreateReplyRequest;
-import kr.co.numble.numble.domain.comment.repository.CommentRepository;
+import kr.co.numble.numble.domain.comment.domain.repository.CommentRepository;
 import kr.co.numble.numble.domain.feed.domain.Feed;
 import kr.co.numble.numble.domain.feed.exception.FeedNotFoundException;
-import kr.co.numble.numble.domain.feed.repository.FeedRepository;
+import kr.co.numble.numble.domain.feed.domain.repository.FeedRepository;
 import kr.co.numble.numble.domain.user.domain.User;
 import kr.co.numble.numble.domain.user.facade.UserFacade;
 import lombok.RequiredArgsConstructor;
