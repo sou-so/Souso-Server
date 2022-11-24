@@ -7,9 +7,7 @@ import lombok.Getter;
 @Getter
 public class CategoryVO {
 
-    @ApiModelProperty(value = "카테고리 id", example = "10")
     private final Long categoryId;
-    @ApiModelProperty(value = "카테고리 이름", example = "동네생활")
     private final String categoryName;
 
     @QueryProjection
