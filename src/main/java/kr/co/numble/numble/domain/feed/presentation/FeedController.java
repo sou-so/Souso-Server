@@ -60,11 +60,12 @@ public class FeedController {
 
     @ApiOperation(value = "게시글 리스트 조회")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "cursorId", value = "마지막으로 불러온 게시글 ID [처음은 0]", required = true, dataType = "string", paramType = "query", defaultValue = "0"),
+            @ApiImplicitParam(name = "cursorId", value = "LATEST: 마지막으로 불러온 게시글ID, 처음은 0", dataType = "string", paramType = "query", defaultValue = "0"),
+            @ApiImplicitParam(name = "pageId", value = "POPULAR: 현재 조회한 페이지 번호, 처음은 0", dataType = "string", paramType = "query", defaultValue = "0"),
     })
     @GetMapping
-    public QueryFeedPagesResponse getFeeds(@RequestParam Long cursorId, @RequestParam SortPageType sortType) {
-        return queryFeedPagesService.execute(cursorId, sortType);
+    public QueryFeedPagesResponse getFeeds(@RequestParam(required = false, defaultValue = "0") Long cursorId, @RequestParam(required = false, defaultValue = "0") Integer pageId, @RequestParam SortPageType sortType) {
+        return queryFeedPagesService.execute(cursorId, pageId, sortType);
     }
 
     @ApiOperation(value = "게시글 좋아요")

@@ -9,10 +9,21 @@ import java.util.List;
 
 public class PagingSupportUtil {
 
-    public static <T> Slice<T> fetchSlice(JPAQuery<T> query, Pageable pageable){
+    public static <T> Slice<T> fetchSliceByCursor(JPAQuery<T> query, Pageable pageable){
         int pageSize = pageable.getPageSize();
 
         List<T> content = query
+                .limit(pageable.getPageSize() + 1)
+                .fetch();
+
+        return new SliceImpl<>(content, pageable, isHasNext(pageSize, content));
+    }
+
+    public static <T> Slice<T> fetchSliceByOffset(JPAQuery<T> query, Pageable pageable){
+        int pageSize = pageable.getPageSize();
+
+        List<T> content = query
+                .offset(pageable.getOffset())
                 .limit(pageable.getPageSize() + 1)
                 .fetch();
 
@@ -27,4 +38,6 @@ public class PagingSupportUtil {
         }
         return hasNext;
     }
+
+
 }

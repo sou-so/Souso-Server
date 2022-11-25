@@ -13,6 +13,7 @@ import kr.co.numble.numble.domain.user.domain.repository.vo.QAuthorVO;
 import kr.co.numble.numble.global.enums.SortPageType;
 import kr.co.numble.numble.global.utils.code.PagingSupportUtil;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
 
@@ -37,18 +38,29 @@ public class FeedRepositoryImpl implements FeedRepositoryCustom {
     }
 
     @Override
-    public Slice<FeedDetailsVO> queryFeedPages(Long userId, Long cursorId, SortPageType sortType, Pageable pageable) {
+    public Slice<FeedDetailsVO> queryFeedPages(Long userId, Long cursorId, Integer pageId, SortPageType sortType, Pageable pageable) {
 
         JPAQuery<FeedDetailsVO> jpaQuery = selectFromFeed(userId)
                 .distinct()
-                .where(eqPage(cursorId))
+                .where(eqPage(cursorId, sortType))
                 .orderBy(feedSort(sortType));
 
-        return PagingSupportUtil.fetchSlice(jpaQuery, pageable);
+        if (isSliceByCursor(sortType)) {
+            return PagingSupportUtil.fetchSliceByCursor(jpaQuery, pageable);
+        } else {
+            return PagingSupportUtil.fetchSliceByOffset(jpaQuery, PageRequest.of(pageId, pageable.getPageSize()));
+        }
     }
 
-    private BooleanExpression eqPage(Long cursorId) {
-        return cursorId != null ? feed.id.gt(cursorId) : null;
+    private boolean isSliceByCursor(SortPageType sortType) {
+        return sortType.getCode().equals(LATEST.getCode());
+    }
+
+    private BooleanExpression eqPage(Long cursorId, SortPageType sortType) {
+        if (isSliceByCursor(sortType)) {
+            return cursorId != null ? feed.id.gt(cursorId) : null;
+        }
+        return null;
     }
 
     private BooleanExpression eqFeedCategoryId(NumberPath<Long> id) {
@@ -73,9 +85,8 @@ public class FeedRepositoryImpl implements FeedRepositoryCustom {
 
     private OrderSpecifier<?> feedSort(SortPageType sortType) {
         if (sortType.getCode().equals(LATEST.getCode())) {
-            return new OrderSpecifier<>(Order.ASC, feed.createdAt);
-        }
-        else if (sortType.getCode().equals(POPULAR.getCode())) {
+            return new OrderSpecifier<>(Order.ASC, feed.id);
+        } else if (sortType.getCode().equals(POPULAR.getCode())) {
             return new OrderSpecifier<>(Order.DESC, feed.likeCount);
         }
         return null;
