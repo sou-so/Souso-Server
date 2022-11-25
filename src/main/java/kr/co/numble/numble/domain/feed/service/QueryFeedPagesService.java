@@ -38,10 +38,10 @@ public class QueryFeedPagesService {
     private final UserFacade userFacade;
 
     @Transactional(readOnly = true)
-    public QueryFeedPagesResponse execute(Long cursorId, SortPageType sortType) {
+    public QueryFeedPagesResponse execute(Long cursorId, Integer pageId, SortPageType sortType) {
         User user = userFacade.getCurrentUser();
 
-        Slice<FeedDetailsVO> feedList = feedRepository.queryFeedPages(user.getId(), cursorId, sortType, PageRequest.of(0, DEFAULT_PAGE_SIZE));
+        Slice<FeedDetailsVO> feedList = feedRepository.queryFeedPages(user.getId(), cursorId, pageId, sortType, PageRequest.of(0, DEFAULT_PAGE_SIZE));
 
         List<QueryFeedDetailsResponse> queryFeedDetailsResponseList = new ArrayList<>();
 
