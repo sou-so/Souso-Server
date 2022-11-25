@@ -36,6 +36,10 @@ public class Feed extends BaseTimeEntity {
     @ColumnDefault("0")
     private Long bookmarkCount;
 
+    @NotNull
+    @ColumnDefault("0")
+    private Long commentCount;
+
     @Builder
     public Feed(String content, User user, Long likeCount, Long bookmarkCount) {
         this.content = content;
@@ -48,6 +52,7 @@ public class Feed extends BaseTimeEntity {
     public void prePersist() {
         this.likeCount = this.likeCount == null ? 0 : this.likeCount;
         this.bookmarkCount = this.bookmarkCount == null ? 0 : this.bookmarkCount;
+        this.commentCount = this.commentCount == null ? 0 : this.commentCount;
     }
 
     public void updateFeed(String content) {
@@ -68,5 +73,13 @@ public class Feed extends BaseTimeEntity {
 
     public void subBookmark(){
         this.bookmarkCount--;
+    }
+
+    public void addComment() {
+        this.commentCount++;
+    }
+
+    public void subComment(){
+        this.commentCount--;
     }
 }

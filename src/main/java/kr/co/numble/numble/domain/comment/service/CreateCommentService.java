@@ -33,6 +33,8 @@ public class CreateCommentService {
                 .content(request.getContent())
                 .build();
 
+        feed.addComment();
+        feedRepository.save(feed);
         commentRepository.save(comment);
     }
 }

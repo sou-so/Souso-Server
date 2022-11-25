@@ -1,10 +1,14 @@
 package kr.co.numble.numble.domain.feed.presentation;
 
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import kr.co.numble.numble.domain.feed.presentation.dto.request.CreateFeedRequest;
-import kr.co.numble.numble.domain.feed.presentation.dto.response.FeedDetailsResponse;
 import kr.co.numble.numble.domain.feed.presentation.dto.request.UpdateFeedRequest;
+import kr.co.numble.numble.domain.feed.presentation.dto.response.QueryFeedDetailsResponse;
+import kr.co.numble.numble.domain.feed.presentation.dto.response.QueryFeedPagesResponse;
 import kr.co.numble.numble.domain.feed.service.*;
+import kr.co.numble.numble.global.enums.SortPageType;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -25,7 +29,9 @@ public class FeedController {
     private final SubLikeService subLikeService;
     private final AddBookmarkService addBookmarkService;
     private final SubBookmarkService subBookmarkService;
-    private final FeedDetailsService feedDetailsService;
+    private final QueryFeedDetailsService queryFeedDetailsService;
+    private final QueryFeedPagesService queryFeedPagesService;
+
 
     @ApiOperation(value = "게시글 등록")
     @ResponseStatus(HttpStatus.CREATED)
@@ -48,8 +54,17 @@ public class FeedController {
 
     @ApiOperation(value = "게시글 상세 조회")
     @GetMapping("/{feed-id}")
-    public FeedDetailsResponse getFeed(@PathVariable("feed-id") Long feedId) {
-        return feedDetailsService.execute(feedId);
+    public QueryFeedDetailsResponse getFeed(@PathVariable("feed-id") Long feedId) {
+        return queryFeedDetailsService.execute(feedId);
+    }
+
+    @ApiOperation(value = "게시글 리스트 조회")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "cursorId", value = "마지막으로 불러온 게시글 ID [처음은 0]", required = true, dataType = "string", paramType = "query", defaultValue = "0"),
+    })
+    @GetMapping
+    public QueryFeedPagesResponse getFeeds(@RequestParam Long cursorId, @RequestParam SortPageType sortType) {
+        return queryFeedPagesService.execute(cursorId, sortType);
     }
 
     @ApiOperation(value = "게시글 좋아요")
