@@ -39,5 +39,7 @@ public class CreateReplyService {
                 .build();
 
         commentRepository.save(comment);
+        feed.addComment();
+        feedRepository.save(feed);
     }
 }
