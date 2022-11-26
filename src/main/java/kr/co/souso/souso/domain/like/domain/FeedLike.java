@@ -35,5 +35,4 @@ public class FeedLike extends BaseTimeEntity {
         this.user = user;
         this.feed = feed;
     }
-
 }
