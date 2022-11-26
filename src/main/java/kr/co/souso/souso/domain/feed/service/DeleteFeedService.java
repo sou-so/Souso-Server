@@ -27,8 +27,10 @@ public class DeleteFeedService {
     @Transactional
     public void execute(Long feedId) {
         User user = userFacade.getCurrentUser();
+
         Feed feed = feedRepository.findById(feedId)
                 .orElseThrow(() -> FeedNotFoundException.EXCEPTION);
+
         FeedViewCount feedViewCount = feedViewCountRepository.findById(feedId)
                 .orElseThrow(() -> FeedNotFoundException.EXCEPTION);
 
@@ -40,6 +42,5 @@ public class DeleteFeedService {
         feedCategoryRepository.deleteByFeed(feed);
         feedRepository.delete(feed);
         feedViewCountRepository.delete(feedViewCount);
-
     }
 }

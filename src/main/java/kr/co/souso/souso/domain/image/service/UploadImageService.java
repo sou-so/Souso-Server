@@ -10,7 +10,7 @@ import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
-public class ImageUploadService {
+public class UploadImageService {
 
     private final S3Facade s3Facade;
 

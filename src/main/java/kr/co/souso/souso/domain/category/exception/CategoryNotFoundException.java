@@ -10,6 +10,4 @@ public class CategoryNotFoundException extends NumbleException {
     public CategoryNotFoundException() {
         super(GlobalErrorCode.CATEGORY_NOT_FOUND);
     }
-
-
 }

@@ -20,6 +20,5 @@ public class UserWithdrawalService {
         User user = userFacade.getCurrentUser();
 
         userRepository.delete(user);
-
     }
 }

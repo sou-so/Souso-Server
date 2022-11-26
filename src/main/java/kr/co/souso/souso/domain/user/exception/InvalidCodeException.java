@@ -4,6 +4,7 @@ import kr.co.souso.souso.global.error.exception.GlobalErrorCode;
 import kr.co.souso.souso.global.error.exception.NumbleException;
 
 public class InvalidCodeException extends NumbleException {
+
     public static final NumbleException EXCEPTION =
             new InvalidCodeException();
 

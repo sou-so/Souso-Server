@@ -36,12 +36,14 @@ public class UpdateFeedService {
     public void execute(List<MultipartFile> images, UpdateFeedRequest request, Long feedId) {
         User user = userFacade.getCurrentUser();
         Category category = categoryFacade.getCategoryById(request.getCategoryId());
+
         Feed feed = feedRepository.findById(feedId)
                 .orElseThrow(() -> FeedNotFoundException.EXCEPTION);
 
         if (!user.getId().equals(feed.getUser().getId())) {
             throw NotValidUserException.EXCEPTION;
         }
+
         feedImageRepository.deleteAllByFeed(feed);
 
         images.stream()
@@ -58,5 +60,4 @@ public class UpdateFeedService {
         FeedCategory feedCategory = feedCategoryRepository.findFeedCategoryByFeedId(feedId);
         feedCategory.updateFeedCategory(feed, category);
     }
-
 }

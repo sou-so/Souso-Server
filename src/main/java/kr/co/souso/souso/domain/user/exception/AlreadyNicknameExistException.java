@@ -11,5 +11,4 @@ public class AlreadyNicknameExistException extends NumbleException {
     private AlreadyNicknameExistException() {
         super(GlobalErrorCode.ALREADY_NICKNAME_EXIST);
     }
-
 }

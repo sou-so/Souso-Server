@@ -50,8 +50,10 @@ public class QueryFeedPagesService {
                     .stream()
                     .map(FeedImage::getImageUrl)
                     .collect(Collectors.toList());
+
             FeedViewCount feedViewCount = feedViewCountRepository.findById(feedDetailsVO.getFeedId())
                     .orElseThrow(() -> FeedNotFoundException.EXCEPTION);
+
             queryFeedDetailsResponseList.add(
                     buildFeedDetailsResponse(feedDetailsVO, imageUrl,feedViewCount.getViewCount())
             );
@@ -92,5 +94,4 @@ public class QueryFeedPagesService {
                 .viewCount(feedViewCount)
                 .build();
     }
-
 }

@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 @Component
 public class CategoryFacade {
+
     private final CategoryRepository categoryRepository;
 
     public Category getCategoryById(Long categoryId) {

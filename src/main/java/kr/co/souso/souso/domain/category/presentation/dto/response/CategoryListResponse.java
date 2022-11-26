@@ -13,6 +13,7 @@ public class CategoryListResponse {
 
     @ApiModelProperty(value = "총 카테고리 개수", example = "10")
     private final Integer totalCount;
+
     @ApiModelProperty(value = "카테고리 정보")
     private final List<CategoryResponse> categoryList;
 

@@ -15,4 +15,5 @@ public class UpdateFeedRequest {
     @ApiModelProperty(value = "카테고리 id", example = "10")
     @NotNull(message = "categoryId는 필수로 입력해야 합니다.")
     private Long categoryId;
+
 }

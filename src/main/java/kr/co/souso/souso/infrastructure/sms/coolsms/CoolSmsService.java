@@ -30,11 +30,9 @@ public class CoolSmsService implements SmsUtil {
         } catch (CoolsmsException e) {
             e.getStackTrace();
         }
-
     }
 
     private String getBody(String code) {
-        return "[Sou-so] 인증번호 " + code + "를 입력하세요.";
+        return "[소소 본인확인] 인증번호" + "["+ code + "]" + "를" + "입력해 주세요." + "(타인노출금지)";
     }
-
 }

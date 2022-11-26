@@ -20,4 +20,5 @@ public class UserTokenResponse {
 
     @ApiModelProperty(value = "refreshToken")
     private final String refreshToken;
+
 }

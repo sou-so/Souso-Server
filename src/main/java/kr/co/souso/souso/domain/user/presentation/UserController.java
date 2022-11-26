@@ -56,5 +56,4 @@ public class UserController {
     public QueryMyProfileResponse queryMyProfile() {
         return queryMyProfileService.execute();
     }
-
 }

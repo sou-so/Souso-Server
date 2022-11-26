@@ -31,6 +31,7 @@ public class AddBookmarkService {
                     .feed(feed)
                     .user(user)
                     .build();
+
             feed.addBookmark();
             feedBookmarkRepository.save(feedBookmark);
         }
@@ -39,5 +40,4 @@ public class AddBookmarkService {
     private boolean isNotAlreadyBookmark(Feed feed, User user) {
         return feedBookmarkRepository.findByFeedAndUser(feed, user).isEmpty();
     }
-
 }

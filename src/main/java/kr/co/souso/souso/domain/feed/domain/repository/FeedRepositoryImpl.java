@@ -11,7 +11,7 @@ import kr.co.souso.souso.domain.feed.domain.repository.vo.FeedDetailsVO;
 import kr.co.souso.souso.domain.feed.domain.repository.vo.QFeedDetailsVO;
 import kr.co.souso.souso.domain.user.domain.repository.vo.QAuthorVO;
 import kr.co.souso.souso.global.enums.SortPageType;
-import kr.co.souso.souso.global.utils.code.PagingSupportUtil;
+import kr.co.souso.souso.global.utils.PagingSupportUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -23,7 +23,6 @@ import static kr.co.souso.souso.domain.feed.domain.QFeed.feed;
 import static kr.co.souso.souso.domain.like.domain.QFeedLike.feedLike;
 import static kr.co.souso.souso.global.enums.SortPageType.LATEST;
 import static kr.co.souso.souso.global.enums.SortPageType.POPULAR;
-
 
 @RequiredArgsConstructor
 public class FeedRepositoryImpl implements FeedRepositoryCustom {
@@ -122,5 +121,4 @@ public class FeedRepositoryImpl implements FeedRepositoryCustom {
                 .leftJoin(feedLike)
                 .on(eqFeedLikeId(feed.id).and(eqFeedLikeUserId(userId)));
     }
-
 }
