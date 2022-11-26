@@ -5,7 +5,7 @@ import kr.co.souso.souso.global.error.exception.NumbleException;
 
 public class UserNotFoundException extends NumbleException {
 
-    public static final UserNotFoundException EXCEPTION =
+    public static final NumbleException EXCEPTION =
             new UserNotFoundException();
 
     private UserNotFoundException() {
