@@ -13,5 +13,4 @@ public class SousoApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(SousoApplication.class, args);
 	}
-
 }
