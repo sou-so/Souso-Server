@@ -4,17 +4,12 @@ plugins {
 	id 'java'
 }
 
-configurations {
-	compileOnly {
-		extendsFrom annotationProcessor
-	}
-}
-
 group = 'kr.co.souso'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '11'
 
 repositories {
+	mavenRepo "https://repo.maven.apache.org/maven2/"
 	mavenCentral()
 }
 
