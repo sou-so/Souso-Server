@@ -8,9 +8,10 @@ group = 'kr.co.souso'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '11'
 
-repositories {
-	mavenRepo "https://repo.maven.apache.org/maven2/"
-	mavenCentral()
+buildscript {
+	repositories {
+		maven(url = "https://repo1.maven.org/maven2")
+	}
 }
 
 dependencies {
