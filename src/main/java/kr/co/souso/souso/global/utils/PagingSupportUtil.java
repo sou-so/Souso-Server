@@ -1,4 +1,4 @@
-package kr.co.souso.souso.global.utils.code;
+package kr.co.souso.souso.global.utils;
 
 import com.querydsl.jpa.impl.JPAQuery;
 import org.springframework.data.domain.Pageable;
@@ -38,6 +38,4 @@ public class PagingSupportUtil {
         }
         return hasNext;
     }
-
-
 }

@@ -11,7 +11,7 @@ import kr.co.souso.souso.domain.feed.domain.repository.vo.FeedDetailsVO;
 import kr.co.souso.souso.domain.feed.domain.repository.vo.QFeedDetailsVO;
 import kr.co.souso.souso.domain.user.domain.repository.vo.QAuthorVO;
 import kr.co.souso.souso.global.enums.SortPageType;
-import kr.co.souso.souso.global.utils.code.PagingSupportUtil;
+import kr.co.souso.souso.global.utils.PagingSupportUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;

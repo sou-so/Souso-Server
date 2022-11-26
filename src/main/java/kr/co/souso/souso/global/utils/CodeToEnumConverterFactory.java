@@ -1,4 +1,4 @@
-package kr.co.souso.souso.global.utils.code;
+package kr.co.souso.souso.global.utils;
 
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.core.convert.converter.ConverterFactory;
@@ -12,7 +12,6 @@ public class CodeToEnumConverterFactory implements ConverterFactory<String, Enum
     }
 
     private static final class StringToEnumsConverter<T extends Enum<? extends Constant>> implements Converter<String, T> {
-
         private final Class<T> enumType;
         private final boolean constantEnum;
 
@@ -28,6 +27,7 @@ public class CodeToEnumConverterFactory implements ConverterFactory<String, Enum
             }
 
             T[] constants = enumType.getEnumConstants();
+
             for (T c : constants) {
                 if (constantEnum) {
                     if (((Constant) c).getCode().equals(source.trim())) {
