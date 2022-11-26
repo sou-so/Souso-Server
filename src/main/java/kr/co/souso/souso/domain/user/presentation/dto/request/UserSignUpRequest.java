@@ -1,7 +1,6 @@
 package kr.co.souso.souso.domain.user.presentation.dto.request;
 
 import io.swagger.annotations.ApiModelProperty;
-import io.swagger.annotations.ApiParam;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.Length;
