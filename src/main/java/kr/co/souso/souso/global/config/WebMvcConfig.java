@@ -21,6 +21,5 @@ public class WebMvcConfig implements WebMvcConfigurer {
     public void addFormatters(FormatterRegistry registry) {
         registry.addConverterFactory(new CodeToEnumConverterFactory());
     }
-
 }
 
