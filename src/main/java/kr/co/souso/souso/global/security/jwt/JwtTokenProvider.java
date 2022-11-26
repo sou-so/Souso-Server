@@ -23,14 +23,12 @@ import java.util.Date;
 @RequiredArgsConstructor
 public class JwtTokenProvider {
 
-
     private final JwtProperties jwtProperties;
+    private final AuthDetailsService authDetailsService;
+    private final RefreshTokenRepository refreshTokenRepository;
 
     private static final String HEADER = "Authorization";
     private static final String PREFIX = "Bearer";
-
-    private final AuthDetailsService authDetailsService;
-    private final RefreshTokenRepository refreshTokenRepository;
 
     public String generateAccessToken(String id) {
         return generateToken(id, "access", jwtProperties.getAccessExp());
@@ -38,6 +36,7 @@ public class JwtTokenProvider {
 
     public String generateRefreshToken(String id) {
         String refreshToken = generateToken(id, "refresh", jwtProperties.getRefreshExp());
+
         refreshTokenRepository.save(RefreshToken.builder()
                 .email(id)
                 .token(refreshToken)
@@ -65,12 +64,14 @@ public class JwtTokenProvider {
     public Authentication authentication(String token) {
         UserDetails userDetails = authDetailsService
                 .loadUserByUsername(getTokenSubject(token));
+
         return new UsernamePasswordAuthenticationToken(userDetails, "", userDetails.getAuthorities());
     }
 
     public String parseToken(String bearerToken) {
         if (bearerToken != null && bearerToken.startsWith(PREFIX))
             return bearerToken.replace(PREFIX, "");
+
         return null;
     }
 
@@ -93,5 +94,4 @@ public class JwtTokenProvider {
     private String getTokenSubject(String token) {
         return getTokenBody(token).getSubject();
     }
-
 }
