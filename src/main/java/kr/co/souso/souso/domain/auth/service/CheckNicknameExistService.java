@@ -13,5 +13,4 @@ public class CheckNicknameExistService {
     public void execute(String nickname) {
         userFacade.checkNicknameExists(nickname);
     }
-
 }

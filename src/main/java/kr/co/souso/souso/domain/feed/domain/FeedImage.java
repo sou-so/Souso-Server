@@ -31,5 +31,4 @@ public class FeedImage extends BaseTimeEntity {
         this.imageUrl = imageUrl;
         this.feed = feed;
     }
-
 }

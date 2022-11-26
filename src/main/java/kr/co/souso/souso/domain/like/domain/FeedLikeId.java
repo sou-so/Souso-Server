@@ -21,4 +21,5 @@ public class FeedLikeId implements Serializable {
         this.userId = userId;
         this.feedId = feedId;
     }
+
 }

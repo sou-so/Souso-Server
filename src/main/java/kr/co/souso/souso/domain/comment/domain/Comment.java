@@ -12,7 +12,6 @@ import org.hibernate.validator.constraints.Length;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
-
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
@@ -51,5 +50,4 @@ public class Comment extends BaseTimeEntity {
     public void prePersist() {
         this.parentComment = this.parentComment == null ? this : this.parentComment;
     }
-
 }

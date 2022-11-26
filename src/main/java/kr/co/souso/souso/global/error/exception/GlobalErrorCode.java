@@ -8,6 +8,7 @@ import lombok.Getter;
 @AllArgsConstructor
 @JsonFormat(shape = JsonFormat.Shape.OBJECT)
 public enum GlobalErrorCode {
+
     // 401
     EXPIRED_JWT(401, "Expired Jwt"),
     INVALID_JWT(401, "Invalid Jwt"),
@@ -34,11 +35,10 @@ public enum GlobalErrorCode {
     ALREADY_NICKNAME_EXIST(409, "Already Email Exist"),
     ALREADY_PHONE_NUMBER_EXIST(409, "Already Phone Number Exist"),
 
-
-
     // 500
     INTERNAL_SERVER_ERROR(500, "Internal Server Error");
 
     private final int status;
     private final String message;
+
 }

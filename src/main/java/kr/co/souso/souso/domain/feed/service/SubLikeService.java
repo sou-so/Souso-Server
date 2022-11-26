@@ -22,11 +22,13 @@ public class SubLikeService {
     @Transactional
     public void execute(Long feedId) {
         User user = userFacade.getCurrentUser();
+
         Feed feed = feedRepository.findById(feedId)
                 .orElseThrow(() -> FeedNotFoundException.EXCEPTION);
 
-        if(isAlreadyLike(feed, user)){
+        if (isAlreadyLike(feed, user)) {
             feed.subLike();
+
             FeedLike feedLike = FeedLike.builder()
                     .feed(feed)
                     .user(user)

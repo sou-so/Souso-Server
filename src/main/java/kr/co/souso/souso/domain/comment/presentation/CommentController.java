@@ -32,4 +32,5 @@ public class CommentController {
     public void createReply(@PathVariable("comment-id") Long commentId, @RequestBody @Valid CreateReplyRequest request) {
         createReplyService.execute(commentId, request);
     }
+
 }

@@ -40,6 +40,7 @@ public class QueryFeedDetailsService {
 
         FeedViewCount feedViewCount = feedViewCountRepository.findById(feedId)
                 .orElseThrow(() -> FeedNotFoundException.EXCEPTION);
+
         feedViewCount.addViewCount();
         feedViewCountRepository.save(feedViewCount);
 
@@ -49,6 +50,7 @@ public class QueryFeedDetailsService {
                 .collect(Collectors.toList());
 
         FeedDetailsVO feedDetailsVO = feedRepository.queryFeedDetails(feedId, user.getId());
+
         return QueryFeedDetailsResponse.builder()
                 .category(buildCategoryResponse(feedDetailsVO.getCategoryVO()))
                 .author(buildAuthorResponse(feedDetailsVO.getAuthorVO()))

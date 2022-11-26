@@ -36,5 +36,4 @@ public class S3Facade implements ImageUtil {
     public String getFileUrl(String fileName) {
         return amazonS3Client.getUrl(s3Properties.getBucket(), fileName).toString();
     }
-
 }

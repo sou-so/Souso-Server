@@ -16,6 +16,7 @@ public class QueryMyProfileService {
 
     public QueryMyProfileResponse execute() {
         User user = userFacade.getCurrentUser();
+
         return QueryMyProfileResponse.builder()
                 .nickname(user.getNickname())
                 .birth(user.getBirth())

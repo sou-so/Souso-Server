@@ -22,6 +22,7 @@ public class AddLikeService {
     @Transactional
     public void execute(Long feedId) {
         User user = userFacade.getCurrentUser();
+
         Feed feed = feedRepository.findById(feedId)
                 .orElseThrow(() -> FeedNotFoundException.EXCEPTION);
 
@@ -30,6 +31,7 @@ public class AddLikeService {
                     .feed(feed)
                     .user(user)
                     .build();
+
             feed.addLike();
             feedLikeRepository.save(feedLike);
         }
@@ -38,5 +40,4 @@ public class AddLikeService {
     private boolean isNotAlreadyLike(Feed feed, User user) {
         return feedLikeRepository.findByFeedAndUser(feed, user).isEmpty();
     }
-
 }

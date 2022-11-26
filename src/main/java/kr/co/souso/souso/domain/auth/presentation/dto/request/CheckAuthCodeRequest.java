@@ -17,4 +17,5 @@ public class CheckAuthCodeRequest {
     @ApiModelProperty(value = "authCode", example = "4283")
     @NotBlank(message = "auth_code는 Null, 공백, 띄어쓰기를 허용하지 않습니다.")
     private String authCode;
+
 }

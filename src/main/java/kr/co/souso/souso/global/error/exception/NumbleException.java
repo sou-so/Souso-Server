@@ -8,4 +8,5 @@ import lombok.RequiredArgsConstructor;
 public class NumbleException extends RuntimeException {
 
     private final GlobalErrorCode errorCode;
+
 }

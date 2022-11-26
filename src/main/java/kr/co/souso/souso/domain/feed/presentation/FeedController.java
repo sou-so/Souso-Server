@@ -32,7 +32,6 @@ public class FeedController {
     private final QueryFeedDetailsService queryFeedDetailsService;
     private final QueryFeedPagesService queryFeedPagesService;
 
-
     @ApiOperation(value = "게시글 등록")
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
@@ -93,5 +92,4 @@ public class FeedController {
     public void unBookmark(@PathVariable("feed-id") Long feedId) {
         subBookmarkService.execute(feedId);
     }
-
 }

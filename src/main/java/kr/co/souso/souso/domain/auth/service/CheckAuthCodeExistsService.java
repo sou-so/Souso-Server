@@ -18,9 +18,7 @@ public class CheckAuthCodeExistsService {
     private final PasswordEncoder passwordEncoder;
     private final UserFacade userFacade;
 
-
     public void execute(CheckAuthCodeRequest request) {
-
         UserAuthCode authCode = userAuthCodeRepository.findById(request.getPhoneNumber())
                 .orElseThrow(() -> UserAuthCodeNotFoundException.EXCEPTION);
 

@@ -24,7 +24,6 @@ import static kr.co.souso.souso.domain.like.domain.QFeedLike.feedLike;
 import static kr.co.souso.souso.global.enums.SortPageType.LATEST;
 import static kr.co.souso.souso.global.enums.SortPageType.POPULAR;
 
-
 @RequiredArgsConstructor
 public class FeedRepositoryImpl implements FeedRepositoryCustom {
 
@@ -122,5 +121,4 @@ public class FeedRepositoryImpl implements FeedRepositoryCustom {
                 .leftJoin(feedLike)
                 .on(eqFeedLikeId(feed.id).and(eqFeedLikeUserId(userId)));
     }
-
 }

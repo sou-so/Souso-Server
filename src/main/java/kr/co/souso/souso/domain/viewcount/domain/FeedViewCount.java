@@ -31,5 +31,4 @@ public class FeedViewCount {
     public void addViewCount(){
         this.viewCount++;
     }
-
 }

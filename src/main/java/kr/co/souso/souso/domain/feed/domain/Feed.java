@@ -79,7 +79,7 @@ public class Feed extends BaseTimeEntity {
         this.commentCount++;
     }
 
-    public void subComment(){
+    public void subComment() {
         this.commentCount--;
     }
 }

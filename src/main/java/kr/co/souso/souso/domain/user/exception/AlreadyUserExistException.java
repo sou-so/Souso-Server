@@ -11,5 +11,4 @@ public class AlreadyUserExistException extends NumbleException {
     private AlreadyUserExistException() {
         super(GlobalErrorCode.ALREADY_NICKNAME_EXIST);
     }
-
 }

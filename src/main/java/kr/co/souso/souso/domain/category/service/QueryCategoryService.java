@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
-public class CategoryQueryService {
+public class QueryCategoryService {
 
     private final CategoryRepository categoryRepository;
 
@@ -22,6 +22,7 @@ public class CategoryQueryService {
                 .stream()
                 .map(CategoryResponse::new)
                 .collect(Collectors.toList());
+
         return new CategoryListResponse(categories.size(), categories);
     }
 }

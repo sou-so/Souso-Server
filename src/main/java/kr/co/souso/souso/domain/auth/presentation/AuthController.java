@@ -24,7 +24,6 @@ public class AuthController {
     private final CheckNicknameExistService checkNicknameExistService;
     private final CheckAuthCodeExistsService checkAuthCodeExistsService;
 
-
     @ApiOperation(value = "로그인")
     @PostMapping("/token")
     public UserTokenResponse userSignIn(@RequestBody @Valid UserSignInRequest request) {
