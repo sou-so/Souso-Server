@@ -5,6 +5,7 @@ import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import kr.co.souso.souso.domain.comment.presentation.dto.request.CreateCommentRequest;
 import kr.co.souso.souso.domain.comment.presentation.dto.request.CreateReplyRequest;
+import kr.co.souso.souso.domain.comment.presentation.dto.request.UpdateCommentRequest;
 import kr.co.souso.souso.domain.comment.presentation.dto.response.CommentResponse;
 import kr.co.souso.souso.domain.comment.presentation.dto.response.CreateCommentResponse;
 import kr.co.souso.souso.domain.comment.presentation.dto.response.CreateReplyResponse;
@@ -12,6 +13,7 @@ import kr.co.souso.souso.domain.comment.presentation.dto.response.QueryCommentRe
 import kr.co.souso.souso.domain.comment.service.CreateCommentService;
 import kr.co.souso.souso.domain.comment.service.CreateReplyService;
 import kr.co.souso.souso.domain.comment.service.QueryCommentPagesService;
+import kr.co.souso.souso.domain.comment.service.UpdateCommentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -26,7 +28,9 @@ public class CommentController {
 
     private final CreateCommentService createCommentService;
     private final CreateReplyService createReplyService;
+    private final UpdateCommentService updateCommentService;
     private final QueryCommentPagesService queryCommentPagesService;
+
 
     @ApiOperation(value = "댓글 등록")
     @ResponseStatus(HttpStatus.CREATED)
@@ -34,6 +38,13 @@ public class CommentController {
     public CreateCommentResponse createComment(@PathVariable("feed-id") Long feedId, @RequestBody @Valid CreateCommentRequest request) {
         return createCommentService.execute(feedId, request);
     }
+
+    @ApiOperation(value = "댓글 수정")
+    @PatchMapping("/{comment-id}")
+    public void updateComment(@PathVariable("comment-id") Long commentId, @RequestBody @Valid UpdateCommentRequest request) {
+        updateCommentService.execute(commentId, request);
+    }
+
 
     @ApiOperation(value = "답글 등록")
     @ResponseStatus(HttpStatus.CREATED)

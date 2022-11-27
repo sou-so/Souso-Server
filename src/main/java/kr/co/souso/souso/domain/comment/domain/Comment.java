@@ -50,4 +50,8 @@ public class Comment extends BaseTimeEntity {
     public void prePersist() {
         this.parentComment = this.parentComment == null ? this : this.parentComment;
     }
+
+    public void updateComment(String content){
+        this.content = content;
+    }
 }
