@@ -11,10 +11,10 @@ import java.time.LocalDateTime;
 @Builder
 public class QueryReplyResponse {
 
-    @ApiModelProperty(value = "댓글 작성자")
+    @ApiModelProperty(value = "답글 작성자")
     private AuthorResponse author;
 
-    @ApiModelProperty(value = "댓글 고유 ID", example = "2")
+    @ApiModelProperty(value = "답글 고유 ID", example = "2")
     private Long commentId;
 
     @ApiModelProperty(value = "글 작성자인지 유무", example = "true")

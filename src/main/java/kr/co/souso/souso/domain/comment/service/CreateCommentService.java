@@ -3,6 +3,7 @@ package kr.co.souso.souso.domain.comment.service;
 import kr.co.souso.souso.domain.comment.domain.Comment;
 import kr.co.souso.souso.domain.comment.presentation.dto.request.CreateCommentRequest;
 import kr.co.souso.souso.domain.comment.domain.repository.CommentRepository;
+import kr.co.souso.souso.domain.comment.presentation.dto.response.CreateCommentResponse;
 import kr.co.souso.souso.domain.feed.domain.Feed;
 import kr.co.souso.souso.domain.feed.exception.FeedNotFoundException;
 import kr.co.souso.souso.domain.feed.domain.repository.FeedRepository;
@@ -21,7 +22,7 @@ public class CreateCommentService {
     private final CommentRepository commentRepository;
 
     @Transactional
-    public void execute(Long feedId, CreateCommentRequest request) {
+    public CreateCommentResponse execute(Long feedId, CreateCommentRequest request) {
         User user = userFacade.getCurrentUser();
 
         Feed feed = feedRepository.findById(feedId)
@@ -36,5 +37,7 @@ public class CreateCommentService {
         feed.addComment();
         feedRepository.save(feed);
         commentRepository.save(comment);
+
+        return new CreateCommentResponse(comment.getId());
     }
 }
