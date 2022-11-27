@@ -3,6 +3,7 @@ package kr.co.souso.souso.domain.user.presentation;
 import io.swagger.annotations.ApiOperation;
 import kr.co.souso.souso.domain.auth.presentation.dto.response.UserTokenResponse;
 import kr.co.souso.souso.domain.user.presentation.dto.request.UpdatePasswordRequest;
+import kr.co.souso.souso.domain.user.presentation.dto.request.UpdateUserInfoRequest;
 import kr.co.souso.souso.domain.user.presentation.dto.request.UserAuthCodeRequest;
 import kr.co.souso.souso.domain.user.presentation.dto.request.UserSignUpRequest;
 import kr.co.souso.souso.domain.user.presentation.dto.response.QueryMyProfileResponse;
@@ -24,12 +25,40 @@ public class UserController {
     private final UserAuthCodeService userAuthCodeService;
     private final QueryMyProfileService queryMyProfileService;
     private final UpdatePasswordService updatePasswordService;
+    private final UpdateUserInfoService updateUserInfoService;
+
+    @ApiOperation(value = "MY 프로필 정보 조회")
+    @GetMapping
+    public QueryMyProfileResponse queryMyProfile() {
+        return queryMyProfileService.execute();
+    }
 
     @ApiOperation(value = "회원가입")
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
     public UserTokenResponse userSignUp(@RequestBody @Valid UserSignUpRequest request) {
         return userSignUpService.execute(request);
+    }
+
+    @ApiOperation(value = "인증번호 전송")
+    @ResponseStatus(HttpStatus.CREATED)
+    @PostMapping("/verification-codes")
+    public void sendAuthCode(@RequestBody @Valid UserAuthCodeRequest request) {
+        userAuthCodeService.execute(request);
+    }
+
+    @ApiOperation(value = "내 정보 수정")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @PatchMapping
+    public void updateUserInfo(@RequestBody @Valid UpdateUserInfoRequest request) {
+        updateUserInfoService.execute(request);
+    }
+
+    @ApiOperation(value = "비밀번호 변경")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @PatchMapping("/password")
+    public void updatePassword(@RequestBody @Valid UpdatePasswordRequest request) {
+        updatePasswordService.execute(request);
     }
 
     @ApiOperation(value = "로그아웃")
@@ -44,25 +73,5 @@ public class UserController {
     @DeleteMapping("/leave")
     public void leave() {
         userWithdrawalService.execute();
-    }
-
-    @ApiOperation(value = "인증번호 전송")
-    @ResponseStatus(HttpStatus.CREATED)
-    @PostMapping("/verification-codes")
-    public void sendAuthCode(@RequestBody @Valid UserAuthCodeRequest request) {
-        userAuthCodeService.execute(request);
-    }
-
-    @ApiOperation(value = "MY 프로필 정보 조회")
-    @GetMapping
-    public QueryMyProfileResponse queryMyProfile() {
-        return queryMyProfileService.execute();
-    }
-
-    @ApiOperation(value = "비밀번호 변경")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    @PatchMapping("/password")
-    public void updatePassword(@RequestBody @Valid UpdatePasswordRequest request) {
-        updatePasswordService.execute(request);
     }
 }

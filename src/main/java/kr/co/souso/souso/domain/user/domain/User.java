@@ -1,5 +1,6 @@
 package kr.co.souso.souso.domain.user.domain;
 
+import kr.co.souso.souso.domain.user.presentation.dto.request.UpdateUserInfoRequest;
 import kr.co.souso.souso.global.entity.BaseTimeEntity;
 import kr.co.souso.souso.global.enums.UserRole;
 import lombok.AccessLevel;
@@ -70,5 +71,10 @@ public class User extends BaseTimeEntity {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public void updateUser(UpdateUserInfoRequest request) {
+        this.nickname = request.getNickname();
+        this.profileImageUrl = request.getProfileImageUrl();
     }
 }
