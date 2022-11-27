@@ -8,6 +8,7 @@ import kr.co.souso.souso.domain.feed.domain.FeedImage;
 import kr.co.souso.souso.domain.feed.domain.repository.FeedImageRepository;
 import kr.co.souso.souso.domain.feed.domain.repository.FeedRepository;
 import kr.co.souso.souso.domain.feed.presentation.dto.request.CreateFeedRequest;
+import kr.co.souso.souso.domain.feed.presentation.dto.response.CreateFeedResponse;
 import kr.co.souso.souso.domain.user.domain.User;
 import kr.co.souso.souso.domain.user.facade.UserFacade;
 import kr.co.souso.souso.domain.viewcount.domain.FeedViewCount;
@@ -33,7 +34,7 @@ public class CreateFeedService {
     private final S3Facade s3Facade;
 
     @Transactional
-    public void execute(List<MultipartFile> images, CreateFeedRequest request) {
+    public CreateFeedResponse execute(List<MultipartFile> images, CreateFeedRequest request) {
         User user = userFacade.getCurrentUser();
 
         Feed feed = Feed.builder()
@@ -63,5 +64,7 @@ public class CreateFeedService {
 
         feedViewCountRepository.save(feedViewCount);
         feedCategoryRepository.save(feedCategory);
+
+        return new CreateFeedResponse(feed.getId());
     }
 }

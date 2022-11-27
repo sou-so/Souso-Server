@@ -5,6 +5,7 @@ import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import kr.co.souso.souso.domain.feed.presentation.dto.request.CreateFeedRequest;
 import kr.co.souso.souso.domain.feed.presentation.dto.request.UpdateFeedRequest;
+import kr.co.souso.souso.domain.feed.presentation.dto.response.CreateFeedResponse;
 import kr.co.souso.souso.domain.feed.presentation.dto.response.QueryFeedDetailsResponse;
 import kr.co.souso.souso.domain.feed.presentation.dto.response.QueryFeedPagesResponse;
 import kr.co.souso.souso.domain.feed.service.*;
@@ -35,8 +36,8 @@ public class FeedController {
     @ApiOperation(value = "게시글 등록")
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
-    public void createFeed(@RequestPart List<MultipartFile> images, @RequestPart @Valid CreateFeedRequest request) {
-        createFeedService.execute(images, request);
+    public CreateFeedResponse createFeed(@RequestPart List<MultipartFile> images, @RequestPart @Valid CreateFeedRequest request) {
+        return createFeedService.execute(images, request);
     }
 
     @ApiOperation(value = "게시글 수정")
