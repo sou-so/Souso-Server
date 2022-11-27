@@ -2,6 +2,7 @@ package kr.co.souso.souso.domain.user.presentation;
 
 import io.swagger.annotations.ApiOperation;
 import kr.co.souso.souso.domain.auth.presentation.dto.response.UserTokenResponse;
+import kr.co.souso.souso.domain.user.presentation.dto.request.UpdatePasswordRequest;
 import kr.co.souso.souso.domain.user.presentation.dto.request.UserAuthCodeRequest;
 import kr.co.souso.souso.domain.user.presentation.dto.request.UserSignUpRequest;
 import kr.co.souso.souso.domain.user.presentation.dto.response.QueryMyProfileResponse;
@@ -22,6 +23,7 @@ public class UserController {
     private final UserWithdrawalService userWithdrawalService;
     private final UserAuthCodeService userAuthCodeService;
     private final QueryMyProfileService queryMyProfileService;
+    private final UpdatePasswordService updatePasswordService;
 
     @ApiOperation(value = "회원가입")
     @ResponseStatus(HttpStatus.CREATED)
@@ -55,5 +57,12 @@ public class UserController {
     @GetMapping
     public QueryMyProfileResponse queryMyProfile() {
         return queryMyProfileService.execute();
+    }
+
+    @ApiOperation(value = "비밀번호 변경")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @PatchMapping("/password")
+    public void updatePassword(@RequestBody @Valid UpdatePasswordRequest request) {
+        updatePasswordService.execute(request);
     }
 }

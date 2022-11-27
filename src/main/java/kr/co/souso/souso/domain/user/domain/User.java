@@ -56,7 +56,8 @@ public class User extends BaseTimeEntity {
     private String profileImageUrl;
 
     @Builder
-    public User(String email, String password, String name, String phoneNumber, String nickname, String birth, UserRole role, String profileImageUrl) {
+    public User(String email, String password, String name, String phoneNumber, String nickname, String birth,
+                UserRole role, String profileImageUrl) {
         this.email = email;
         this.password = password;
         this.name = name;
@@ -65,5 +66,9 @@ public class User extends BaseTimeEntity {
         this.birth = birth;
         this.role = role;
         this.profileImageUrl = profileImageUrl;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }
