@@ -42,7 +42,7 @@ public class FeedController {
 
     @ApiOperation(value = "게시글 수정")
     @PatchMapping("/{feed-id}")
-    public void updateFeed(@RequestPart(value = "images") List<MultipartFile> images, @RequestPart(value = "request") @Valid UpdateFeedRequest request, @PathVariable("feed-id") Long feedId) {
+    public void updateFeed(@RequestPart(required = false) List<MultipartFile> images, @RequestPart @Valid UpdateFeedRequest request, @PathVariable("feed-id") Long feedId) {
         updateFeedService.execute(images, request, feedId);
     }
 
