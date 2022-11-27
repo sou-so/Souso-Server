@@ -36,7 +36,7 @@ public class FeedController {
     @ApiOperation(value = "게시글 등록")
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
-    public CreateFeedResponse createFeed(@RequestPart List<MultipartFile> images, @RequestPart @Valid CreateFeedRequest request) {
+    public CreateFeedResponse createFeed(@RequestPart(required = false) List<MultipartFile> images, @RequestPart @Valid CreateFeedRequest request) {
         return createFeedService.execute(images, request);
     }
 
