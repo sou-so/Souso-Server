@@ -20,4 +20,9 @@ public class UpdateUserInfoRequest {
     @NotBlank(message = "profile_image_url은 Null, 공백, 띄어쓰기를 허용하지 않습니다.")
     private String profileImageUrl;
 
+    @ApiModelProperty(value = "birth", example = "19981016")
+    @NotBlank(message = "birth는 Null, 공백, 띄어쓰기를 허용하지 않습니다.")
+    @Length(min = 8, max = 8, message = "birth는 8글자여야합니다.")
+    private String birth;
+
 }
