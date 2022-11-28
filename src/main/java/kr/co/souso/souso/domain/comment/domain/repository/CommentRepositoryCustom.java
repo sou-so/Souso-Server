@@ -10,6 +10,6 @@ public interface CommentRepositoryCustom {
 
     List<CommentDetailsVO> queryReplyDetailsList(Long parentCommentId, Long userId, Long feedId);
 
-    Slice<CommentDetailsVO> queryCommentPages(Long userId, Long feedId, Integer pageId, Pageable pageable);
+    Slice<CommentDetailsVO> queryCommentPagesByOffset(Long userId, Long feedId, Integer pageId, Pageable pageable);
 
 }

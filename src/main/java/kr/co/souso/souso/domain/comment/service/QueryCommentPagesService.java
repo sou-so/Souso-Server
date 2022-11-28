@@ -11,7 +11,6 @@ import kr.co.souso.souso.domain.user.facade.UserFacade;
 import kr.co.souso.souso.domain.user.presentation.dto.response.AuthorResponse;
 import kr.co.souso.souso.global.utils.code.PagingSupportUtil;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Slice;
 import org.springframework.stereotype.Service;
 
@@ -29,7 +28,7 @@ public class QueryCommentPagesService {
         User user = userFacade.getCurrentUser();
 
         List<QueryCommentResponse> queryCommentResponseList = new ArrayList<>();
-        Slice<CommentDetailsVO> commentList = commentRepository.queryCommentPages(user.getId(), feedId, pageId, PagingSupportUtil.applyPageSize());
+        Slice<CommentDetailsVO> commentList = commentRepository.queryCommentPagesByOffset(user.getId(), feedId, pageId, PagingSupportUtil.applyPageSize());
 
         for (CommentDetailsVO commentDetailsVO : commentList) {
             List<CommentDetailsVO> replyDetailsList = commentRepository.queryReplyDetailsList(commentDetailsVO.getParentCommentId(), user.getId(), feedId);
