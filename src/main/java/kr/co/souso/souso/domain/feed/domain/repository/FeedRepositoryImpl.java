@@ -11,7 +11,7 @@ import kr.co.souso.souso.domain.feed.domain.repository.vo.FeedDetailsVO;
 import kr.co.souso.souso.domain.feed.domain.repository.vo.QFeedDetailsVO;
 import kr.co.souso.souso.domain.user.domain.repository.vo.QAuthorVO;
 import kr.co.souso.souso.global.enums.SortPageType;
-import kr.co.souso.souso.global.utils.PagingSupportUtil;
+import kr.co.souso.souso.global.utils.code.PagingSupportUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -57,7 +57,7 @@ public class FeedRepositoryImpl implements FeedRepositoryCustom {
 
     private BooleanExpression eqPage(Long cursorId, SortPageType sortType) {
         if (isSliceByCursor(sortType)) {
-            return cursorId != null ? feed.id.gt(cursorId) : null;
+            return cursorId != null ? feed.id.lt(cursorId) : null;
         }
         return null;
     }
@@ -84,7 +84,7 @@ public class FeedRepositoryImpl implements FeedRepositoryCustom {
 
     private OrderSpecifier<?> feedSort(SortPageType sortType) {
         if (sortType.getCode().equals(LATEST.getCode())) {
-            return new OrderSpecifier<>(Order.ASC, feed.id);
+            return new OrderSpecifier<>(Order.DESC, feed.id);
         } else if (sortType.getCode().equals(POPULAR.getCode())) {
             return new OrderSpecifier<>(Order.DESC, feed.likeCount);
         }
