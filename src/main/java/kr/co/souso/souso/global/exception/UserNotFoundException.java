@@ -1,11 +1,11 @@
 package kr.co.souso.souso.global.exception;
 
 import kr.co.souso.souso.global.error.exception.GlobalErrorCode;
-import kr.co.souso.souso.global.error.exception.NumbleException;
+import kr.co.souso.souso.global.error.exception.SousoException;
 
-public class UserNotFoundException extends NumbleException {
+public class UserNotFoundException extends SousoException {
 
-    public static final NumbleException EXCEPTION =
+    public static final SousoException EXCEPTION =
             new UserNotFoundException();
 
     private UserNotFoundException() {

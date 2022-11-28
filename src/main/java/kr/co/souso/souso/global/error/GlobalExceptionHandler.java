@@ -1,7 +1,7 @@
 package kr.co.souso.souso.global.error;
 
 import kr.co.souso.souso.global.error.exception.GlobalErrorCode;
-import kr.co.souso.souso.global.error.exception.NumbleException;
+import kr.co.souso.souso.global.error.exception.SousoException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindException;
@@ -17,8 +17,8 @@ import java.util.Map;
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
-    @ExceptionHandler(NumbleException.class)
-    public ResponseEntity<ErrorResponse> handleGlobal(NumbleException e) {
+    @ExceptionHandler(SousoException.class)
+    public ResponseEntity<ErrorResponse> handleGlobal(SousoException e) {
         final GlobalErrorCode errorCode = e.getErrorCode();
         return new ResponseEntity<>(
                 ErrorResponse.builder()

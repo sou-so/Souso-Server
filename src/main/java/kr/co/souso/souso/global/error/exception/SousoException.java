@@ -5,7 +5,7 @@ import lombok.RequiredArgsConstructor;
 
 @Getter
 @RequiredArgsConstructor
-public class NumbleException extends RuntimeException {
+public class SousoException extends RuntimeException {
 
     private final GlobalErrorCode errorCode;
 

@@ -3,7 +3,7 @@ package kr.co.souso.souso.global.error.filter;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import kr.co.souso.souso.global.error.ErrorResponse;
 import kr.co.souso.souso.global.error.exception.GlobalErrorCode;
-import kr.co.souso.souso.global.error.exception.NumbleException;
+import kr.co.souso.souso.global.error.exception.SousoException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.filter.OncePerRequestFilter;
@@ -24,7 +24,7 @@ public class GlobalExceptionFilter extends OncePerRequestFilter {
                                     FilterChain filterChain) throws IOException {
         try {
             filterChain.doFilter(request, response);
-        } catch (NumbleException e) {
+        } catch (SousoException e) {
             sendErrorMessage(response, e.getErrorCode());
         } catch (Exception e) {
             logger.error(e);
