@@ -89,6 +89,7 @@ public class QueryFeedPagesService {
                 .isLike(feedDetailsVO.getIsLike())
                 .isBookmark(feedDetailsVO.getIsBookmark())
                 .likeCount(feedDetailsVO.getLikeCount())
+                .commentCount(feedDetailsVO.getCommentCount())
                 .bookmarkCount(feedDetailsVO.getBookmarkCount())
                 .viewCount(feedViewCount)
                 .build();

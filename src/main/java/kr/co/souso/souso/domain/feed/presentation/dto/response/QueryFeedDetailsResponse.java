@@ -46,4 +46,7 @@ public class QueryFeedDetailsResponse {
     @ApiModelProperty(value = "북마크 수", example = "10")
     private Long bookmarkCount;
 
+    @ApiModelProperty(value = "댓글 수", example = "10")
+    private Long commentCount;
+
 }
