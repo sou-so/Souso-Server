@@ -46,16 +46,19 @@ public class UpdateFeedService {
 
         feedImageRepository.deleteAllByFeed(feed);
 
-        images.stream()
-                .map(s3Facade::uploadImage)
-                .map(image -> FeedImage.builder()
-                        .feed(feed)
-                        .imageUrl(image)
-                        .build()
-                )
-                .forEach(feedImageRepository::save);
-
+        if (images != null) {
+            images.stream()
+                    .map(s3Facade::uploadImage)
+                    .map(image -> FeedImage.builder()
+                            .feed(feed)
+                            .imageUrl(image)
+                            .build()
+                    )
+                    .forEach(feedImageRepository::save);
+        }
         feed.updateFeed(request.getContent());
+
+        feedRepository.save(feed);
 
         FeedCategory feedCategory = feedCategoryRepository.findFeedCategoryByFeedId(feedId);
         feedCategory.updateFeedCategory(feed, category);

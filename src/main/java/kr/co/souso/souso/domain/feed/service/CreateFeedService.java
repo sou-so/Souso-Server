@@ -43,16 +43,16 @@ public class CreateFeedService {
                 .build();
 
         feedRepository.save(feed);
-
-        images.stream()
-                .map(s3Facade::uploadImage)
-                .map(image -> FeedImage.builder()
-                        .feed(feed)
-                        .imageUrl(image)
-                        .build()
-                )
-                .forEach(feedImageRepository::save);
-
+        if (images != null) {
+            images.stream()
+                    .map(s3Facade::uploadImage)
+                    .map(image -> FeedImage.builder()
+                            .feed(feed)
+                            .imageUrl(image)
+                            .build()
+                    )
+                    .forEach(feedImageRepository::save);
+        }
         FeedCategory feedCategory = FeedCategory.builder()
                 .feed(feed)
                 .category(categoryFacade.getCategoryById(request.getCategoryId()))
