@@ -44,6 +44,7 @@ public class SecurityConfig {
 
                 // users
                 .antMatchers(HttpMethod.HEAD, "/users/nickname").permitAll()
+                .antMatchers(HttpMethod.HEAD, "/users/email").permitAll()
                 .antMatchers(HttpMethod.HEAD, "/users/verification-codes").permitAll()
                 .antMatchers(HttpMethod.GET, "/users").authenticated()
                 .antMatchers(HttpMethod.POST, "/users/verification-codes").permitAll()
