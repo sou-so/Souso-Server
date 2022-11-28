@@ -41,13 +41,12 @@ public class FeedRepositoryImpl implements FeedRepositoryCustom {
 
         JPAQuery<FeedDetailsVO> jpaQuery = selectFromFeed(userId)
                 .distinct()
-                .where(eqPage(cursorId, sortType))
-                .orderBy(feedSort(sortType));
+                .where(eqPage(cursorId, sortType));
 
         if (isSliceByCursor(sortType)) {
-            return PagingSupportUtil.fetchSliceByCursor(jpaQuery, pageable);
+            return PagingSupportUtil.fetchSliceByCursor(jpaQuery.orderBy(feed.id.desc()), pageable);
         } else {
-            return PagingSupportUtil.fetchSliceByOffset(jpaQuery, PageRequest.of(pageId, pageable.getPageSize()));
+            return PagingSupportUtil.fetchSliceByOffset(jpaQuery.orderBy(feed.likeCount.desc(), feed.id.desc()), PageRequest.of(pageId, pageable.getPageSize()));
         }
     }
 
@@ -80,15 +79,6 @@ public class FeedRepositoryImpl implements FeedRepositoryCustom {
 
     private BooleanExpression eqFeedLikeUserId(Long id) {
         return id != null ? feedLike.user.id.eq(id) : null;
-    }
-
-    private OrderSpecifier<?> feedSort(SortPageType sortType) {
-        if (sortType.getCode().equals(LATEST.getCode())) {
-            return new OrderSpecifier<>(Order.DESC, feed.id);
-        } else if (sortType.getCode().equals(POPULAR.getCode())) {
-            return new OrderSpecifier<>(Order.DESC, feed.likeCount);
-        }
-        return null;
     }
 
     private JPAQuery<FeedDetailsVO> selectFromFeed(Long userId) {
