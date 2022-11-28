@@ -14,6 +14,7 @@ public enum GlobalErrorCode {
     INVALID_JWT(401, "Invalid Jwt"),
     PASSWORD_MISMATCH(401,  "Password Mismatch"),
     INVALID_CODE(401, "Invalid Code"),
+    INVALID_COMMENT(401, "Invalid Comment"),
 
     // 403
     FORBIDDEN(403, "FORBIDDEN"),

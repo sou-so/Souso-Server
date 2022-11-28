@@ -60,7 +60,7 @@ public class FeedController {
 
     @ApiOperation(value = "게시글 리스트 조회")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "cursorId", value = "LATEST: 마지막으로 불러온 게시글ID, 처음은 0", dataType = "string", paramType = "query", defaultValue = "0"),
+            @ApiImplicitParam(name = "cursorId", value = "LATEST: 마지막으로 불러온 가장 작은 게시글ID, 처음은 0", dataType = "string", paramType = "query", defaultValue = "0"),
             @ApiImplicitParam(name = "pageId", value = "POPULAR: 현재 조회한 페이지 번호, 처음은 0", dataType = "string", paramType = "query", defaultValue = "0"),
     })
     @GetMapping

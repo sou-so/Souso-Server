@@ -1,5 +1,7 @@
 package kr.co.souso.souso.domain.comment.domain.repository;
 
+import com.querydsl.core.types.Order;
+import com.querydsl.core.types.OrderSpecifier;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.core.types.dsl.NumberPath;
 import com.querydsl.jpa.impl.JPAQuery;
@@ -7,7 +9,7 @@ import com.querydsl.jpa.impl.JPAQueryFactory;
 import kr.co.souso.souso.domain.comment.domain.repository.vo.CommentDetailsVO;
 import kr.co.souso.souso.domain.comment.domain.repository.vo.QCommentDetailsVO;
 import kr.co.souso.souso.domain.user.domain.repository.vo.QAuthorVO;
-import kr.co.souso.souso.global.utils.PagingSupportUtil;
+import kr.co.souso.souso.global.utils.code.PagingSupportUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -77,6 +79,7 @@ public class CommentRepositoryImpl implements CommentRepositoryCustom {
                                 comment.content,
                                 comment.createdAt
                         ))
-                .from(comment);
+                .from(comment)
+                .orderBy(new OrderSpecifier<>(Order.ASC, comment.id));
     }
 }

@@ -1,6 +1,6 @@
 package kr.co.souso.souso.global.config;
 
-import kr.co.souso.souso.global.utils.CodeToEnumConverterFactory;
+import kr.co.souso.souso.global.utils.convert.CodeToEnumConverterFactory;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.format.FormatterRegistry;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;

@@ -60,6 +60,7 @@ public class QueryFeedDetailsService {
                 .isLike(feedDetailsVO.getIsLike())
                 .isBookmark(feedDetailsVO.getIsBookmark())
                 .viewCount(feedViewCount.getViewCount())
+                .commentCount(feedDetailsVO.getCommentCount())
                 .createdAt(feedDetailsVO.getCreatedAt())
                 .likeCount(feed.getLikeCount())
                 .bookmarkCount(feed.getBookmarkCount())

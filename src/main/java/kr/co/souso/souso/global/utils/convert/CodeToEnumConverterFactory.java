@@ -1,4 +1,4 @@
-package kr.co.souso.souso.global.utils;
+package kr.co.souso.souso.global.utils.convert;
 
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.core.convert.converter.ConverterFactory;

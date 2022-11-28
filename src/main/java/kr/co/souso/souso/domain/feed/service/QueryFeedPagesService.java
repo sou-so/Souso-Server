@@ -16,6 +16,7 @@ import kr.co.souso.souso.domain.user.presentation.dto.response.AuthorResponse;
 import kr.co.souso.souso.domain.viewcount.domain.FeedViewCount;
 import kr.co.souso.souso.domain.viewcount.domain.repository.FeedViewCountRepository;
 import kr.co.souso.souso.global.enums.SortPageType;
+import kr.co.souso.souso.global.utils.code.PagingSupportUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Slice;
@@ -30,8 +31,6 @@ import java.util.stream.Collectors;
 @Service
 public class QueryFeedPagesService {
 
-    private static final int DEFAULT_PAGE_SIZE = 10;
-
     private final FeedRepository feedRepository;
     private final FeedImageRepository feedImageRepository;
     private final FeedViewCountRepository feedViewCountRepository;
@@ -41,7 +40,7 @@ public class QueryFeedPagesService {
     public QueryFeedPagesResponse execute(Long cursorId, Integer pageId, SortPageType sortType) {
         User user = userFacade.getCurrentUser();
 
-        Slice<FeedDetailsVO> feedList = feedRepository.queryFeedPages(user.getId(), cursorId, pageId, sortType, PageRequest.of(0, DEFAULT_PAGE_SIZE));
+        Slice<FeedDetailsVO> feedList = feedRepository.queryFeedPages(user.getId(), PagingSupportUtil.applyCursorId(cursorId) , pageId, sortType, PagingSupportUtil.applyPageSize());
 
         List<QueryFeedDetailsResponse> queryFeedDetailsResponseList = new ArrayList<>();
 
@@ -90,6 +89,7 @@ public class QueryFeedPagesService {
                 .isLike(feedDetailsVO.getIsLike())
                 .isBookmark(feedDetailsVO.getIsBookmark())
                 .likeCount(feedDetailsVO.getLikeCount())
+                .commentCount(feedDetailsVO.getCommentCount())
                 .bookmarkCount(feedDetailsVO.getBookmarkCount())
                 .viewCount(feedViewCount)
                 .build();

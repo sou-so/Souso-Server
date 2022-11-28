@@ -1,6 +1,6 @@
 package kr.co.souso.souso.global.enums;
 
-import kr.co.souso.souso.global.utils.Constant;
+import kr.co.souso.souso.global.utils.convert.Constant;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
