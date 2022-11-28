@@ -1,7 +1,5 @@
 package kr.co.souso.souso.domain.feed.domain.repository;
 
-import com.querydsl.core.types.Order;
-import com.querydsl.core.types.OrderSpecifier;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.core.types.dsl.NumberPath;
 import com.querydsl.jpa.impl.JPAQuery;
@@ -10,7 +8,6 @@ import kr.co.souso.souso.domain.category.domain.repository.vo.QCategoryVO;
 import kr.co.souso.souso.domain.feed.domain.repository.vo.FeedDetailsVO;
 import kr.co.souso.souso.domain.feed.domain.repository.vo.QFeedDetailsVO;
 import kr.co.souso.souso.domain.user.domain.repository.vo.QAuthorVO;
-import kr.co.souso.souso.global.enums.SortPageType;
 import kr.co.souso.souso.global.utils.code.PagingSupportUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
@@ -21,8 +18,6 @@ import static kr.co.souso.souso.domain.bookmark.domain.QFeedBookmark.feedBookmar
 import static kr.co.souso.souso.domain.category.domain.QFeedCategory.feedCategory;
 import static kr.co.souso.souso.domain.feed.domain.QFeed.feed;
 import static kr.co.souso.souso.domain.like.domain.QFeedLike.feedLike;
-import static kr.co.souso.souso.global.enums.SortPageType.LATEST;
-import static kr.co.souso.souso.global.enums.SortPageType.POPULAR;
 
 @RequiredArgsConstructor
 public class FeedRepositoryImpl implements FeedRepositoryCustom {
@@ -37,31 +32,30 @@ public class FeedRepositoryImpl implements FeedRepositoryCustom {
     }
 
     @Override
-    public Slice<FeedDetailsVO> queryFeedPages(Long userId, Long cursorId, Integer pageId, SortPageType sortType, Pageable pageable) {
+    public Slice<FeedDetailsVO> queryFeedPageByOffset(Long userId, Integer pageId, Pageable pageable) {
+
+        JPAQuery<FeedDetailsVO> jpaQuery = selectFromFeed(userId)
+                .distinct();
+
+        return PagingSupportUtil.fetchSliceByOffset(jpaQuery.orderBy(feed.likeCount.desc(), feed.id.desc()), PageRequest.of(pageId, pageable.getPageSize()));
+
+    }
+
+    @Override
+    public Slice<FeedDetailsVO> queryFeedPagesByCursor(Long userId, Long cursorId, Pageable pageable) {
 
         JPAQuery<FeedDetailsVO> jpaQuery = selectFromFeed(userId)
                 .distinct()
-                .where(eqPage(cursorId, sortType));
+                .where(eqPage(cursorId));
 
-        if (isSliceByCursor(sortType)) {
-            return PagingSupportUtil.fetchSliceByCursor(jpaQuery.orderBy(feed.id.desc()), pageable);
-        } else {
-            return PagingSupportUtil.fetchSliceByOffset(jpaQuery.orderBy(feed.likeCount.desc(), feed.id.desc()), PageRequest.of(pageId, pageable.getPageSize()));
-        }
+        return PagingSupportUtil.fetchSliceByCursor(jpaQuery.orderBy(feed.id.desc()), pageable);
     }
 
-    private boolean isSliceByCursor(SortPageType sortType) {
-        return sortType.getCode().equals(LATEST.getCode());
+    private BooleanExpression eqPage(Long cursorId) {
+        return cursorId != null ? feed.id.lt(cursorId) : null;
     }
 
-    private BooleanExpression eqPage(Long cursorId, SortPageType sortType) {
-        if (isSliceByCursor(sortType)) {
-            return cursorId != null ? feed.id.lt(cursorId) : null;
-        }
-        return null;
-    }
-
-    private BooleanExpression eqFeedCategoryId(NumberPath<Long> id) {
+    private BooleanExpression eqFeedCategoryFeedId(NumberPath<Long> id) {
         return id != null ? feedCategory.feed.id.eq(id) : null;
     }
 
@@ -105,7 +99,7 @@ public class FeedRepositoryImpl implements FeedRepositoryCustom {
                 ))
                 .from(feed)
                 .leftJoin(feedCategory)
-                .on(eqFeedCategoryId(feed.id))
+                .on(eqFeedCategoryFeedId(feed.id))
                 .leftJoin(feedBookmark)
                 .on(eqFeedBookmarkId(feed.id).and(eqFeedBookmarkUserId(userId)))
                 .leftJoin(feedLike)

@@ -27,6 +27,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static kr.co.souso.souso.global.enums.SortPageType.LATEST;
+import static kr.co.souso.souso.global.enums.SortPageType.POPULAR;
+
 @RequiredArgsConstructor
 @Service
 public class QueryFeedPagesService {
@@ -40,7 +43,7 @@ public class QueryFeedPagesService {
     public QueryFeedPagesResponse execute(Long cursorId, Integer pageId, SortPageType sortType) {
         User user = userFacade.getCurrentUser();
 
-        Slice<FeedDetailsVO> feedList = feedRepository.queryFeedPages(user.getId(), PagingSupportUtil.applyCursorId(cursorId) , pageId, sortType, PagingSupportUtil.applyPageSize());
+        Slice<FeedDetailsVO> feedList = getFeedList(sortType, pageId, cursorId, user);
 
         List<QueryFeedDetailsResponse> queryFeedDetailsResponseList = new ArrayList<>();
 
@@ -54,7 +57,7 @@ public class QueryFeedPagesService {
                     .orElseThrow(() -> FeedNotFoundException.EXCEPTION);
 
             queryFeedDetailsResponseList.add(
-                    buildFeedDetailsResponse(feedDetailsVO, imageUrl,feedViewCount.getViewCount())
+                    buildFeedDetailsResponse(feedDetailsVO, imageUrl, feedViewCount.getViewCount())
             );
         }
 
@@ -93,5 +96,16 @@ public class QueryFeedPagesService {
                 .bookmarkCount(feedDetailsVO.getBookmarkCount())
                 .viewCount(feedViewCount)
                 .build();
+    }
+
+    private Slice<FeedDetailsVO> getFeedList(SortPageType sortType, Integer pageId, Long cursorId, User user) {
+        switch (sortType) {
+            case LATEST:
+                return feedRepository.queryFeedPagesByCursor(user.getId(), PagingSupportUtil.applyCursorId(cursorId), PagingSupportUtil.applyPageSize());
+            case POPULAR:
+                return feedRepository.queryFeedPageByOffset(user.getId(), pageId, PagingSupportUtil.applyPageSize());
+            default:
+                return null;
+        }
     }
 }
