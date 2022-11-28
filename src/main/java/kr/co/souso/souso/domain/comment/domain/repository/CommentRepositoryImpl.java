@@ -7,7 +7,7 @@ import com.querydsl.jpa.impl.JPAQueryFactory;
 import kr.co.souso.souso.domain.comment.domain.repository.vo.CommentDetailsVO;
 import kr.co.souso.souso.domain.comment.domain.repository.vo.QCommentDetailsVO;
 import kr.co.souso.souso.domain.user.domain.repository.vo.QAuthorVO;
-import kr.co.souso.souso.global.utils.PagingSupportUtil;
+import kr.co.souso.souso.global.utils.code.PagingSupportUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
