@@ -10,10 +10,7 @@ import kr.co.souso.souso.domain.comment.presentation.dto.response.CommentRespons
 import kr.co.souso.souso.domain.comment.presentation.dto.response.CreateCommentResponse;
 import kr.co.souso.souso.domain.comment.presentation.dto.response.CreateReplyResponse;
 import kr.co.souso.souso.domain.comment.presentation.dto.response.QueryCommentResponse;
-import kr.co.souso.souso.domain.comment.service.CreateCommentService;
-import kr.co.souso.souso.domain.comment.service.CreateReplyService;
-import kr.co.souso.souso.domain.comment.service.QueryCommentPagesService;
-import kr.co.souso.souso.domain.comment.service.UpdateCommentService;
+import kr.co.souso.souso.domain.comment.service.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -30,6 +27,7 @@ public class CommentController {
     private final CreateReplyService createReplyService;
     private final UpdateCommentService updateCommentService;
     private final QueryCommentPagesService queryCommentPagesService;
+    private final DeleteCommentService deleteCommentService;
 
 
     @ApiOperation(value = "댓글 등록")
@@ -45,6 +43,11 @@ public class CommentController {
         updateCommentService.execute(commentId, request);
     }
 
+    @ApiOperation(value = "댓글 삭제")
+    @DeleteMapping("/{comment-id}")
+    public void deleteComment(@PathVariable("comment-id") Long commentId) {
+        deleteCommentService.execute(commentId);
+    }
 
     @ApiOperation(value = "답글 등록")
     @ResponseStatus(HttpStatus.CREATED)
