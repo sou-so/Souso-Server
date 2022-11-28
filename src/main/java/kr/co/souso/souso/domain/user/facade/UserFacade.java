@@ -3,6 +3,7 @@ package kr.co.souso.souso.domain.user.facade;
 import kr.co.souso.souso.domain.auth.exception.AlreadyPhoneNumberExistException;
 import kr.co.souso.souso.domain.user.domain.User;
 import kr.co.souso.souso.domain.user.domain.repository.UserRepository;
+import kr.co.souso.souso.domain.user.exception.AlreadyEmailExistsException;
 import kr.co.souso.souso.domain.user.exception.AlreadyNicknameExistException;
 import kr.co.souso.souso.domain.user.exception.AlreadyUserExistException;
 import kr.co.souso.souso.global.exception.UserNotFoundException;
@@ -45,6 +46,12 @@ public class UserFacade {
     public void checkUserPhoneNumber(String phoneNumber) {
         if (userRepository.findByPhoneNumber(phoneNumber).isPresent()) {
             throw AlreadyPhoneNumberExistException.EXCEPTION;
+        }
+    }
+
+    public void checkEmailExists(String email) {
+        if (userRepository.findByEmail(email).isPresent()) {
+            throw AlreadyEmailExistsException.EXCEPTION;
         }
     }
 }

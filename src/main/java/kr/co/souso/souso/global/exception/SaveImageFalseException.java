@@ -1,10 +1,10 @@
 package kr.co.souso.souso.global.exception;
 
 import kr.co.souso.souso.global.error.exception.GlobalErrorCode;
-import kr.co.souso.souso.global.error.exception.NumbleException;
+import kr.co.souso.souso.global.error.exception.SousoException;
 
-public class SaveImageFalseException extends NumbleException {
-    public static final NumbleException EXCEPTION =
+public class SaveImageFalseException extends SousoException {
+    public static final SousoException EXCEPTION =
             new SaveImageFalseException();
 
     private SaveImageFalseException() {

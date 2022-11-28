@@ -3,12 +3,12 @@ package kr.co.souso.souso.domain.user.exception;
 import kr.co.souso.souso.global.error.exception.GlobalErrorCode;
 import kr.co.souso.souso.global.error.exception.SousoException;
 
-public class AlreadyUserExistException extends SousoException {
+public class AlreadyEmailExistsException extends SousoException {
 
     public static final SousoException EXCEPTION =
-            new AlreadyUserExistException();
+            new AlreadyEmailExistsException();
 
-    private AlreadyUserExistException() {
-        super(GlobalErrorCode.ALREADY_NICKNAME_EXIST);
+    private AlreadyEmailExistsException() {
+        super(GlobalErrorCode.ALREADY_EMAIL_EXISTS);
     }
 }
