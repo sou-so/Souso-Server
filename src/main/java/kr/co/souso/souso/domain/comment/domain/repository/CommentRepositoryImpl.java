@@ -1,5 +1,7 @@
 package kr.co.souso.souso.domain.comment.domain.repository;
 
+import com.querydsl.core.types.Order;
+import com.querydsl.core.types.OrderSpecifier;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.core.types.dsl.NumberPath;
 import com.querydsl.jpa.impl.JPAQuery;
@@ -77,6 +79,7 @@ public class CommentRepositoryImpl implements CommentRepositoryCustom {
                                 comment.content,
                                 comment.createdAt
                         ))
-                .from(comment);
+                .from(comment)
+                .orderBy(new OrderSpecifier<>(Order.ASC, comment.id));
     }
 }
