@@ -68,7 +68,7 @@ public class SecurityConfig {
                 .antMatchers(HttpMethod.DELETE, "/comments/**").authenticated()
 
                 // categories
-                .antMatchers(HttpMethod.GET, "/categories").permitAll()
+                .antMatchers(HttpMethod.GET, "/categories/**").permitAll()
 
                 // swagger
                 .antMatchers("/swagger*/**", "/v3/api-docs/**", "/swagger-ui/**", "/swagger-resources/**").permitAll()

@@ -9,6 +9,9 @@ import org.springframework.data.domain.Slice;
 public interface FeedRepositoryCustom {
 
     FeedDetailsVO queryFeedDetails(Long FeedId, Long userId);
-    Slice<FeedDetailsVO> queryFeedPages(Long userId, Long cursorId, Integer pageId, SortPageType sortType, Pageable pageable);
+
+    Slice<FeedDetailsVO> queryFeedPagesByCursor(Long userId, Long cursorId, Pageable pageable);
+
+    Slice<FeedDetailsVO> queryFeedPageByOffset(Long userId, Integer pageId, Pageable pageable);
 
 }

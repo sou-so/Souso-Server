@@ -34,7 +34,7 @@ public class CommentRepositoryImpl implements CommentRepositoryCustom {
     }
 
     @Override
-    public Slice<CommentDetailsVO> queryCommentPages(Long userId, Long feedId, Integer pageId, Pageable pageable) {
+    public Slice<CommentDetailsVO> queryCommentPagesByOffset(Long userId, Long feedId, Integer pageId, Pageable pageable) {
         JPAQuery<CommentDetailsVO> jpaQuery = selectFrom(userId)
                 .distinct()
                 .where(eqCommentId(comment.parentComment.id).and(eqCommentFeedId(feedId)));
