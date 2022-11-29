@@ -6,17 +6,15 @@ import io.swagger.annotations.ApiOperation;
 import kr.co.souso.souso.domain.comment.presentation.dto.request.CreateCommentRequest;
 import kr.co.souso.souso.domain.comment.presentation.dto.request.CreateReplyRequest;
 import kr.co.souso.souso.domain.comment.presentation.dto.request.UpdateCommentRequest;
-import kr.co.souso.souso.domain.comment.presentation.dto.response.CommentResponse;
+import kr.co.souso.souso.domain.comment.presentation.dto.response.QueryCommentPagesResponse;
 import kr.co.souso.souso.domain.comment.presentation.dto.response.CreateCommentResponse;
 import kr.co.souso.souso.domain.comment.presentation.dto.response.CreateReplyResponse;
-import kr.co.souso.souso.domain.comment.presentation.dto.response.QueryCommentResponse;
 import kr.co.souso.souso.domain.comment.service.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.List;
 
 @RequiredArgsConstructor
 @RequestMapping("/comments")
@@ -61,7 +59,7 @@ public class CommentController {
     @ApiImplicitParams({
             @ApiImplicitParam(name = "pageId", value = "현재 조회한 페이지 번호, 처음은 0", required = true, dataType = "string", paramType = "query", defaultValue = "0"),
     })
-    public CommentResponse getComments(@RequestParam(defaultValue = "0") Integer pageId, @PathVariable("feed-id") Long feedId) {
+    public QueryCommentPagesResponse getComments(@RequestParam(defaultValue = "0") Integer pageId, @PathVariable("feed-id") Long feedId) {
         return queryCommentPagesService.execute(pageId, feedId);
     }
 }

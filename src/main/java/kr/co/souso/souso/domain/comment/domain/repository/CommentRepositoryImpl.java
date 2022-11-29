@@ -26,18 +26,26 @@ public class CommentRepositoryImpl implements CommentRepositoryCustom {
 
     @Override
     public List<CommentDetailsVO> queryReplyDetailsList(Long parentCommentId, Long userId, Long feedId) {
+
         return selectFrom(userId)
-                .where(neCommentId(parentCommentId)
-                        .and(comment.parentComment.id.eq(parentCommentId))
-                        .and(eqCommentFeedId(feedId)))
+                .where(
+                        neCommentId(parentCommentId),
+                        eqCommentParentId(parentCommentId),
+                        eqCommentFeedId(feedId)
+                )
                 .fetch();
     }
 
     @Override
     public Slice<CommentDetailsVO> queryCommentPagesByOffset(Long userId, Long feedId, Integer pageId, Pageable pageable) {
+
         JPAQuery<CommentDetailsVO> jpaQuery = selectFrom(userId)
                 .distinct()
-                .where(eqCommentId(comment.parentComment.id).and(eqCommentFeedId(feedId)));
+                .where(
+                        eqCommentId(comment.parentComment.id),
+                        eqCommentFeedId(feedId)
+                );
+
         return PagingSupportUtil.fetchSliceByOffset(jpaQuery, PageRequest.of(pageId, pageable.getPageSize()));
     }
 
@@ -49,17 +57,21 @@ public class CommentRepositoryImpl implements CommentRepositoryCustom {
         return id != null ? comment.id.ne(id) : null;
     }
 
+    private BooleanExpression eqCommentParentId(Long id) {
+        return id != null ? comment.parentComment.id.eq(id) : null;
+    }
+
+
     private BooleanExpression eqCommentFeedId(Long id) {
         return id != null ? comment.feed.id.eq(id) : null;
     }
-
 
     private BooleanExpression eqCommentFeedUserId(NumberPath<Long> id) {
         return id != null ? comment.feed.user.id.eq(id) : null;
     }
 
     private BooleanExpression eqCommentFeedUserId(Long id) {
-        return id != null ?  comment.feed.user.id.eq(id) : null;
+        return id != null ? comment.feed.user.id.eq(id) : null;
     }
 
     private JPAQuery<CommentDetailsVO> selectFrom(Long userId) {

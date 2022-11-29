@@ -1,11 +1,11 @@
 package kr.co.souso.souso.domain.category.service;
 
-import kr.co.souso.souso.domain.category.domain.repository.FeedCategoryRepository;
-import kr.co.souso.souso.domain.category.domain.repository.vo.FeedCategoryDetailsVO;
 import kr.co.souso.souso.domain.category.presentation.dto.response.QueryFeedCategoryDetailsResponse;
 import kr.co.souso.souso.domain.category.presentation.dto.response.QueryFeedCategoryPagesResponse;
 import kr.co.souso.souso.domain.feed.domain.FeedImage;
 import kr.co.souso.souso.domain.feed.domain.repository.FeedImageRepository;
+import kr.co.souso.souso.domain.feed.domain.repository.FeedRepository;
+import kr.co.souso.souso.domain.feed.domain.repository.vo.FeedDetailsVO;
 import kr.co.souso.souso.domain.feed.exception.FeedNotFoundException;
 import kr.co.souso.souso.domain.user.domain.User;
 import kr.co.souso.souso.domain.user.domain.repository.vo.AuthorVO;
@@ -27,7 +27,7 @@ import java.util.stream.Collectors;
 @Service
 public class QueryFeedCategoryPagesService {
 
-    private final FeedCategoryRepository feedCategoryRepository;
+    private final FeedRepository feedRepository;
     private final FeedImageRepository feedImageRepository;
     private final FeedViewCountRepository feedViewCountRepository;
     private final UserFacade userFacade;
@@ -36,25 +36,25 @@ public class QueryFeedCategoryPagesService {
     public QueryFeedCategoryPagesResponse execute(Long categoryId, Long cursorId) {
         User user = userFacade.getCurrentUser();
 
-        Slice<FeedCategoryDetailsVO> feedList = feedCategoryRepository.queryFeedCategoryPagesByCursor(user.getId(), categoryId, PagingSupportUtil.applyCursorId(cursorId), PagingSupportUtil.applyPageSize());
+        Slice<FeedDetailsVO> feedList = feedRepository.queryFeedPagesByCursor(user.getId(), PagingSupportUtil.applyCursorId(cursorId), categoryId, PagingSupportUtil.applyPageSize());
 
-        List<QueryFeedCategoryDetailsResponse> queryFeedCategoryDetailsResponse = new ArrayList<>();
+        List<QueryFeedCategoryDetailsResponse> queryFeedDetailsResponseList = new ArrayList<>();
 
-        for (FeedCategoryDetailsVO feedCategoryDetailsVO : feedList) {
-            List<String> imageUrl = feedImageRepository.findByFeedId(feedCategoryDetailsVO.getFeedId())
+        for (FeedDetailsVO feedDetailsVO : feedList) {
+            List<String> imageUrl = feedImageRepository.findByFeedId(feedDetailsVO.getFeedId())
                     .stream()
                     .map(FeedImage::getImageUrl)
                     .collect(Collectors.toList());
 
-            FeedViewCount feedViewCount = feedViewCountRepository.findById(feedCategoryDetailsVO.getFeedId())
+            FeedViewCount feedViewCount = feedViewCountRepository.findById(feedDetailsVO.getFeedId())
                     .orElseThrow(() -> FeedNotFoundException.EXCEPTION);
 
-            queryFeedCategoryDetailsResponse.add(
-                    buildFeedCategoryDetailsResponse(feedCategoryDetailsVO, imageUrl, feedViewCount.getViewCount())
+            queryFeedDetailsResponseList.add(
+                    buildFeedCategoryDetailsResponse(feedDetailsVO, imageUrl, feedViewCount.getViewCount())
             );
         }
 
-        return new QueryFeedCategoryPagesResponse(queryFeedCategoryDetailsResponse, feedList.hasNext(), queryFeedCategoryDetailsResponse.size());
+        return new QueryFeedCategoryPagesResponse(queryFeedDetailsResponseList, feedList.hasNext(), queryFeedDetailsResponseList.size());
     }
 
     private AuthorResponse buildAuthorResponse(AuthorVO authorVO) {
@@ -66,18 +66,18 @@ public class QueryFeedCategoryPagesService {
                 .build();
     }
 
-    private QueryFeedCategoryDetailsResponse buildFeedCategoryDetailsResponse(FeedCategoryDetailsVO feedCategoryDetailsVO, List<String> imageUrl, Long feedViewCount) {
+    private QueryFeedCategoryDetailsResponse buildFeedCategoryDetailsResponse(FeedDetailsVO feedDetailsVO, List<String> imageUrl, Long feedViewCount) {
         return QueryFeedCategoryDetailsResponse.builder()
-                .author(buildAuthorResponse(feedCategoryDetailsVO.getAuthorVO()))
-                .feedId(feedCategoryDetailsVO.getFeedId())
+                .author(buildAuthorResponse(feedDetailsVO.getAuthorVO()))
+                .feedId(feedDetailsVO.getFeedId())
                 .imageUrl(imageUrl)
-                .createdAt(feedCategoryDetailsVO.getCreatedAt())
-                .content(feedCategoryDetailsVO.getContent())
-                .isLike(feedCategoryDetailsVO.getIsLike())
-                .isBookmark(feedCategoryDetailsVO.getIsBookmark())
-                .likeCount(feedCategoryDetailsVO.getLikeCount())
-                .commentCount(feedCategoryDetailsVO.getCommentCount())
-                .bookmarkCount(feedCategoryDetailsVO.getBookmarkCount())
+                .createdAt(feedDetailsVO.getCreatedAt())
+                .content(feedDetailsVO.getContent())
+                .isLike(feedDetailsVO.getIsLike())
+                .isBookmark(feedDetailsVO.getIsBookmark())
+                .likeCount(feedDetailsVO.getLikeCount())
+                .commentCount(feedDetailsVO.getCommentCount())
+                .bookmarkCount(feedDetailsVO.getBookmarkCount())
                 .viewCount(feedViewCount)
                 .build();
     }

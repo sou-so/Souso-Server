@@ -6,7 +6,7 @@ import kr.co.souso.souso.domain.feed.domain.Feed;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.querydsl.QuerydslPredicateExecutor;
 
-public interface FeedCategoryRepository extends JpaRepository<FeedCategory, FeedCategoryId>, FeedCategoryRepositoryCustom, QuerydslPredicateExecutor<FeedCategory> {
+public interface FeedCategoryRepository extends JpaRepository<FeedCategory, FeedCategoryId>{
 
     FeedCategory findFeedCategoryByFeedId(Long feedId);
 

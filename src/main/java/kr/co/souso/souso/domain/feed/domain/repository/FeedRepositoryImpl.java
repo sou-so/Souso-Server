@@ -27,7 +27,9 @@ public class FeedRepositoryImpl implements FeedRepositoryCustom {
     @Override
     public FeedDetailsVO queryFeedDetails(Long feedId, Long userId) {
         return selectFromFeed(userId)
-                .where(feed.id.eq(feedId))
+                .where(
+                        eqFeedId(feedId)
+                )
                 .fetchOne();
     }
 
@@ -35,20 +37,30 @@ public class FeedRepositoryImpl implements FeedRepositoryCustom {
     public Slice<FeedDetailsVO> queryFeedPageByOffset(Long userId, Integer pageId, Pageable pageable) {
 
         JPAQuery<FeedDetailsVO> jpaQuery = selectFromFeed(userId)
-                .distinct();
+                .distinct()
+                .orderBy(
+                        feed.likeCount.desc(),
+                        feed.id.desc()
+                );
 
-        return PagingSupportUtil.fetchSliceByOffset(jpaQuery.orderBy(feed.likeCount.desc(), feed.id.desc()), PageRequest.of(pageId, pageable.getPageSize()));
+        return PagingSupportUtil.fetchSliceByOffset(jpaQuery, PageRequest.of(pageId, pageable.getPageSize()));
 
     }
 
     @Override
-    public Slice<FeedDetailsVO> queryFeedPagesByCursor(Long userId, Long cursorId, Pageable pageable) {
+    public Slice<FeedDetailsVO> queryFeedPagesByCursor(Long userId, Long cursorId, Long categoryId, Pageable pageable) {
 
         JPAQuery<FeedDetailsVO> jpaQuery = selectFromFeed(userId)
                 .distinct()
-                .where(eqPage(cursorId));
+                .where(
+                        eqPage(cursorId),
+                        eqFeedCategoryCategoryId(categoryId)
+                )
+                .orderBy(
+                        feed.id.desc()
+                );
 
-        return PagingSupportUtil.fetchSliceByCursor(jpaQuery.orderBy(feed.id.desc()), pageable);
+        return PagingSupportUtil.fetchSliceByCursor(jpaQuery, pageable);
     }
 
     private BooleanExpression eqPage(Long cursorId) {
@@ -57,6 +69,14 @@ public class FeedRepositoryImpl implements FeedRepositoryCustom {
 
     private BooleanExpression eqFeedCategoryFeedId(NumberPath<Long> id) {
         return id != null ? feedCategory.feed.id.eq(id) : null;
+    }
+
+    private BooleanExpression eqFeedCategoryCategoryId(Long id) {
+        return id != null ? feedCategory.category.id.eq(id) : null;
+    }
+
+    private BooleanExpression eqFeedId(Long id) {
+        return id != null ? feed.id.eq(id) : null;
     }
 
     private BooleanExpression eqFeedBookmarkId(NumberPath<Long> id) {

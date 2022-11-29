@@ -22,7 +22,6 @@ public class CategoryController {
     private final QueryCategoryService queryCategoryService;
     private final QueryFeedCategoryPagesService queryFeedCategoryPagesService;
 
-
     @ApiOperation(value = "총 카테고리 정보")
     @GetMapping
     public CategoryListResponse getAllCategory() {
@@ -32,7 +31,7 @@ public class CategoryController {
     @ApiOperation(value = "카테고리 게시글 정보")
     @GetMapping("/{category-id}")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "cursorId", value = "마지막으로 불러온 가장 작은 게시글ID, 처음은 0", dataType = "string", paramType = "query", defaultValue = "0"),
+            @ApiImplicitParam(name = "cursorId", value = "마지막으로 불러온 가장 작은 게시글ID, 처음은 0", required = true, dataType = "string", paramType = "query", defaultValue = "0"),
     })
     public QueryFeedCategoryPagesResponse getCategoryFeeds(@RequestParam(defaultValue = "0") Long cursorId, @PathVariable("category-id") Long categoryId) {
         return queryFeedCategoryPagesService.execute(categoryId, cursorId);

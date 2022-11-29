@@ -7,11 +7,14 @@ import java.util.List;
 
 @Getter
 @AllArgsConstructor
-public class CommentResponse {
+public class QueryCommentPagesResponse {
 
-    List<QueryCommentResponse> comment;
+    List<QueryCommentDetailsResponse> comment;
 
     @ApiModelProperty(value = "다음 댓글 존재 여부", example = "true")
     Boolean hasNext;
+
+    @ApiModelProperty(value = "현재 불러온 페이지 번호", example = "10")
+    private Integer pageId;
 
 }
