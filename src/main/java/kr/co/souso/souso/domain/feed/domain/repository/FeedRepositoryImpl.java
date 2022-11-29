@@ -64,7 +64,8 @@ public class FeedRepositoryImpl implements FeedRepositoryCustom {
                 .where(
                         eqPage(feedConditionVO.getCursorId()),
                         eqFeedCategoryCategoryId(feedConditionVO.getCategoryId()),
-                        eqFeedUserId(feedConditionVO.getFindUserId())
+                        eqFeedUserId(feedConditionVO.getFindUserId()),
+                        exBookmark(feedConditionVO.getIsBookmark(), feedConditionVO.getUserId())
                 )
                 .orderBy(ORDERS.toArray(OrderSpecifier[]::new));
 
@@ -75,12 +76,16 @@ public class FeedRepositoryImpl implements FeedRepositoryCustom {
         return cursorId != null ? feed.id.lt(cursorId) : null;
     }
 
+    private BooleanExpression exBookmark(Boolean isBookmark, Long userId) {
+        return isBookmark ? feedBookmark.feed.user.id.eq(userId) : null;
+    }
+
     private BooleanExpression eqFeedCategoryFeedId(NumberPath<Long> id) {
         return id != null ? feedCategory.feed.id.eq(id) : null;
     }
 
     private BooleanExpression eqFeedCategoryCategoryId(Long id) {
-        return id != null ? feedCategory.category.id.eq(id) : null;
+        return (id != null && id != 0) ? feedCategory.category.id.eq(id) : null;
     }
 
     private BooleanExpression eqFeedUserId(Long id) {
