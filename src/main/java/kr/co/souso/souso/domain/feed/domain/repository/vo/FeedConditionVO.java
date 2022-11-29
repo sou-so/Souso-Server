@@ -17,6 +17,8 @@ public class FeedConditionVO {
 
     private Long findUserId;
 
+    private Boolean isBookmark;
+
     private String orders;
 
 }
