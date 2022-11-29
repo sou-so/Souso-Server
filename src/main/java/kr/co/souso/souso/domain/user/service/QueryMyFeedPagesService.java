@@ -5,9 +5,9 @@ import kr.co.souso.souso.domain.category.presentation.dto.response.CategoryRespo
 import kr.co.souso.souso.domain.feed.domain.FeedImage;
 import kr.co.souso.souso.domain.feed.domain.repository.FeedImageRepository;
 import kr.co.souso.souso.domain.feed.domain.repository.FeedRepository;
+import kr.co.souso.souso.domain.feed.domain.repository.vo.FeedConditionVO;
 import kr.co.souso.souso.domain.feed.domain.repository.vo.FeedDetailsVO;
 import kr.co.souso.souso.domain.feed.exception.FeedNotFoundException;
-import kr.co.souso.souso.domain.feed.presentation.dto.response.QueryFeedPagesResponse;
 import kr.co.souso.souso.domain.user.domain.User;
 import kr.co.souso.souso.domain.user.facade.UserFacade;
 import kr.co.souso.souso.domain.user.presentation.dto.response.QueryMyFeedDetailsResponse;
@@ -37,7 +37,14 @@ public class QueryMyFeedPagesService {
     public QueryMyFeedPagesResponse execute(Long cursorId) {
         User user = userFacade.getCurrentUser();
 
-        Slice<FeedDetailsVO> feedList = feedRepository.queryFeedPagesByCursor(user.getId(), PagingSupportUtil.applyCursorId(cursorId), null, user.getId(), PagingSupportUtil.applyPageSize());
+        Slice<FeedDetailsVO> feedList = feedRepository.queryFeedPagesByCursor(
+                FeedConditionVO.builder()
+                        .userId(user.getId())
+                        .cursorId(PagingSupportUtil.applyCursorId(cursorId))
+                        .findUserId(user.getId())
+                        .build(),
+                PagingSupportUtil.applyPageSize()
+        );
 
         List<QueryMyFeedDetailsResponse> queryMyFeedDetailsResponseList = new ArrayList<>();
 

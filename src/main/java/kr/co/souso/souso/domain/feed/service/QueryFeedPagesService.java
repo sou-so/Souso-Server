@@ -5,6 +5,7 @@ import kr.co.souso.souso.domain.category.presentation.dto.response.CategoryRespo
 import kr.co.souso.souso.domain.feed.domain.FeedImage;
 import kr.co.souso.souso.domain.feed.domain.repository.FeedImageRepository;
 import kr.co.souso.souso.domain.feed.domain.repository.FeedRepository;
+import kr.co.souso.souso.domain.feed.domain.repository.vo.FeedConditionVO;
 import kr.co.souso.souso.domain.feed.domain.repository.vo.FeedDetailsVO;
 import kr.co.souso.souso.domain.feed.exception.FeedNotFoundException;
 import kr.co.souso.souso.domain.feed.presentation.dto.response.QueryFeedDetailsResponse;
@@ -43,7 +44,14 @@ public class QueryFeedPagesService {
     public QueryFeedPagesResponse execute(Long cursorId, Integer pageId, SortPageType sortType) {
         User user = userFacade.getCurrentUser();
 
-        Slice<FeedDetailsVO> feedList = getFeedList(sortType, pageId, cursorId, user);
+        Slice<FeedDetailsVO> feedList = getFeedList(
+                FeedConditionVO.builder()
+                        .cursorId(PagingSupportUtil.applyCursorId(cursorId))
+                        .pageId(pageId)
+                        .userId(user.getId())
+                        .build(),
+                sortType
+        );
 
         List<QueryFeedDetailsResponse> queryFeedDetailsResponseList = new ArrayList<>();
 
@@ -98,12 +106,12 @@ public class QueryFeedPagesService {
                 .build();
     }
 
-    private Slice<FeedDetailsVO> getFeedList(SortPageType sortType, Integer pageId, Long cursorId, User user) {
-        switch (sortType) {
+    private Slice<FeedDetailsVO> getFeedList(FeedConditionVO feedConditionVO, SortPageType sortPageType) {
+        switch (sortPageType) {
             case LATEST:
-                return feedRepository.queryFeedPagesByCursor(user.getId(), PagingSupportUtil.applyCursorId(cursorId), null, null, PagingSupportUtil.applyPageSize());
+                return feedRepository.queryFeedPagesByCursor(feedConditionVO, PagingSupportUtil.applyPageSize());
             case POPULAR:
-                return feedRepository.queryFeedPageByOffset(user.getId(), pageId, PagingSupportUtil.applyPageSize());
+                return feedRepository.queryFeedPageByOffset(feedConditionVO, PagingSupportUtil.applyPageSize());
             default:
                 return null;
         }

@@ -5,6 +5,7 @@ import kr.co.souso.souso.domain.category.presentation.dto.response.QueryFeedCate
 import kr.co.souso.souso.domain.feed.domain.FeedImage;
 import kr.co.souso.souso.domain.feed.domain.repository.FeedImageRepository;
 import kr.co.souso.souso.domain.feed.domain.repository.FeedRepository;
+import kr.co.souso.souso.domain.feed.domain.repository.vo.FeedConditionVO;
 import kr.co.souso.souso.domain.feed.domain.repository.vo.FeedDetailsVO;
 import kr.co.souso.souso.domain.feed.exception.FeedNotFoundException;
 import kr.co.souso.souso.domain.user.domain.User;
@@ -36,7 +37,14 @@ public class QueryFeedCategoryPagesService {
     public QueryFeedCategoryPagesResponse execute(Long categoryId, Long cursorId) {
         User user = userFacade.getCurrentUser();
 
-        Slice<FeedDetailsVO> feedList = feedRepository.queryFeedPagesByCursor(user.getId(), PagingSupportUtil.applyCursorId(cursorId), categoryId, null, PagingSupportUtil.applyPageSize());
+        Slice<FeedDetailsVO> feedList = feedRepository.queryFeedPagesByCursor(
+                FeedConditionVO.builder()
+                        .userId(user.getId())
+                        .cursorId(PagingSupportUtil.applyCursorId(cursorId))
+                        .categoryId(categoryId)
+                        .build(),
+                PagingSupportUtil.applyPageSize()
+        );
 
         List<QueryFeedCategoryDetailsResponse> queryFeedDetailsResponseList = new ArrayList<>();
 

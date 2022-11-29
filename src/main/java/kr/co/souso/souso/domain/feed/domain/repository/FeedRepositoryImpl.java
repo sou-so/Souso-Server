@@ -5,6 +5,7 @@ import com.querydsl.core.types.dsl.NumberPath;
 import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import kr.co.souso.souso.domain.category.domain.repository.vo.QCategoryVO;
+import kr.co.souso.souso.domain.feed.domain.repository.vo.FeedConditionVO;
 import kr.co.souso.souso.domain.feed.domain.repository.vo.FeedDetailsVO;
 import kr.co.souso.souso.domain.feed.domain.repository.vo.QFeedDetailsVO;
 import kr.co.souso.souso.domain.user.domain.repository.vo.QAuthorVO;
@@ -34,28 +35,28 @@ public class FeedRepositoryImpl implements FeedRepositoryCustom {
     }
 
     @Override
-    public Slice<FeedDetailsVO> queryFeedPageByOffset(Long userId, Integer pageId, Pageable pageable) {
+    public Slice<FeedDetailsVO> queryFeedPageByOffset(FeedConditionVO feedConditionVO, Pageable pageable) {
 
-        JPAQuery<FeedDetailsVO> jpaQuery = selectFromFeed(userId)
+        JPAQuery<FeedDetailsVO> jpaQuery = selectFromFeed(feedConditionVO.getUserId())
                 .distinct()
                 .orderBy(
                         feed.likeCount.desc(),
                         feed.id.desc()
                 );
 
-        return PagingSupportUtil.fetchSliceByOffset(jpaQuery, PageRequest.of(pageId, pageable.getPageSize()));
+        return PagingSupportUtil.fetchSliceByOffset(jpaQuery, PageRequest.of(feedConditionVO.getPageId(), pageable.getPageSize()));
 
     }
 
     @Override
-    public Slice<FeedDetailsVO> queryFeedPagesByCursor(Long userId, Long cursorId, Long categoryId, Long findUserId, Pageable pageable) {
+    public Slice<FeedDetailsVO> queryFeedPagesByCursor(FeedConditionVO feedConditionVO, Pageable pageable) {
 
-        JPAQuery<FeedDetailsVO> jpaQuery = selectFromFeed(userId)
+        JPAQuery<FeedDetailsVO> jpaQuery = selectFromFeed(feedConditionVO.getUserId())
                 .distinct()
                 .where(
-                        eqPage(cursorId),
-                        eqFeedCategoryCategoryId(categoryId),
-                        eqFeedUserId(findUserId)
+                        eqPage(feedConditionVO.getCursorId()),
+                        eqFeedCategoryCategoryId(feedConditionVO.getCategoryId()),
+                        eqFeedUserId(feedConditionVO.getFindUserId())
                 )
                 .orderBy(
                         feed.id.desc()
