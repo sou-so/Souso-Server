@@ -8,7 +8,6 @@ import kr.co.souso.souso.domain.user.presentation.dto.request.UpdatePasswordRequ
 import kr.co.souso.souso.domain.user.presentation.dto.request.UpdateUserInfoRequest;
 import kr.co.souso.souso.domain.user.presentation.dto.request.UserAuthCodeRequest;
 import kr.co.souso.souso.domain.user.presentation.dto.request.UserSignUpRequest;
-import kr.co.souso.souso.domain.user.presentation.dto.response.QueryMyBookmarksPagesResponse;
 import kr.co.souso.souso.domain.user.presentation.dto.response.QueryMyFeedDetailsResponse;
 import kr.co.souso.souso.domain.user.presentation.dto.response.QueryMyFeedPagesResponse;
 import kr.co.souso.souso.domain.user.presentation.dto.response.QueryMyProfileResponse;
@@ -32,7 +31,6 @@ public class UserController {
     private final UpdatePasswordService updatePasswordService;
     private final UpdateUserInfoService updateUserInfoService;
     private final QueryMyFeedPagesService queryMyFeedPagesService;
-    private final QueryMyBookmarksPagesService queryMyBookmarksPagesService;
 
     @ApiOperation(value = "MY 프로필 정보 조회")
     @GetMapping
@@ -47,16 +45,6 @@ public class UserController {
     @GetMapping("/feeds")
     public QueryMyFeedPagesResponse queryMyFeeds(@RequestParam(defaultValue = "0") Long cursorId) {
         return queryMyFeedPagesService.execute(cursorId);
-    }
-
-    @ApiOperation(value = "MY 북마크 조회")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "cursorId", value = "마지막으로 불러온 가장 작은 게시글ID, 처음은 0", required = true, dataType = "string", paramType = "query", defaultValue = "0"),
-            @ApiImplicitParam(name = "categoryId", value = "카테고리 ID, 전체는 0", required = true, dataType = "string", paramType = "query", defaultValue = "0"),
-    })
-    @GetMapping("/bookmarks")
-    public QueryMyBookmarksPagesResponse queryMyBookmarks(@RequestParam(defaultValue = "0") Long cursorId, @RequestParam(defaultValue = "0") Long categoryId) {
-        return queryMyBookmarksPagesService.execute(cursorId, categoryId);
     }
 
     @ApiOperation(value = "회원가입")
