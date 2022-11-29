@@ -13,6 +13,6 @@ public interface FeedRepositoryCustom {
 
     Slice<FeedDetailsVO> queryFeedPagesByCursor(FeedConditionVO feedConditionVO, Pageable pageable);
 
-    Slice<FeedDetailsVO> queryFeedPageByOffset(FeedConditionVO feedConditionVO, Pageable pageable);
+    Slice<FeedDetailsVO> queryFeedPagesByOffset(FeedConditionVO feedConditionVO, Pageable pageable);
 
 }

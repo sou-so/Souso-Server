@@ -107,7 +107,7 @@ public class QueryFeedPagesService {
             case LATEST:
                 return feedRepository.queryFeedPagesByCursor(feedConditionVO, PagingSupportUtil.applyPageSize());
             case POPULAR:
-                return feedRepository.queryFeedPageByOffset(feedConditionVO, PagingSupportUtil.applyPageSize());
+                return feedRepository.queryFeedPagesByOffset(feedConditionVO, PagingSupportUtil.applyPageSize());
             default:
                 return null;
         }
