@@ -2,9 +2,9 @@ package kr.co.souso.souso.domain.comment.service;
 
 import kr.co.souso.souso.domain.comment.domain.repository.CommentRepository;
 import kr.co.souso.souso.domain.comment.domain.repository.vo.CommentDetailsVO;
-import kr.co.souso.souso.domain.comment.presentation.dto.response.CommentResponse;
-import kr.co.souso.souso.domain.comment.presentation.dto.response.QueryCommentResponse;
-import kr.co.souso.souso.domain.comment.presentation.dto.response.QueryReplyResponse;
+import kr.co.souso.souso.domain.comment.presentation.dto.response.QueryCommentPagesResponse;
+import kr.co.souso.souso.domain.comment.presentation.dto.response.QueryCommentDetailsResponse;
+import kr.co.souso.souso.domain.comment.presentation.dto.response.QueryReplyDetailsResponse;
 import kr.co.souso.souso.domain.user.domain.User;
 import kr.co.souso.souso.domain.user.domain.repository.vo.AuthorVO;
 import kr.co.souso.souso.domain.user.facade.UserFacade;
@@ -24,23 +24,23 @@ public class QueryCommentPagesService {
     private final CommentRepository commentRepository;
     private final UserFacade userFacade;
 
-    public CommentResponse execute(Integer pageId, Long feedId) {
+    public QueryCommentPagesResponse execute(Integer pageId, Long feedId) {
         User user = userFacade.getCurrentUser();
 
-        List<QueryCommentResponse> queryCommentResponseList = new ArrayList<>();
+        List<QueryCommentDetailsResponse> queryCommentDetailsResponseList = new ArrayList<>();
         Slice<CommentDetailsVO> commentList = commentRepository.queryCommentPagesByOffset(user.getId(), feedId, pageId, PagingSupportUtil.applyPageSize());
 
         for (CommentDetailsVO commentDetailsVO : commentList) {
             List<CommentDetailsVO> replyDetailsList = commentRepository.queryReplyDetailsList(commentDetailsVO.getParentCommentId(), user.getId(), feedId);
-            queryCommentResponseList.add(
+            queryCommentDetailsResponseList.add(
                     buildCommentResponse(commentDetailsVO, buildReplyResponse(replyDetailsList))
             );
         }
-        return new CommentResponse(queryCommentResponseList, commentList.hasNext());
+        return new QueryCommentPagesResponse(queryCommentDetailsResponseList, commentList.hasNext(), pageId);
     }
 
-    private QueryCommentResponse buildCommentResponse(CommentDetailsVO commentDetailsVO, List<QueryReplyResponse> queryReplyResponse) {
-        return QueryCommentResponse.builder()
+    private QueryCommentDetailsResponse buildCommentResponse(CommentDetailsVO commentDetailsVO, List<QueryReplyDetailsResponse> queryReplyDetailsResponse) {
+        return QueryCommentDetailsResponse.builder()
                 .author(buildAuthorResponse(commentDetailsVO.getAuthor()))
                 .commentId(commentDetailsVO.getCommentId())
                 .isFeedOwner(commentDetailsVO.getIsFeedOwner())
@@ -48,7 +48,7 @@ public class QueryCommentPagesService {
                 .commentId(commentDetailsVO.getCommentId())
                 .content(commentDetailsVO.getContent())
                 .createdAt(commentDetailsVO.getCreatedAt())
-                .reply(queryReplyResponse)
+                .reply(queryReplyDetailsResponse)
                 .build();
     }
 
@@ -62,11 +62,11 @@ public class QueryCommentPagesService {
                 .build();
     }
 
-    private List<QueryReplyResponse> buildReplyResponse(List<CommentDetailsVO> commentDetailsVOList) {
-        List<QueryReplyResponse> queryReplyResponseList = new ArrayList<>();
+    private List<QueryReplyDetailsResponse> buildReplyResponse(List<CommentDetailsVO> commentDetailsVOList) {
+        List<QueryReplyDetailsResponse> queryReplyDetailsResponseList = new ArrayList<>();
         for (CommentDetailsVO commentDetailsVO : commentDetailsVOList) {
-            queryReplyResponseList.add(
-                    QueryReplyResponse.builder()
+            queryReplyDetailsResponseList.add(
+                    QueryReplyDetailsResponse.builder()
                             .author(buildAuthorResponse(commentDetailsVO.getAuthor()))
                             .commentId(commentDetailsVO.getCommentId())
                             .isFeedOwner(commentDetailsVO.getIsFeedOwner())
@@ -76,6 +76,6 @@ public class QueryCommentPagesService {
                             .build()
             );
         }
-        return queryReplyResponseList;
+        return queryReplyDetailsResponseList;
     }
 }

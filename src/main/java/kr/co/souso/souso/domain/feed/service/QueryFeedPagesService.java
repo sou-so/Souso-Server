@@ -61,7 +61,7 @@ public class QueryFeedPagesService {
             );
         }
 
-        return new QueryFeedPagesResponse(queryFeedDetailsResponseList, feedList.hasNext(), queryFeedDetailsResponseList.size());
+        return new QueryFeedPagesResponse(queryFeedDetailsResponseList, feedList.hasNext(), queryFeedDetailsResponseList.size(), pageId);
     }
 
 
