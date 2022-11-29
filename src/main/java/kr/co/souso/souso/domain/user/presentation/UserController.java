@@ -51,12 +51,12 @@ public class UserController {
 
     @ApiOperation(value = "MY 북마크 조회")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "cursorId", value = "마지막으로 불러온 가장 작은 게시글ID, 처음은 0", required = true, dataType = "string", paramType = "query", defaultValue = "0"),
+            @ApiImplicitParam(name = "pageId", value = "현재 조회한 페이지 번호, 처음은 0", required = true, dataType = "string", paramType = "query", defaultValue = "0"),
             @ApiImplicitParam(name = "categoryId", value = "카테고리 ID, 전체는 0", required = true, dataType = "string", paramType = "query", defaultValue = "0"),
     })
     @GetMapping("/bookmarks")
-    public QueryMyBookmarksPagesResponse queryMyBookmarks(@RequestParam(defaultValue = "0") Long cursorId, @RequestParam(defaultValue = "0") Long categoryId) {
-        return queryMyBookmarksPagesService.execute(cursorId, categoryId);
+    public QueryMyBookmarksPagesResponse queryMyBookmarks(@RequestParam(defaultValue = "0") Integer pageId, @RequestParam(defaultValue = "0") Long categoryId) {
+        return queryMyBookmarksPagesService.execute(pageId, categoryId);
     }
 
     @ApiOperation(value = "회원가입")

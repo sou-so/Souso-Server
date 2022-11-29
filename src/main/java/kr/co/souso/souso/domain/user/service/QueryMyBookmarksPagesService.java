@@ -35,14 +35,14 @@ public class QueryMyBookmarksPagesService {
     private final static String ORDER = "BOOKMARK";
 
     @Transactional(readOnly = true)
-    public QueryMyBookmarksPagesResponse execute(Long cursorId, Long categoryId) {
+    public QueryMyBookmarksPagesResponse execute(Integer pageId, Long categoryId) {
 
         User user = userFacade.getCurrentUser();
 
-        Slice<FeedDetailsVO> feedList = feedRepository.queryFeedPagesByCursor(
+        Slice<FeedDetailsVO> feedList = feedRepository.queryFeedPagesByOffset(
                 FeedConditionVO.builder()
                         .userId(user.getId())
-                        .cursorId(PagingSupportUtil.applyCursorId(cursorId))
+                        .pageId(pageId)
                         .findUserId(user.getId())
                         .categoryId(categoryId)
                         .isBookmark(true)
@@ -67,7 +67,7 @@ public class QueryMyBookmarksPagesService {
             );
         }
 
-        return new QueryMyBookmarksPagesResponse(queryMyBookmarksDetailsResponseList, feedList.hasNext(), queryMyBookmarksDetailsResponseList.size());
+        return new QueryMyBookmarksPagesResponse(queryMyBookmarksDetailsResponseList, feedList.hasNext(), queryMyBookmarksDetailsResponseList.size(), pageId);
     }
 
     private CategoryResponse buildCategoryResponse(CategoryVO categoryVO) {

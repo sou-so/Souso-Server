@@ -17,6 +17,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
 import org.springframework.data.domain.Sort;
+import org.springframework.util.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,6 +27,7 @@ import static kr.co.souso.souso.domain.category.domain.QFeedCategory.feedCategor
 import static kr.co.souso.souso.domain.feed.domain.QFeed.feed;
 import static kr.co.souso.souso.domain.like.domain.QFeedLike.feedLike;
 import static org.springframework.util.ObjectUtils.isEmpty;
+import static org.springframework.util.StringUtils.hasText;
 
 @RequiredArgsConstructor
 public class FeedRepositoryImpl implements FeedRepositoryCustom {
@@ -35,19 +37,22 @@ public class FeedRepositoryImpl implements FeedRepositoryCustom {
     @Override
     public FeedDetailsVO queryFeedDetails(Long feedId, Long userId) {
         return selectFromFeed(userId)
-                .where(
-                        eqFeedId(feedId)
-                )
+                .where(eqFeedId(feedId))
                 .fetchOne();
     }
 
     @Override
-    public Slice<FeedDetailsVO> queryFeedPageByOffset(FeedConditionVO feedConditionVO, Pageable pageable) {
+    public Slice<FeedDetailsVO> queryFeedPagesByOffset(FeedConditionVO feedConditionVO, Pageable pageable) {
 
         List<OrderSpecifier> ORDERS = getAllOrderSpecifiers(feedConditionVO);
 
         JPAQuery<FeedDetailsVO> jpaQuery = selectFromFeed(feedConditionVO.getUserId())
                 .distinct()
+                .where(
+                        eqFeedCategoryCategoryId(feedConditionVO.getCategoryId()),
+                        eqFeedUserId(feedConditionVO.getFindUserId()),
+                        exBookmark(feedConditionVO.getIsBookmark(), feedConditionVO.getUserId())
+                )
                 .orderBy(ORDERS.toArray(OrderSpecifier[]::new));
 
         return PagingSupportUtil.fetchSliceByOffset(jpaQuery, PageRequest.of(feedConditionVO.getPageId(), pageable.getPageSize()));
@@ -64,8 +69,7 @@ public class FeedRepositoryImpl implements FeedRepositoryCustom {
                 .where(
                         eqPage(feedConditionVO.getCursorId()),
                         eqFeedCategoryCategoryId(feedConditionVO.getCategoryId()),
-                        eqFeedUserId(feedConditionVO.getFindUserId()),
-                        exBookmark(feedConditionVO.getIsBookmark(), feedConditionVO.getUserId())
+                        eqFeedUserId(feedConditionVO.getFindUserId())
                 )
                 .orderBy(ORDERS.toArray(OrderSpecifier[]::new));
 
@@ -77,7 +81,7 @@ public class FeedRepositoryImpl implements FeedRepositoryCustom {
     }
 
     private BooleanExpression exBookmark(Boolean isBookmark, Long userId) {
-        return isBookmark ? feedBookmark.feed.user.id.eq(userId) : null;
+        return (isBookmark != null && isBookmark) ? feedBookmark.feed.user.id.eq(userId) : null;
     }
 
     private BooleanExpression eqFeedCategoryFeedId(NumberPath<Long> id) {
@@ -147,20 +151,26 @@ public class FeedRepositoryImpl implements FeedRepositoryCustom {
 
         List<OrderSpecifier> ORDERS = new ArrayList<>();
 
-        switch (feedConditionVO.getOrders()) {
-            case "BOOKMARK":
-                OrderSpecifier<?> orderBookmark = PagingSupportUtil.getSortedColumn(Order.DESC, feedBookmark, "modifiedAt");
-                ORDERS.add(orderBookmark);
-            case "LIKE":
-                OrderSpecifier<?> orderLike = PagingSupportUtil.getSortedColumn(Order.DESC, feedLike, "modifiedAt");
-                ORDERS.add(orderLike);
-            case "POPULAR":
-                OrderSpecifier<?> orderPopular = PagingSupportUtil.getSortedColumn(Order.DESC, feed, "likeCount");
-                ORDERS.add(orderPopular);
-            default:
-                OrderSpecifier<?> orderId = PagingSupportUtil.getSortedColumn(Order.DESC, feed, "id");
-                ORDERS.add(orderId);
+        if (hasText(feedConditionVO.getOrders())) {
+            switch (feedConditionVO.getOrders()) {
+                case "BOOKMARK":
+                    OrderSpecifier<?> orderBookmark = PagingSupportUtil.getSortedColumn(Order.DESC, feedBookmark, "modifiedAt");
+                    ORDERS.add(orderBookmark);
+                    break;
+                case "LIKE":
+                    OrderSpecifier<?> orderLike = PagingSupportUtil.getSortedColumn(Order.DESC, feedLike, "modifiedAt");
+                    ORDERS.add(orderLike);
+                    break;
+                case "POPULAR":
+                    OrderSpecifier<?> orderPopular = PagingSupportUtil.getSortedColumn(Order.DESC, feed, "likeCount");
+                    ORDERS.add(orderPopular);
+                    break;
+                default:
+                    break;
+            }
         }
+        OrderSpecifier<?> orderId = PagingSupportUtil.getSortedColumn(Order.DESC, feed, "id");
+        ORDERS.add(orderId);
         return ORDERS;
     }
 }

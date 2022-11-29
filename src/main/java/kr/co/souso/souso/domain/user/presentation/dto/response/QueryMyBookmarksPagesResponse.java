@@ -20,4 +20,7 @@ public class QueryMyBookmarksPagesResponse {
     @ApiModelProperty(value = "불러온 게시글 개수", example = "10")
     private Integer feedCount;
 
+    @ApiModelProperty(value = "현재 불러온 페이지 번호", example = "10")
+    private Integer pageId;
+
 }
