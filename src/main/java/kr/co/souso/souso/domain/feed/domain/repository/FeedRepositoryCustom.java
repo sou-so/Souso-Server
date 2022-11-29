@@ -1,6 +1,7 @@
 package kr.co.souso.souso.domain.feed.domain.repository;
 
 
+import kr.co.souso.souso.domain.feed.domain.repository.vo.FeedConditionVO;
 import kr.co.souso.souso.domain.feed.domain.repository.vo.FeedDetailsVO;
 import kr.co.souso.souso.global.enums.SortPageType;
 import org.springframework.data.domain.Pageable;
@@ -10,8 +11,8 @@ public interface FeedRepositoryCustom {
 
     FeedDetailsVO queryFeedDetails(Long FeedId, Long userId);
 
-    Slice<FeedDetailsVO> queryFeedPagesByCursor(Long userId, Long cursorId, Long categoryId, Pageable pageable);
+    Slice<FeedDetailsVO> queryFeedPagesByCursor(FeedConditionVO feedConditionVO, Pageable pageable);
 
-    Slice<FeedDetailsVO> queryFeedPageByOffset(Long userId, Integer pageId, Pageable pageable);
+    Slice<FeedDetailsVO> queryFeedPageByOffset(FeedConditionVO feedConditionVO, Pageable pageable);
 
 }

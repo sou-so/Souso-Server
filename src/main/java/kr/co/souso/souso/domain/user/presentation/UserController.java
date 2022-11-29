@@ -1,11 +1,15 @@
 package kr.co.souso.souso.domain.user.presentation;
 
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import kr.co.souso.souso.domain.auth.presentation.dto.response.UserTokenResponse;
 import kr.co.souso.souso.domain.user.presentation.dto.request.UpdatePasswordRequest;
 import kr.co.souso.souso.domain.user.presentation.dto.request.UpdateUserInfoRequest;
 import kr.co.souso.souso.domain.user.presentation.dto.request.UserAuthCodeRequest;
 import kr.co.souso.souso.domain.user.presentation.dto.request.UserSignUpRequest;
+import kr.co.souso.souso.domain.user.presentation.dto.response.QueryMyFeedDetailsResponse;
+import kr.co.souso.souso.domain.user.presentation.dto.response.QueryMyFeedPagesResponse;
 import kr.co.souso.souso.domain.user.presentation.dto.response.QueryMyProfileResponse;
 import kr.co.souso.souso.domain.user.service.*;
 import lombok.RequiredArgsConstructor;
@@ -26,11 +30,21 @@ public class UserController {
     private final QueryMyProfileService queryMyProfileService;
     private final UpdatePasswordService updatePasswordService;
     private final UpdateUserInfoService updateUserInfoService;
+    private final QueryMyFeedPagesService queryMyFeedPagesService;
 
     @ApiOperation(value = "MY 프로필 정보 조회")
     @GetMapping
     public QueryMyProfileResponse queryMyProfile() {
         return queryMyProfileService.execute();
+    }
+
+    @ApiOperation(value = "MY 게시글 조회")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "cursorId", value = "마지막으로 불러온 가장 작은 게시글ID, 처음은 0", required = true, dataType = "string", paramType = "query", defaultValue = "0"),
+    })
+    @GetMapping("/feeds")
+    public QueryMyFeedPagesResponse queryMyFeeds(@RequestParam(defaultValue = "0") Long cursorId) {
+        return queryMyFeedPagesService.execute(cursorId);
     }
 
     @ApiOperation(value = "회원가입")
