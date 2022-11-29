@@ -48,13 +48,14 @@ public class FeedRepositoryImpl implements FeedRepositoryCustom {
     }
 
     @Override
-    public Slice<FeedDetailsVO> queryFeedPagesByCursor(Long userId, Long cursorId, Long categoryId, Pageable pageable) {
+    public Slice<FeedDetailsVO> queryFeedPagesByCursor(Long userId, Long cursorId, Long categoryId, Long findUserId, Pageable pageable) {
 
         JPAQuery<FeedDetailsVO> jpaQuery = selectFromFeed(userId)
                 .distinct()
                 .where(
                         eqPage(cursorId),
-                        eqFeedCategoryCategoryId(categoryId)
+                        eqFeedCategoryCategoryId(categoryId),
+                        eqFeedUserId(findUserId)
                 )
                 .orderBy(
                         feed.id.desc()
@@ -73,6 +74,10 @@ public class FeedRepositoryImpl implements FeedRepositoryCustom {
 
     private BooleanExpression eqFeedCategoryCategoryId(Long id) {
         return id != null ? feedCategory.category.id.eq(id) : null;
+    }
+
+    private BooleanExpression eqFeedUserId(Long id) {
+        return id != null ? feed.user.id.eq(id) : null;
     }
 
     private BooleanExpression eqFeedId(Long id) {
