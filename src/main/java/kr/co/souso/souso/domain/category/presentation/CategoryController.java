@@ -22,7 +22,6 @@ public class CategoryController {
     private final QueryCategoryService queryCategoryService;
     private final QueryFeedCategoryPagesService queryFeedCategoryPagesService;
 
-
     @ApiOperation(value = "총 카테고리 정보")
     @GetMapping
     public CategoryListResponse getAllCategory() {

@@ -10,7 +10,7 @@ public interface FeedRepositoryCustom {
 
     FeedDetailsVO queryFeedDetails(Long FeedId, Long userId);
 
-    Slice<FeedDetailsVO> queryFeedPagesByCursor(Long userId, Long cursorId, Pageable pageable);
+    Slice<FeedDetailsVO> queryFeedPagesByCursor(Long userId, Long cursorId, Long categoryId, Pageable pageable);
 
     Slice<FeedDetailsVO> queryFeedPageByOffset(Long userId, Integer pageId, Pageable pageable);
 

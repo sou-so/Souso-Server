@@ -101,7 +101,7 @@ public class QueryFeedPagesService {
     private Slice<FeedDetailsVO> getFeedList(SortPageType sortType, Integer pageId, Long cursorId, User user) {
         switch (sortType) {
             case LATEST:
-                return feedRepository.queryFeedPagesByCursor(user.getId(), PagingSupportUtil.applyCursorId(cursorId), PagingSupportUtil.applyPageSize());
+                return feedRepository.queryFeedPagesByCursor(user.getId(), PagingSupportUtil.applyCursorId(cursorId), null, PagingSupportUtil.applyPageSize());
             case POPULAR:
                 return feedRepository.queryFeedPageByOffset(user.getId(), pageId, PagingSupportUtil.applyPageSize());
             default:
