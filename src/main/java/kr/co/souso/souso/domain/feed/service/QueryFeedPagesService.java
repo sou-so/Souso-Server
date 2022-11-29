@@ -19,7 +19,6 @@ import kr.co.souso.souso.domain.viewcount.domain.repository.FeedViewCountReposit
 import kr.co.souso.souso.global.enums.SortPageType;
 import kr.co.souso.souso.global.utils.code.PagingSupportUtil;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Slice;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -27,9 +26,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
-
-import static kr.co.souso.souso.global.enums.SortPageType.LATEST;
-import static kr.co.souso.souso.global.enums.SortPageType.POPULAR;
 
 @RequiredArgsConstructor
 @Service
@@ -49,9 +45,9 @@ public class QueryFeedPagesService {
                         .cursorId(PagingSupportUtil.applyCursorId(cursorId))
                         .pageId(pageId)
                         .userId(user.getId())
+                        .orders(sortType.getCode())
                         .build(),
-                sortType
-        );
+                sortType);
 
         List<QueryFeedDetailsResponse> queryFeedDetailsResponseList = new ArrayList<>();
 
