@@ -8,17 +8,11 @@ import lombok.Getter;
 public class FeedConditionVO {
 
     private Long userId;
-
     private Long cursorId;
-
     private Integer pageId;
-
     private Long categoryId;
-
     private Long findUserId;
-
     private Boolean isBookmark;
-
     private String orders;
 
 }
