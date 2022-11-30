@@ -20,6 +20,7 @@ public class QueryMyProfileService {
         User user = userFacade.getCurrentUser();
 
         return QueryMyProfileResponse.builder()
+                .userId(user.getId())
                 .nickname(user.getNickname())
                 .birth(user.getBirth())
                 .profileImageUrl(user.getProfileImageUrl())

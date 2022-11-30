@@ -8,6 +8,9 @@ import lombok.Getter;
 @Builder
 public class QueryMyProfileResponse {
 
+    @ApiModelProperty(value = "유저 고유 ID", example = "1")
+    private final Long userId;
+
     @ApiModelProperty(value = "프로필 이미지", example = "https://souso-bucket.s3.ap-northeast-2.amazonaws.com/logo.svg")
     private final String profileImageUrl;
 
