@@ -28,12 +28,11 @@ public class SubLikeService {
 
         if (isAlreadyLike(feed, user)) {
             feed.subLike();
-
-            FeedLike feedLike = FeedLike.builder()
+            user.subLike();
+            feedLikeRepository.delete(FeedLike.builder()
                     .feed(feed)
                     .user(user)
-                    .build();
-            feedLikeRepository.delete(feedLike);
+                    .build());
         }
     }
 

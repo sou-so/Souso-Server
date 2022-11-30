@@ -6,6 +6,7 @@ import kr.co.souso.souso.domain.feed.domain.Feed;
 import kr.co.souso.souso.domain.feed.domain.repository.FeedRepository;
 import kr.co.souso.souso.domain.feed.exception.FeedNotFoundException;
 import kr.co.souso.souso.domain.user.domain.User;
+import kr.co.souso.souso.domain.user.domain.repository.UserRepository;
 import kr.co.souso.souso.domain.user.facade.UserFacade;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -18,6 +19,7 @@ public class SubBookmarkService {
     private final FeedBookmarkRepository feedBookmarkRepository;
     private final FeedRepository feedRepository;
     private final UserFacade userFacade;
+    private final UserRepository userRepository;
 
     @Transactional
     public void execute(Long feedId) {
@@ -28,13 +30,11 @@ public class SubBookmarkService {
 
         if (isAlreadyBookmark(feed, user)) {
             feed.subBookmark();
-
-            FeedBookmark feedBookmark = FeedBookmark.builder()
+            user.subBookmark();
+            feedBookmarkRepository.delete(FeedBookmark.builder()
                     .feed(feed)
                     .user(user)
-                    .build();
-
-            feedBookmarkRepository.delete(feedBookmark);
+                    .build());
         }
     }
 

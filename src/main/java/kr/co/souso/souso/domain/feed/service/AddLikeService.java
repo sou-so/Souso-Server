@@ -27,13 +27,12 @@ public class AddLikeService {
                 .orElseThrow(() -> FeedNotFoundException.EXCEPTION);
 
         if (isNotAlreadyLike(feed, user)) {
-            FeedLike feedLike = FeedLike.builder()
+            feed.addLike();
+            user.addLike();
+            feedLikeRepository.save(FeedLike.builder()
                     .feed(feed)
                     .user(user)
-                    .build();
-
-            feed.addLike();
-            feedLikeRepository.save(feedLike);
+                    .build());
         }
     }
 

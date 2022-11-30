@@ -58,8 +58,6 @@ public class UpdateFeedService {
         }
         feed.updateFeed(request.getContent());
 
-        feedRepository.save(feed);
-
         FeedCategory feedCategory = feedCategoryRepository.findFeedCategoryByFeedId(feedId);
         feedCategory.updateFeedCategory(feed, category);
     }
