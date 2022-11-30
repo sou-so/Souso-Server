@@ -3,11 +3,9 @@ package kr.co.souso.souso.domain.auth.presentation;
 import io.swagger.annotations.ApiOperation;
 import kr.co.souso.souso.domain.auth.presentation.dto.request.CheckAuthCodeRequest;
 import kr.co.souso.souso.domain.auth.presentation.dto.request.UserSignInRequest;
+import kr.co.souso.souso.domain.auth.presentation.dto.response.UserTokenRefreshResponse;
 import kr.co.souso.souso.domain.auth.presentation.dto.response.UserTokenResponse;
-import kr.co.souso.souso.domain.auth.service.CheckAuthCodeExistsService;
-import kr.co.souso.souso.domain.auth.service.CheckEmailExistsService;
-import kr.co.souso.souso.domain.auth.service.CheckNicknameExistService;
-import kr.co.souso.souso.domain.auth.service.UserSignInService;
+import kr.co.souso.souso.domain.auth.service.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -25,11 +23,18 @@ public class AuthController {
     private final CheckNicknameExistService checkNicknameExistService;
     private final CheckAuthCodeExistsService checkAuthCodeExistsService;
     private final CheckEmailExistsService checkEmailExistsService;
+    private final UserTokenRefreshService userTokenRefreshService;
 
     @ApiOperation(value = "로그인")
     @PostMapping("/token")
     public UserTokenResponse userSignIn(@RequestBody @Valid UserSignInRequest request) {
         return userSignInService.execute(request);
+    }
+
+    @ApiOperation(value = "토큰 재발급")
+    @PatchMapping("/token")
+    public UserTokenRefreshResponse userTokenRefresh(@RequestHeader("Refresh-Token") String refreshToken) {
+        return userTokenRefreshService.execute(refreshToken);
     }
 
     @ApiOperation(value = "닉네임 중복 체크")
