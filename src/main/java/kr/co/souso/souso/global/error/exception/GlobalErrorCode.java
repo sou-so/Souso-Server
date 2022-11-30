@@ -29,6 +29,7 @@ public enum GlobalErrorCode {
     USER_AUTH_CODE_NOT_FOUND(404, "User AuthCode Not Found"),
     IMAGE_NOT_FOUND(404, "IMAGE_NOT_FOUND"),
     COMMENT_FOT_FOUND(404, "COMMENT_FOT_FOUND"),
+    MEETING_NOT_FOUND(404, "Meeting Not Found"),
 
 
     // 409
