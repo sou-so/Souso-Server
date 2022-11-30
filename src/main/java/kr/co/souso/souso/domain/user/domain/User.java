@@ -8,6 +8,7 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.ColumnDefault;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -57,6 +58,26 @@ public class User extends BaseTimeEntity {
     @Column(nullable = false)
     private String profileImageUrl;
 
+    @NotNull
+    @ColumnDefault("0")
+    private Long feedCount;
+
+    @NotNull
+    @ColumnDefault("0")
+    private Long likeCount;
+
+    @NotNull
+    @ColumnDefault("0")
+    private Long bookmarkCount;
+
+    @NotNull
+    @ColumnDefault("0")
+    private Long commentCount;
+
+    @NotNull
+    @ColumnDefault("0")
+    private Long meetingCount;
+
     @Builder
     public User(String email, String password, String name, String phoneNumber, String nickname, String birth,
                 UserRole role, String profileImageUrl) {
@@ -70,6 +91,15 @@ public class User extends BaseTimeEntity {
         this.profileImageUrl = profileImageUrl;
     }
 
+    @PrePersist
+    public void prePersist() {
+        this.likeCount = this.likeCount == null ? 0 : this.likeCount;
+        this.bookmarkCount = this.bookmarkCount == null ? 0 : this.bookmarkCount;
+        this.commentCount = this.commentCount == null ? 0 : this.commentCount;
+        this.feedCount = this.feedCount == null ? 0 : this.feedCount;
+        this.meetingCount = this.meetingCount == null ? 0 : this.meetingCount;
+    }
+
     public void setPassword(String password) {
         this.password = password;
     }
@@ -78,5 +108,45 @@ public class User extends BaseTimeEntity {
         this.nickname = request.getNickname();
         this.profileImageUrl = request.getProfileImageUrl() == null ? DefaultImage.USER_PROFILE_IMAGE : request.getProfileImageUrl();
         this.birth = request.getBirth();
+    }
+
+    public void addLike() {
+        this.likeCount++;
+    }
+
+    public void subLike(){
+        this.likeCount--;
+    }
+
+    public void addBookmark() {
+        this.bookmarkCount++;
+    }
+
+    public void subBookmark(){
+        this.bookmarkCount--;
+    }
+
+    public void addComment() {
+        this.commentCount++;
+    }
+
+    public void subComment() {
+        this.commentCount--;
+    }
+
+    public void addFeed() {
+        this.feedCount++;
+    }
+
+    public void subFeed() {
+        this.feedCount--;
+    }
+
+    public void addMeeting() {
+        this.meetingCount++;
+    }
+
+    public void subMeeting() {
+        this.meetingCount--;
     }
 }

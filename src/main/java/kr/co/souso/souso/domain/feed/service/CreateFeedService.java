@@ -53,17 +53,16 @@ public class CreateFeedService {
                     )
                     .forEach(feedImageRepository::save);
         }
-        FeedCategory feedCategory = FeedCategory.builder()
+
+        feedViewCountRepository.save(FeedViewCount.builder()
+                .feedId(feed.getId())
+                .build());
+        feedCategoryRepository.save(FeedCategory.builder()
                 .feed(feed)
                 .category(categoryFacade.getCategoryById(request.getCategoryId()))
-                .build();
+                .build());
 
-        FeedViewCount feedViewCount = FeedViewCount.builder()
-                .feedId(feed.getId())
-                .build();
-
-        feedViewCountRepository.save(feedViewCount);
-        feedCategoryRepository.save(feedCategory);
+        user.addFeed();
 
         return new CreateFeedResponse(feed.getId());
     }

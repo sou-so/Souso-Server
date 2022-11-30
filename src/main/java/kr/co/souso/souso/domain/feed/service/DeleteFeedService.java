@@ -2,14 +2,14 @@ package kr.co.souso.souso.domain.feed.service;
 
 import kr.co.souso.souso.domain.category.domain.repository.FeedCategoryRepository;
 import kr.co.souso.souso.domain.feed.domain.Feed;
-import kr.co.souso.souso.domain.feed.exception.FeedNotFoundException;
 import kr.co.souso.souso.domain.feed.domain.repository.FeedImageRepository;
 import kr.co.souso.souso.domain.feed.domain.repository.FeedRepository;
+import kr.co.souso.souso.domain.feed.exception.FeedNotFoundException;
 import kr.co.souso.souso.domain.user.domain.User;
 import kr.co.souso.souso.domain.user.exception.NotValidUserException;
 import kr.co.souso.souso.domain.user.facade.UserFacade;
-import kr.co.souso.souso.domain.viewcount.domain.repository.FeedViewCountRepository;
 import kr.co.souso.souso.domain.viewcount.domain.FeedViewCount;
+import kr.co.souso.souso.domain.viewcount.domain.repository.FeedViewCountRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -37,7 +37,7 @@ public class DeleteFeedService {
         if (!user.getId().equals(feed.getUser().getId())) {
             throw NotValidUserException.EXCEPTION;
         }
-
+        user.subFeed();
         feedImageRepository.deleteAllByFeed(feed);
         feedCategoryRepository.deleteByFeed(feed);
         feedRepository.delete(feed);

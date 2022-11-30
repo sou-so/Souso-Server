@@ -57,6 +57,8 @@ public class CreateMeetingService {
                 .meetingId(meeting.getId())
                 .build());
 
+        user.addMeeting();
+
         return new MeetingResponse(meeting.getId());
     }
 }

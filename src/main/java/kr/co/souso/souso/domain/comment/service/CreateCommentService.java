@@ -35,7 +35,7 @@ public class CreateCommentService {
                 .build();
 
         feed.addComment();
-        feedRepository.save(feed);
+        user.addComment();
         commentRepository.save(comment);
 
         return new CreateCommentResponse(comment.getId());
