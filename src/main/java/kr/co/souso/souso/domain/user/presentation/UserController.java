@@ -8,10 +8,7 @@ import kr.co.souso.souso.domain.user.presentation.dto.request.UpdatePasswordRequ
 import kr.co.souso.souso.domain.user.presentation.dto.request.UpdateUserInfoRequest;
 import kr.co.souso.souso.domain.user.presentation.dto.request.UserAuthCodeRequest;
 import kr.co.souso.souso.domain.user.presentation.dto.request.UserSignUpRequest;
-import kr.co.souso.souso.domain.user.presentation.dto.response.QueryMyBookmarksPagesResponse;
-import kr.co.souso.souso.domain.user.presentation.dto.response.QueryMyFeedDetailsResponse;
-import kr.co.souso.souso.domain.user.presentation.dto.response.QueryMyFeedPagesResponse;
-import kr.co.souso.souso.domain.user.presentation.dto.response.QueryMyProfileResponse;
+import kr.co.souso.souso.domain.user.presentation.dto.response.*;
 import kr.co.souso.souso.domain.user.service.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -33,6 +30,7 @@ public class UserController {
     private final UpdateUserInfoService updateUserInfoService;
     private final QueryMyFeedPagesService queryMyFeedPagesService;
     private final QueryMyBookmarksPagesService queryMyBookmarksPagesService;
+    private final QueryMyCommentPagesService queryMyCommentPagesService;
 
     @ApiOperation(value = "MY 프로필 정보 조회")
     @GetMapping
@@ -47,6 +45,15 @@ public class UserController {
     @GetMapping("/feeds")
     public QueryMyFeedPagesResponse queryMyFeeds(@RequestParam(defaultValue = "0") Long cursorId) {
         return queryMyFeedPagesService.execute(cursorId);
+    }
+
+    @ApiOperation(value = "MY 댓글 조회")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "pageId", value = "현재 조회한 페이지 번호, 처음은 0", required = true, dataType = "string", paramType = "query", defaultValue = "0"),
+    })
+    @GetMapping("/comments")
+    public QueryMyCommentPagesResponse queryMyComments(@RequestParam(defaultValue = "0") Integer pageId) {
+        return queryMyCommentPagesService.execute(pageId);
     }
 
     @ApiOperation(value = "MY 북마크 조회")

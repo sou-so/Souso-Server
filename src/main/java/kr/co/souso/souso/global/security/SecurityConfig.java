@@ -49,6 +49,7 @@ public class SecurityConfig {
                 .antMatchers(HttpMethod.GET, "/users").authenticated()
                 .antMatchers(HttpMethod.GET, "/users/feeds").authenticated()
                 .antMatchers(HttpMethod.GET, "/users/bookmarks").authenticated()
+                .antMatchers(HttpMethod.GET, "/users/comments").authenticated()
                 .antMatchers(HttpMethod.POST, "/users/verification-codes").permitAll()
                 .antMatchers(HttpMethod.POST, "/users").permitAll()
                 .antMatchers(HttpMethod.POST, "/users/token").permitAll()
