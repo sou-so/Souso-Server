@@ -64,13 +64,16 @@ public class SecurityConfig {
                 .antMatchers(HttpMethod.DELETE, "/feeds/**").authenticated()
 
                 // comments
-                .antMatchers(HttpMethod.POST, "/comments/**").authenticated()
                 .antMatchers(HttpMethod.GET, "/comments/**").authenticated()
+                .antMatchers(HttpMethod.POST, "/comments/**").authenticated()
                 .antMatchers(HttpMethod.PATCH, "/comments/**").authenticated()
                 .antMatchers(HttpMethod.DELETE, "/comments/**").authenticated()
 
                 // categories
                 .antMatchers(HttpMethod.GET, "/categories/**").permitAll()
+
+                // meetings
+                .antMatchers(HttpMethod.POST, "/meetings").authenticated()
 
                 // swagger
                 .antMatchers("/swagger*/**", "/v3/api-docs/**", "/swagger-ui/**", "/swagger-resources/**").permitAll()

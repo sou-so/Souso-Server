@@ -16,8 +16,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
-import org.springframework.data.domain.Sort;
-import org.springframework.util.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,7 +24,6 @@ import static kr.co.souso.souso.domain.bookmark.domain.QFeedBookmark.feedBookmar
 import static kr.co.souso.souso.domain.category.domain.QFeedCategory.feedCategory;
 import static kr.co.souso.souso.domain.feed.domain.QFeed.feed;
 import static kr.co.souso.souso.domain.like.domain.QFeedLike.feedLike;
-import static org.springframework.util.ObjectUtils.isEmpty;
 import static org.springframework.util.StringUtils.hasText;
 
 @RequiredArgsConstructor
