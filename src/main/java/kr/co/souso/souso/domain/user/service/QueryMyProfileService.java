@@ -21,6 +21,10 @@ public class QueryMyProfileService {
                 .nickname(user.getNickname())
                 .birth(user.getBirth())
                 .profileImageUrl(user.getProfileImageUrl())
+                .bookmarkCount(user.getBookmarkCount())
+                .meetingCount(user.getMeetingCount())
+                .commentCount(user.getCommentCount())
+                .feedCount(user.getFeedCount())
                 .build();
     }
 }
