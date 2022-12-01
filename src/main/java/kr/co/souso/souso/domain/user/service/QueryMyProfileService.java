@@ -6,6 +6,7 @@ import kr.co.souso.souso.domain.user.facade.UserFacade;
 import kr.co.souso.souso.domain.user.presentation.dto.response.QueryMyProfileResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @RequiredArgsConstructor
 @Service
@@ -14,10 +15,12 @@ public class QueryMyProfileService {
     private final UserRepository userRepository;
     private final UserFacade userFacade;
 
+    @Transactional(readOnly = true)
     public QueryMyProfileResponse execute() {
         User user = userFacade.getCurrentUser();
 
         return QueryMyProfileResponse.builder()
+                .userId(user.getId())
                 .nickname(user.getNickname())
                 .birth(user.getBirth())
                 .profileImageUrl(user.getProfileImageUrl())

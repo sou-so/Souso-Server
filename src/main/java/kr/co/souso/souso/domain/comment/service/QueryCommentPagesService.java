@@ -1,6 +1,7 @@
 package kr.co.souso.souso.domain.comment.service;
 
 import kr.co.souso.souso.domain.comment.domain.repository.CommentRepository;
+import kr.co.souso.souso.domain.comment.domain.repository.vo.CommentConditionVO;
 import kr.co.souso.souso.domain.comment.domain.repository.vo.CommentDetailsVO;
 import kr.co.souso.souso.domain.comment.presentation.dto.response.QueryCommentPagesResponse;
 import kr.co.souso.souso.domain.comment.presentation.dto.response.QueryCommentDetailsResponse;
@@ -13,6 +14,7 @@ import kr.co.souso.souso.global.utils.code.PagingSupportUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Slice;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,11 +26,19 @@ public class QueryCommentPagesService {
     private final CommentRepository commentRepository;
     private final UserFacade userFacade;
 
+    @Transactional(readOnly = true)
     public QueryCommentPagesResponse execute(Integer pageId, Long feedId) {
+
         User user = userFacade.getCurrentUser();
 
         List<QueryCommentDetailsResponse> queryCommentDetailsResponseList = new ArrayList<>();
-        Slice<CommentDetailsVO> commentList = commentRepository.queryCommentPagesByOffset(user.getId(), feedId, pageId, PagingSupportUtil.applyPageSize());
+
+        Slice<CommentDetailsVO> commentList = commentRepository.queryCommentPagesByOffset(CommentConditionVO.builder()
+                        .userId(user.getId())
+                        .feedId(feedId)
+                        .pageId(pageId)
+                        .build(),
+                PagingSupportUtil.applyPageSize());
 
         for (CommentDetailsVO commentDetailsVO : commentList) {
             List<CommentDetailsVO> replyDetailsList = commentRepository.queryReplyDetailsList(commentDetailsVO.getParentCommentId(), user.getId(), feedId);
