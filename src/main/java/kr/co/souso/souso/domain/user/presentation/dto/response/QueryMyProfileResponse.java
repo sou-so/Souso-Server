@@ -17,4 +17,15 @@ public class QueryMyProfileResponse {
     @ApiModelProperty(value = "생년월일", example = "19981016")
     private final String birth;
 
+    @ApiModelProperty(value = "게시글 수", example = "2")
+    private final Long feedCount;
+
+    @ApiModelProperty(value = "댓글 수", example = "10")
+    private final Long commentCount;
+
+    @ApiModelProperty(value = "북마크 수", example = "3")
+    private final Long bookmarkCount;
+
+    @ApiModelProperty(value = "소소모임 수", example = "7")
+    private final Long meetingCount;
 }
