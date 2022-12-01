@@ -8,7 +8,7 @@ spring:
 
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: ${JDBC_URL}
+    url: ${JDBC_URL}?serverTimezone=Asia/Seoul
     username: ${DB_USER}
     password: ${DB_PWD}
     hikari:
