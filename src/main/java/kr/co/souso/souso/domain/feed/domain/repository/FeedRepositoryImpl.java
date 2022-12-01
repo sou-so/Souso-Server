@@ -78,7 +78,7 @@ public class FeedRepositoryImpl implements FeedRepositoryCustom {
     }
 
     private BooleanExpression exBookmark(Boolean isBookmark, Long userId) {
-        return (isBookmark != null && isBookmark) ? feedBookmark.feed.user.id.eq(userId) : null;
+        return (isBookmark != null && isBookmark) ? feedBookmark.user.id.eq(userId) : null;
     }
 
     private BooleanExpression eqFeedCategoryFeedId(NumberPath<Long> id) {
