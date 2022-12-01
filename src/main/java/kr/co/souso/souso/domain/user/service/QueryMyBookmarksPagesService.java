@@ -43,7 +43,6 @@ public class QueryMyBookmarksPagesService {
                 FeedConditionVO.builder()
                         .userId(user.getId())
                         .pageId(pageId)
-                        .findUserId(user.getId())
                         .categoryId(categoryId)
                         .isBookmark(true)
                         .orders(ORDER)
