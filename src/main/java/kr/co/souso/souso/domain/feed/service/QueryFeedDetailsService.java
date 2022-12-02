@@ -15,6 +15,7 @@ import kr.co.souso.souso.domain.user.facade.UserFacade;
 import kr.co.souso.souso.domain.user.presentation.dto.response.AuthorResponse;
 import kr.co.souso.souso.domain.viewcount.domain.repository.FeedViewCountRepository;
 import kr.co.souso.souso.domain.viewcount.domain.FeedViewCount;
+import kr.co.souso.souso.domain.viewcount.exception.FeedViewCountNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -39,7 +40,7 @@ public class QueryFeedDetailsService {
         User user = userFacade.getCurrentUser();
 
         FeedViewCount feedViewCount = feedViewCountRepository.findById(feedId)
-                .orElseThrow(() -> FeedNotFoundException.EXCEPTION);
+                .orElseThrow(() -> FeedViewCountNotFoundException.EXCEPTION);
 
         feedViewCount.addViewCount();
         feedViewCountRepository.save(feedViewCount);

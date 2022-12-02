@@ -10,6 +10,7 @@ import kr.co.souso.souso.domain.user.exception.NotValidUserException;
 import kr.co.souso.souso.domain.user.facade.UserFacade;
 import kr.co.souso.souso.domain.viewcount.domain.FeedViewCount;
 import kr.co.souso.souso.domain.viewcount.domain.repository.FeedViewCountRepository;
+import kr.co.souso.souso.domain.viewcount.exception.FeedViewCountNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -32,7 +33,7 @@ public class DeleteFeedService {
                 .orElseThrow(() -> FeedNotFoundException.EXCEPTION);
 
         FeedViewCount feedViewCount = feedViewCountRepository.findById(feedId)
-                .orElseThrow(() -> FeedNotFoundException.EXCEPTION);
+                .orElseThrow(() -> FeedViewCountNotFoundException.EXCEPTION);
 
         if (!user.getId().equals(feed.getUser().getId())) {
             throw NotValidUserException.EXCEPTION;
