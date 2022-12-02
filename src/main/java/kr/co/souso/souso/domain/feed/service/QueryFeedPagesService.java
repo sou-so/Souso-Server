@@ -16,6 +16,7 @@ import kr.co.souso.souso.domain.user.facade.UserFacade;
 import kr.co.souso.souso.domain.user.presentation.dto.response.AuthorResponse;
 import kr.co.souso.souso.domain.viewcount.domain.FeedViewCount;
 import kr.co.souso.souso.domain.viewcount.domain.repository.FeedViewCountRepository;
+import kr.co.souso.souso.domain.viewcount.exception.FeedViewCountNotFoundException;
 import kr.co.souso.souso.global.enums.SortPageType;
 import kr.co.souso.souso.global.utils.code.PagingSupportUtil;
 import lombok.RequiredArgsConstructor;
@@ -58,7 +59,7 @@ public class QueryFeedPagesService {
                     .collect(Collectors.toList());
 
             FeedViewCount feedViewCount = feedViewCountRepository.findById(feedDetailsVO.getFeedId())
-                    .orElseThrow(() -> FeedNotFoundException.EXCEPTION);
+                    .orElseThrow(() -> FeedViewCountNotFoundException.EXCEPTION);
 
             queryFeedDetailsResponseList.add(
                     buildFeedDetailsResponse(feedDetailsVO, imageUrl, feedViewCount.getViewCount())

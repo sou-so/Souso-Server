@@ -26,6 +26,7 @@ public enum GlobalErrorCode {
     REFRESH_TOKEN_NOT_FOUND(404, "RefreshToken Not Found"),
     CATEGORY_NOT_FOUND(404, "Category Not Found"),
     FEED_NOT_FOUND(404, "Feed Not Found"),
+    FEED_VIEW_COUNT_NOT_FOUND(404, "Feed View Count Not Found"),
     USER_AUTH_CODE_NOT_FOUND(404, "User AuthCode Not Found"),
     IMAGE_NOT_FOUND(404, "IMAGE_NOT_FOUND"),
     COMMENT_FOT_FOUND(404, "COMMENT_FOT_FOUND"),

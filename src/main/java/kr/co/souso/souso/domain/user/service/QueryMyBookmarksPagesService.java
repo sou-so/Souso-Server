@@ -14,6 +14,7 @@ import kr.co.souso.souso.domain.user.presentation.dto.response.QueryMyBookmarksD
 import kr.co.souso.souso.domain.user.presentation.dto.response.QueryMyBookmarksPagesResponse;
 import kr.co.souso.souso.domain.viewcount.domain.FeedViewCount;
 import kr.co.souso.souso.domain.viewcount.domain.repository.FeedViewCountRepository;
+import kr.co.souso.souso.domain.viewcount.exception.FeedViewCountNotFoundException;
 import kr.co.souso.souso.global.utils.code.PagingSupportUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Slice;
@@ -59,7 +60,7 @@ public class QueryMyBookmarksPagesService {
                     .collect(Collectors.toList());
 
             FeedViewCount feedViewCount = feedViewCountRepository.findById(feedDetailsVO.getFeedId())
-                    .orElseThrow(() -> FeedNotFoundException.EXCEPTION);
+                    .orElseThrow(() -> FeedViewCountNotFoundException.EXCEPTION);
 
             queryMyBookmarksDetailsResponseList.add(
                     buildQueryMyBookmarkDetailsResponse(feedDetailsVO, imageUrl, feedViewCount.getViewCount())

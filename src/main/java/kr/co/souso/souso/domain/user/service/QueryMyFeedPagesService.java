@@ -14,6 +14,7 @@ import kr.co.souso.souso.domain.user.presentation.dto.response.QueryMyFeedDetail
 import kr.co.souso.souso.domain.user.presentation.dto.response.QueryMyFeedPagesResponse;
 import kr.co.souso.souso.domain.viewcount.domain.FeedViewCount;
 import kr.co.souso.souso.domain.viewcount.domain.repository.FeedViewCountRepository;
+import kr.co.souso.souso.domain.viewcount.exception.FeedViewCountNotFoundException;
 import kr.co.souso.souso.global.utils.code.PagingSupportUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Slice;
@@ -55,7 +56,7 @@ public class QueryMyFeedPagesService {
                     .collect(Collectors.toList());
 
             FeedViewCount feedViewCount = feedViewCountRepository.findById(feedDetailsVO.getFeedId())
-                    .orElseThrow(() -> FeedNotFoundException.EXCEPTION);
+                    .orElseThrow(() -> FeedViewCountNotFoundException.EXCEPTION);
 
             queryMyFeedDetailsResponseList.add(
                     buildQueryMyFeedDetailsResponse(feedDetailsVO, imageUrl, feedViewCount.getViewCount())
