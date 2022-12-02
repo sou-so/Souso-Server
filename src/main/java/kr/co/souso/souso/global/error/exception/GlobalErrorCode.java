@@ -38,6 +38,7 @@ public enum GlobalErrorCode {
     ALREADY_NICKNAME_EXIST(409, "Already Nickname Exist"),
     ALREADY_EMAIL_EXISTS(409, "Already Email Exist"),
     ALREADY_PHONE_NUMBER_EXIST(409, "Already Phone Number Exist"),
+    ALREADY_AUTH_CODE_EXIST(409, "Already Auth Code Exist"),
 
     // 500
     INTERNAL_SERVER_ERROR(500, "Internal Server Error");
