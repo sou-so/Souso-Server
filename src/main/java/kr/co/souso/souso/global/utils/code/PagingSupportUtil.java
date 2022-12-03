@@ -12,7 +12,6 @@ import org.springframework.data.domain.SliceImpl;
 
 import java.util.List;
 
-
 public class PagingSupportUtil {
 
     private static final int DEFAULT_PAGE_SIZE = 10;
