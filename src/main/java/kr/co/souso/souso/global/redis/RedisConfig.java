@@ -18,8 +18,6 @@ import org.springframework.data.redis.core.ZSetOperations;
 import org.springframework.data.redis.serializer.GenericJackson2JsonRedisSerializer;
 import org.springframework.data.redis.serializer.RedisSerializationContext;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
-import org.springframework.orm.jpa.JpaTransactionManager;
-import org.springframework.transaction.PlatformTransactionManager;
 
 import java.time.Duration;
 
@@ -45,14 +43,8 @@ public class RedisConfig {
         redisTemplate.setConnectionFactory(redisConnectionFactory());
         redisTemplate.setValueSerializer(new StringRedisSerializer());
         redisTemplate.setKeySerializer(new StringRedisSerializer());
-        redisTemplate.setEnableTransactionSupport(true);
 
         return redisTemplate;
-    }
-
-    @Bean
-    public PlatformTransactionManager transactionManager() {
-        return new JpaTransactionManager();
     }
 
     @Bean
