@@ -28,7 +28,7 @@ public class UserAuthCodeService {
     @Transactional(readOnly = true)
     public void execute(UserAuthCodeRequest request) {
         String phoneNumber = request.getPhoneNumber();
-        String code = RandomCodeUtil.generateRandomCode(4);
+        String code = RandomCodeUtil.generateRandomNumber(6);
 
         userFacade.checkUserPhoneNumber(phoneNumber);
         if (userAuthCodeRepository.findById(phoneNumber).isPresent()) {
