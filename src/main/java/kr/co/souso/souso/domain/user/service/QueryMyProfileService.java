@@ -1,5 +1,9 @@
 package kr.co.souso.souso.domain.user.service;
 
+import kr.co.souso.souso.domain.bookmark.domain.repository.FeedBookmarkRepository;
+import kr.co.souso.souso.domain.comment.domain.repository.CommentRepository;
+import kr.co.souso.souso.domain.meeting.domain.Meeting;
+import kr.co.souso.souso.domain.meeting.domain.repository.MeetingRepository;
 import kr.co.souso.souso.domain.user.domain.User;
 import kr.co.souso.souso.domain.user.domain.repository.UserRepository;
 import kr.co.souso.souso.domain.user.facade.UserFacade;
@@ -12,7 +16,9 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 public class QueryMyProfileService {
 
-    private final UserRepository userRepository;
+    private final FeedBookmarkRepository feedBookmarkRepository;
+    private final MeetingRepository meetingRepository;
+    private final CommentRepository commentRepository;
     private final UserFacade userFacade;
 
     @Transactional(readOnly = true)
@@ -24,9 +30,9 @@ public class QueryMyProfileService {
                 .nickname(user.getNickname())
                 .birth(user.getBirth())
                 .profileImageUrl(user.getProfileImageUrl())
-                .bookmarkCount(user.getBookmarkCount())
-                .meetingCount(user.getMeetingCount())
-                .commentCount(user.getCommentCount())
+                .bookmarkCount(feedBookmarkRepository.countByUser(user))
+                .meetingCount(meetingRepository.countByUser(user))
+                .commentCount(commentRepository.countByUser(user))
                 .feedCount(user.getFeedCount())
                 .build();
     }

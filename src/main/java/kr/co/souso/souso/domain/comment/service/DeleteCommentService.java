@@ -29,7 +29,6 @@ public class DeleteCommentService {
             throw NotValidUserException.EXCEPTION;
         }
 
-        user.subComment();
         comment.getFeed().subComment();
         commentRepository.delete(comment);
     }

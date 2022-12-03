@@ -30,7 +30,6 @@ public class SubBookmarkService {
 
         if (isAlreadyBookmark(feed, user)) {
             feed.subBookmark();
-            user.subBookmark();
             feedBookmarkRepository.delete(FeedBookmark.builder()
                     .feed(feed)
                     .user(user)

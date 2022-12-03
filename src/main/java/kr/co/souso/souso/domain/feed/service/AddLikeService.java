@@ -28,7 +28,6 @@ public class AddLikeService {
 
         if (isNotAlreadyLike(feed, user)) {
             feed.addLike();
-            user.addLike();
             feedLikeRepository.save(FeedLike.builder()
                     .feed(feed)
                     .user(user)

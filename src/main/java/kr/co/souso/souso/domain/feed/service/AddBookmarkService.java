@@ -28,7 +28,6 @@ public class AddBookmarkService {
 
         if (isNotAlreadyBookmark(feed, user)) {
             feed.addBookmark();
-            user.addBookmark();
             feedBookmarkRepository.save(FeedBookmark.builder()
                     .feed(feed)
                     .user(user)
