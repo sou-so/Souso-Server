@@ -8,11 +8,15 @@ import kr.co.souso.souso.domain.user.presentation.dto.request.UpdatePasswordRequ
 import kr.co.souso.souso.domain.user.presentation.dto.request.UpdateUserInfoRequest;
 import kr.co.souso.souso.domain.user.presentation.dto.request.UserAuthCodeRequest;
 import kr.co.souso.souso.domain.user.presentation.dto.request.UserSignUpRequest;
-import kr.co.souso.souso.domain.user.presentation.dto.response.*;
+import kr.co.souso.souso.domain.user.presentation.dto.response.QueryMyBookmarksPagesResponse;
+import kr.co.souso.souso.domain.user.presentation.dto.response.QueryMyCommentPagesResponse;
+import kr.co.souso.souso.domain.user.presentation.dto.response.QueryMyFeedPagesResponse;
+import kr.co.souso.souso.domain.user.presentation.dto.response.QueryMyProfileResponse;
 import kr.co.souso.souso.domain.user.service.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
 
@@ -83,8 +87,8 @@ public class UserController {
     @ApiOperation(value = "내 정보 수정")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @PatchMapping
-    public void updateUserInfo(@RequestBody @Valid UpdateUserInfoRequest request) {
-        updateUserInfoService.execute(request);
+    public void updateUserInfo(@RequestPart(required = false) MultipartFile image, @RequestPart @Valid UpdateUserInfoRequest request) {
+        updateUserInfoService.execute(image, request);
     }
 
     @ApiOperation(value = "비밀번호 변경")
