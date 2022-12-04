@@ -25,6 +25,6 @@ public class UserAuthCode {
     public UserAuthCode(String phoneNumber, String code) {
         this.phoneNumber = phoneNumber;
         this.code = code;
-        this.expiredAt = 500L;
+        this.expiredAt = 180L;
     }
 }
