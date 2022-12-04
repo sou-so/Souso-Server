@@ -86,8 +86,8 @@ public class CommentRepositoryImpl implements CommentRepositoryCustom {
         return id != null ? comment.user.id.eq(id) : null;
     }
 
-    private BooleanExpression eqCommentFeedUserId(NumberPath<Long> id) {
-        return id != null ? comment.feed.user.id.eq(id) : null;
+    private BooleanExpression eqFeedUserId(NumberPath<Long> id) {
+        return id != null ? comment.user.id.eq(id) : null;
     }
 
     private BooleanExpression eqCommentFeedUserId(Long id) {
@@ -107,7 +107,7 @@ public class CommentRepositoryImpl implements CommentRepositoryCustom {
                                 comment.id,
                                 comment.parentComment.id,
                                 eqCommentFeedUserId(userId),
-                                eqCommentFeedUserId(comment.user.id),
+                                eqCommentUserId(userId),
                                 comment.content,
                                 comment.createdAt
                         ))
