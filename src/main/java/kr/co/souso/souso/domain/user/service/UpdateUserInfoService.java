@@ -21,12 +21,10 @@ public class UpdateUserInfoService {
     public void execute(MultipartFile image, UpdateUserInfoRequest request) {
         User user = userFacade.getCurrentUser();
 
+        String profileImage = null;
         if (image != null) {
-            String profileImage = s3Facade.uploadImage(image);
-
-            user.updateProfileImageUrl(profileImage);
+            profileImage = s3Facade.uploadImage(image);
         }
-
-        user.updateUser(request);
+        user.updateUser(request, profileImage);
     }
 }
