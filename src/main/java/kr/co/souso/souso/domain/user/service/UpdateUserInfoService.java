@@ -3,6 +3,7 @@ package kr.co.souso.souso.domain.user.service;
 import kr.co.souso.souso.domain.user.domain.User;
 import kr.co.souso.souso.domain.user.facade.UserFacade;
 import kr.co.souso.souso.domain.user.presentation.dto.request.UpdateUserInfoRequest;
+import kr.co.souso.souso.infrastructure.image.DefaultImage;
 import kr.co.souso.souso.infrastructure.image.s3.S3Facade;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -21,10 +22,15 @@ public class UpdateUserInfoService {
     public void execute(MultipartFile image, UpdateUserInfoRequest request) {
         User user = userFacade.getCurrentUser();
 
-        String profileImage = null;
         if (image != null) {
-            profileImage = s3Facade.uploadImage(image);
+            String profileImage = s3Facade.uploadImage(image);
+            user.updateProfileImageUrl(profileImage);
         }
-        user.updateUser(request, profileImage);
+
+        if (request.getIsDefaultProfile()) {
+            user.updateProfileImageUrl(DefaultImage.USER_PROFILE_IMAGE);
+        }
+
+        user.updateUser(request);
     }
 }

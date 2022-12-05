@@ -84,10 +84,13 @@ public class User extends BaseTimeEntity {
         this.password = password;
     }
 
-    public void updateUser(UpdateUserInfoRequest request, String profileImageUrl) {
+    public void updateUser(UpdateUserInfoRequest request) {
         this.nickname = request.getNickname();
         this.birth = request.getBirth();
-        this.profileImageUrl = profileImageUrl == null ? DefaultImage.USER_PROFILE_IMAGE : this.profileImageUrl;
+    }
+
+    public void updateProfileImageUrl(String profileImageUrl){
+        this.profileImageUrl = profileImageUrl;
     }
 
     public void addFeed() {
