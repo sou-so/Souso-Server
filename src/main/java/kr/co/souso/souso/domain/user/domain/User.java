@@ -3,6 +3,7 @@ package kr.co.souso.souso.domain.user.domain;
 import kr.co.souso.souso.domain.user.presentation.dto.request.UpdateUserInfoRequest;
 import kr.co.souso.souso.global.entity.BaseTimeEntity;
 import kr.co.souso.souso.global.enums.UserRole;
+import kr.co.souso.souso.infrastructure.image.DefaultImage;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -88,7 +89,7 @@ public class User extends BaseTimeEntity {
         this.birth = request.getBirth();
     }
 
-    public void updateProfileImageUrl(String profileImageUrl) {
+    public void updateProfileImageUrl(String profileImageUrl){
         this.profileImageUrl = profileImageUrl;
     }
 
