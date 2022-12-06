@@ -1,5 +1,7 @@
 package kr.co.souso.souso.domain.user.domain;
 
+import kr.co.souso.souso.domain.feed.domain.Feed;
+import kr.co.souso.souso.domain.meeting.domain.Meeting;
 import kr.co.souso.souso.domain.user.presentation.dto.request.UpdateUserInfoRequest;
 import kr.co.souso.souso.global.entity.BaseTimeEntity;
 import kr.co.souso.souso.global.enums.UserRole;
@@ -13,6 +15,7 @@ import org.hibernate.annotations.ColumnDefault;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.List;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -61,6 +64,12 @@ public class User extends BaseTimeEntity {
     @NotNull
     @ColumnDefault("0")
     private Long feedCount;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE)
+    private List<Feed> feeds;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE)
+    private List<Meeting> meetings;
 
     @Builder
     public User(String email, String password, String name, String phoneNumber, String nickname, String birth,
