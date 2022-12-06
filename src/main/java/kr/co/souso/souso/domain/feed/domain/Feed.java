@@ -1,5 +1,9 @@
 package kr.co.souso.souso.domain.feed.domain;
 
+import kr.co.souso.souso.domain.bookmark.domain.FeedBookmark;
+import kr.co.souso.souso.domain.category.domain.FeedCategory;
+import kr.co.souso.souso.domain.comment.domain.Comment;
+import kr.co.souso.souso.domain.like.domain.FeedLike;
 import kr.co.souso.souso.domain.user.domain.User;
 import kr.co.souso.souso.global.entity.BaseTimeEntity;
 import lombok.AccessLevel;
@@ -10,6 +14,7 @@ import org.hibernate.annotations.ColumnDefault;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.List;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -39,6 +44,21 @@ public class Feed extends BaseTimeEntity {
     @NotNull
     @ColumnDefault("0")
     private Long commentCount;
+
+    @OneToMany(mappedBy = "feed", cascade = CascadeType.REMOVE)
+    private List<Comment> comments;
+
+    @OneToMany(mappedBy = "feed", cascade = CascadeType.REMOVE)
+    private List<FeedLike> feedLikes;
+
+    @OneToMany(mappedBy = "feed", cascade = CascadeType.REMOVE)
+    private List<FeedBookmark> feedBookmarks;
+
+    @OneToMany(mappedBy = "feed", cascade = CascadeType.REMOVE)
+    private List<FeedImage> feedImages;
+
+    @OneToMany(mappedBy = "feed", cascade = CascadeType.REMOVE)
+    private List<FeedCategory> feedCategories;
 
     @Builder
     public Feed(String content, User user, Long likeCount, Long bookmarkCount) {

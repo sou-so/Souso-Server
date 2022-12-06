@@ -9,7 +9,4 @@ import org.springframework.data.querydsl.QuerydslPredicateExecutor;
 public interface FeedCategoryRepository extends JpaRepository<FeedCategory, FeedCategoryId>{
 
     FeedCategory findFeedCategoryByFeedId(Long feedId);
-
-    void deleteByFeed(Feed feed);
-
 }

@@ -45,11 +45,6 @@ public class DeleteFeedService {
             throw NotValidUserException.EXCEPTION;
         }
         user.subFeed();
-        commentRepository.deleteAllByFeed(feed);
-        feedImageRepository.deleteAllByFeed(feed);
-        feedCategoryRepository.deleteByFeed(feed);
-        feedBookmarkRepository.deleteByFeed(feed);
-        feedLikeRepository.deleteByFeed(feed);
         feedRepository.delete(feed);
         feedViewCountRepository.delete(feedViewCount);
     }
