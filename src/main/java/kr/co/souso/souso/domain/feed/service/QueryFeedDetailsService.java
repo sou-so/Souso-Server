@@ -81,6 +81,7 @@ public class QueryFeedDetailsService {
                 .nickname(authorVO.getNickname())
                 .birth(authorVO.getBirth())
                 .profileImageUrl(authorVO.getProfileImageUrl())
+                .location(authorVO.getLocation())
                 .build();
     }
 }
