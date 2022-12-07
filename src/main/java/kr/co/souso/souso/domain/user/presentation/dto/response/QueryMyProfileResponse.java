@@ -34,4 +34,5 @@ public class QueryMyProfileResponse {
 
     @ApiModelProperty(value = "소소모임 수", example = "7")
     private final Long meetingCount;
+
 }
