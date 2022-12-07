@@ -10,12 +10,14 @@ public class AuthorVO {
     private final String nickname;
     private final String birth;
     private final String profileImageUrl;
+    private final String location;
 
     @QueryProjection
-    public AuthorVO(Long userId, String nickname, String birth, String profileImageUrl) {
+    public AuthorVO(Long userId, String nickname, String birth, String profileImageUrl, String location) {
         this.userId = userId;
         this.nickname = nickname;
         this.birth = birth;
         this.profileImageUrl = profileImageUrl;
+        this.location = location;
     }
 }
