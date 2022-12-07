@@ -35,10 +35,11 @@ public class UserSignUpService {
                 .password(passwordEncoder.encode(request.getPassword()))
                 .name(request.getName())
                 .phoneNumber(request.getPhoneNumber())
-                .role(UserRole.USER)
-                .nickname(request.getNickname())
-                .profileImageUrl(DefaultImage.USER_PROFILE_IMAGE)
                 .birth(request.getBirth())
+                .location(request.getLocation())
+                .nickname(request.getNickname())
+                .role(UserRole.USER)
+                .profileImageUrl(DefaultImage.USER_PROFILE_IMAGE)
                 .build());
 
         String accessToken = jwtTokenProvider.generateAccessToken(user.getEmail());
