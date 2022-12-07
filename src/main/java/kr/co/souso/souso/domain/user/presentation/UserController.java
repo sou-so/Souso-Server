@@ -4,10 +4,7 @@ import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import kr.co.souso.souso.domain.auth.presentation.dto.response.UserTokenResponse;
-import kr.co.souso.souso.domain.user.presentation.dto.request.UpdatePasswordRequest;
-import kr.co.souso.souso.domain.user.presentation.dto.request.UpdateUserInfoRequest;
-import kr.co.souso.souso.domain.user.presentation.dto.request.UserAuthCodeRequest;
-import kr.co.souso.souso.domain.user.presentation.dto.request.UserSignUpRequest;
+import kr.co.souso.souso.domain.user.presentation.dto.request.*;
 import kr.co.souso.souso.domain.user.presentation.dto.response.QueryMyBookmarksPagesResponse;
 import kr.co.souso.souso.domain.user.presentation.dto.response.QueryMyCommentPagesResponse;
 import kr.co.souso.souso.domain.user.presentation.dto.response.QueryMyFeedPagesResponse;
@@ -25,16 +22,18 @@ import javax.validation.Valid;
 @RestController
 public class UserController {
 
+    private final QueryMyProfileService queryMyProfileService;
+    private final QueryMyFeedPagesService queryMyFeedPagesService;
+    private final QueryMyCommentPagesService queryMyCommentPagesService;
+    private final QueryMyBookmarksPagesService queryMyBookmarksPagesService;
     private final UserSignUpService userSignUpService;
+    private final UserAuthCodeService userAuthCodeService;
+    private final UpdateUserInfoService updateUserInfoService;
+    private final UpdateMyLocationService updateMyLocationService;
+    private final UpdatePasswordService updatePasswordService;
     private final UserLogoutService userLogoutService;
     private final UserWithdrawalService userWithdrawalService;
-    private final UserAuthCodeService userAuthCodeService;
-    private final QueryMyProfileService queryMyProfileService;
-    private final UpdatePasswordService updatePasswordService;
-    private final UpdateUserInfoService updateUserInfoService;
-    private final QueryMyFeedPagesService queryMyFeedPagesService;
-    private final QueryMyBookmarksPagesService queryMyBookmarksPagesService;
-    private final QueryMyCommentPagesService queryMyCommentPagesService;
+
 
     @ApiOperation(value = "MY 프로필 정보 조회")
     @GetMapping
@@ -89,6 +88,13 @@ public class UserController {
     @PatchMapping
     public void updateUserInfo(@RequestPart(required = false) MultipartFile image, @RequestPart @Valid UpdateUserInfoRequest request) {
         updateUserInfoService.execute(image, request);
+    }
+
+    @ApiOperation(value = "내 동네 수정")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @PatchMapping("/location")
+    public void updateMyLocation(@RequestBody @Valid UpdateMyLocationRequest request) {
+        updateMyLocationService.execute(request);
     }
 
     @ApiOperation(value = "비밀번호 변경")
