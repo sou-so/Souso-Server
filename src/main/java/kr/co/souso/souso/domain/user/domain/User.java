@@ -2,6 +2,7 @@ package kr.co.souso.souso.domain.user.domain;
 
 import kr.co.souso.souso.domain.feed.domain.Feed;
 import kr.co.souso.souso.domain.meeting.domain.Meeting;
+import kr.co.souso.souso.domain.user.presentation.dto.request.UpdateMyLocationRequest;
 import kr.co.souso.souso.domain.user.presentation.dto.request.UpdateUserInfoRequest;
 import kr.co.souso.souso.global.entity.BaseTimeEntity;
 import kr.co.souso.souso.global.enums.UserRole;
@@ -99,6 +100,10 @@ public class User extends BaseTimeEntity {
     public void updateUser(UpdateUserInfoRequest request) {
         this.nickname = request.getNickname();
         this.birth = request.getBirth();
+        this.location = request.getLocation();
+    }
+
+    public void updateMyLocation(UpdateMyLocationRequest request) {
         this.location = request.getLocation();
     }
 
