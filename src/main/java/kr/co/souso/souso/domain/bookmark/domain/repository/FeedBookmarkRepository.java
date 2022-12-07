@@ -13,4 +13,5 @@ public interface FeedBookmarkRepository extends JpaRepository<FeedBookmark, Feed
     Optional<FeedBookmark> findByFeedAndUser(Feed feed, User user);
 
     Long countByUser(User user);
+
 }
