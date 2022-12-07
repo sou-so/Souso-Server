@@ -20,4 +20,7 @@ public class AuthorResponse {
     @ApiModelProperty(value = "프로필 이미지", example = "https://souso-bucket.s3.ap-northeast-2.amazonaws.com/logo.svg")
     private final String profileImageUrl;
 
+    @ApiModelProperty(value = "동네", example = "서울특별시 강남구 법정동")
+    private String location;
+
 }
