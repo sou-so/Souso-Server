@@ -7,7 +7,6 @@ import kr.co.souso.souso.domain.feed.domain.repository.FeedImageRepository;
 import kr.co.souso.souso.domain.feed.domain.repository.FeedRepository;
 import kr.co.souso.souso.domain.feed.domain.repository.vo.FeedConditionVO;
 import kr.co.souso.souso.domain.feed.domain.repository.vo.FeedDetailsVO;
-import kr.co.souso.souso.domain.feed.exception.FeedNotFoundException;
 import kr.co.souso.souso.domain.feed.presentation.dto.response.QueryFeedDetailsResponse;
 import kr.co.souso.souso.domain.feed.presentation.dto.response.QueryFeedPagesResponse;
 import kr.co.souso.souso.domain.user.domain.User;
@@ -83,6 +82,7 @@ public class QueryFeedPagesService {
                 .nickname(authorVO.getNickname())
                 .birth(authorVO.getBirth())
                 .profileImageUrl(authorVO.getProfileImageUrl())
+                .location(authorVO.getLocation())
                 .build();
     }
 
