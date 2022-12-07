@@ -11,4 +11,5 @@ public class CreateFeedResponse {
 
     @ApiModelProperty(value = "게시글 ID")
     private Long feedId;
+
 }
