@@ -5,10 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.Length;
 
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Pattern;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 
 @Getter
 @NoArgsConstructor
@@ -45,5 +42,9 @@ public class UserSignUpRequest {
     @NotBlank(message = "birth는 Null, 공백, 띄어쓰기를 허용하지 않습니다.")
     @Length(min = 8, max = 8, message = "birth는 8글자여야합니다.")
     private String birth;
+
+    @ApiModelProperty(value = "동네", example = "서울특별시 강남구 법정동")
+    @NotNull(message = "location은 Null을 허용하지 않습니다.")
+    private String location;
 
 }
