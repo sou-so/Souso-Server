@@ -5,7 +5,6 @@ import kr.co.souso.souso.domain.meeting.domain.Meeting;
 import kr.co.souso.souso.domain.user.presentation.dto.request.UpdateUserInfoRequest;
 import kr.co.souso.souso.global.entity.BaseTimeEntity;
 import kr.co.souso.souso.global.enums.UserRole;
-import kr.co.souso.souso.infrastructure.image.DefaultImage;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -65,6 +64,9 @@ public class User extends BaseTimeEntity {
     @ColumnDefault("0")
     private Long feedCount;
 
+    @NotNull
+    private String location;
+
     @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE)
     private List<Feed> feeds;
 
@@ -73,7 +75,7 @@ public class User extends BaseTimeEntity {
 
     @Builder
     public User(String email, String password, String name, String phoneNumber, String nickname, String birth,
-                UserRole role, String profileImageUrl) {
+                UserRole role, String profileImageUrl, String location) {
         this.email = email;
         this.password = password;
         this.name = name;
@@ -82,6 +84,7 @@ public class User extends BaseTimeEntity {
         this.birth = birth;
         this.role = role;
         this.profileImageUrl = profileImageUrl;
+        this.location = location;
     }
 
     @PrePersist
@@ -96,6 +99,7 @@ public class User extends BaseTimeEntity {
     public void updateUser(UpdateUserInfoRequest request) {
         this.nickname = request.getNickname();
         this.birth = request.getBirth();
+        this.location = request.getLocation();
     }
 
     public void updateProfileImageUrl(String profileImageUrl){
