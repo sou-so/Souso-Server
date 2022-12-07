@@ -20,6 +20,9 @@ public class QueryMyProfileResponse {
     @ApiModelProperty(value = "생년월일", example = "19981016")
     private final String birth;
 
+    @ApiModelProperty(value = "동네", example = "서울특별시 강남구 법정동")
+    private final String location;
+
     @ApiModelProperty(value = "게시글 수", example = "2")
     private final Long feedCount;
 
