@@ -2,10 +2,8 @@ package kr.co.souso.souso.domain.user.service;
 
 import kr.co.souso.souso.domain.bookmark.domain.repository.FeedBookmarkRepository;
 import kr.co.souso.souso.domain.comment.domain.repository.CommentRepository;
-import kr.co.souso.souso.domain.meeting.domain.Meeting;
 import kr.co.souso.souso.domain.meeting.domain.repository.MeetingRepository;
 import kr.co.souso.souso.domain.user.domain.User;
-import kr.co.souso.souso.domain.user.domain.repository.UserRepository;
 import kr.co.souso.souso.domain.user.facade.UserFacade;
 import kr.co.souso.souso.domain.user.presentation.dto.response.QueryMyProfileResponse;
 import lombok.RequiredArgsConstructor;
@@ -30,10 +28,11 @@ public class QueryMyProfileService {
                 .nickname(user.getNickname())
                 .birth(user.getBirth())
                 .profileImageUrl(user.getProfileImageUrl())
+                .location(user.getLocation())
+                .feedCount(user.getFeedCount())
                 .bookmarkCount(feedBookmarkRepository.countByUser(user))
                 .meetingCount(meetingRepository.countByUser(user))
                 .commentCount(commentRepository.countByUser(user))
-                .feedCount(user.getFeedCount())
                 .build();
     }
 }

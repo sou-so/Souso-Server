@@ -26,4 +26,8 @@ public class UpdateUserInfoRequest {
     @NotNull(message = "isDefaultProfile는 Null을 허용하지 않습니다.")
     private Boolean isDefaultProfile;
 
+    @ApiModelProperty(value = "동네", example = "서울특별시 강남구 법정동")
+    @NotNull(message = "location은 Null을 허용하지 않습니다.")
+    private String location;
+
 }

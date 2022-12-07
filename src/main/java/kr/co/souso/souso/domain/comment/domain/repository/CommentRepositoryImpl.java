@@ -15,10 +15,10 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
 
+import java.util.List;
+
 import static kr.co.souso.souso.domain.category.domain.QFeedCategory.feedCategory;
 import static kr.co.souso.souso.domain.comment.domain.QComment.comment;
-
-import java.util.List;
 
 @RequiredArgsConstructor
 public class CommentRepositoryImpl implements CommentRepositoryCustom {
@@ -102,7 +102,8 @@ public class CommentRepositoryImpl implements CommentRepositoryCustom {
                                         comment.user.id,
                                         comment.user.nickname,
                                         comment.user.birth,
-                                        comment.user.profileImageUrl
+                                        comment.user.profileImageUrl,
+                                        comment.user.location
                                 ),
                                 comment.id,
                                 comment.parentComment.id,

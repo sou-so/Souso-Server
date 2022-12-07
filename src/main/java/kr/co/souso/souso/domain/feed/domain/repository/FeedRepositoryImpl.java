@@ -124,7 +124,8 @@ public class FeedRepositoryImpl implements FeedRepositoryCustom {
                                 feed.user.id,
                                 feed.user.nickname,
                                 feed.user.birth,
-                                feed.user.profileImageUrl
+                                feed.user.profileImageUrl,
+                                feed.user.location
                         ),
                         feed.content,
                         feed.id,
