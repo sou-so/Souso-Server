@@ -1,6 +1,5 @@
 package kr.co.souso.souso.domain.user.service;
 
-import kr.co.souso.souso.domain.auth.exception.AlreadyPhoneNumberExistException;
 import kr.co.souso.souso.domain.user.domain.UserAuthCode;
 import kr.co.souso.souso.domain.user.domain.repository.UserAuthCodeRepository;
 import kr.co.souso.souso.domain.user.exception.AlreadyAuthCodeExistException;

@@ -55,6 +55,7 @@ public class SecurityConfig {
                 .antMatchers(HttpMethod.POST, "/users/token").permitAll()
                 .antMatchers(HttpMethod.PATCH, "/users").authenticated()
                 .antMatchers(HttpMethod.PATCH, "/users/token").authenticated()
+                .antMatchers(HttpMethod.PATCH, "/users/location").authenticated()
                 .antMatchers(HttpMethod.PATCH, "/users/password").authenticated()
                 .antMatchers(HttpMethod.DELETE, "/users/logout").authenticated()
                 .antMatchers(HttpMethod.DELETE, "/users/leave").authenticated()
