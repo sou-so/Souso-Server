@@ -2,6 +2,7 @@ plugins {
 	id 'java'
 	id 'org.springframework.boot' version '2.7.5'
 	id 'io.spring.dependency-management' version '1.1.0'
+	id "org.sonarqube" version "3.5.0.2730"
 }
 
 group = 'kr.co.souso'
@@ -73,4 +74,12 @@ test {
 
 jar {
 	enabled = false
+}
+
+sonarqube {
+	properties {
+		property "sonar.projectKey", "sou-so_Souso-Server"
+		property "sonar.organization", "sou-so"
+		property "sonar.host.url", "https://sonarcloud.io"
+	}
 }
