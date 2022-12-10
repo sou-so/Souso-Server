@@ -21,7 +21,7 @@ public class PagingSupportUtil {
         int pageSize = pageable.getPageSize();
 
         List<T> content = query
-                .limit(pageable.getPageSize() + 1)
+                .limit(pageable.getPageSize() + 1L)
                 .fetch();
 
         return new SliceImpl<>(content, pageable, isHasNext(pageSize, content));
@@ -32,7 +32,7 @@ public class PagingSupportUtil {
 
         List<T> content = query
                 .offset(pageable.getOffset())
-                .limit(pageable.getPageSize() + 1)
+                .limit(pageable.getPageSize() + 1L)
                 .fetch();
 
         return new SliceImpl<>(content, pageable, isHasNext(pageSize, content));
