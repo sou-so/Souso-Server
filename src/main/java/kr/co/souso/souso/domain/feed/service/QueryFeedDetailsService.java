@@ -32,7 +32,7 @@ public class QueryFeedDetailsService {
     private final FeedViewCountRepository feedViewCountRepository;
     private final UserFacade userFacade;
 
-    @Transactional
+    @Transactional(readOnly = true)
     public QueryFeedDetailsResponse execute(Long feedId) {
         Feed feed = feedRepository.findById(feedId)
                 .orElseThrow(() -> FeedNotFoundException.EXCEPTION);
