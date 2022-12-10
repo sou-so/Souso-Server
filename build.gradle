@@ -76,6 +76,7 @@ jar {
 	enabled = false
 }
 
+// Sonar Cloud
 sonarqube {
 	properties {
 		property "sonar.projectKey", "sou-so_Souso-Server"
