@@ -4,7 +4,6 @@ import kr.co.souso.souso.domain.comment.domain.Comment;
 import kr.co.souso.souso.domain.comment.domain.repository.CommentRepository;
 import kr.co.souso.souso.domain.comment.exception.CommentNotFoundException;
 import kr.co.souso.souso.domain.comment.presentation.dto.request.UpdateCommentRequest;
-import kr.co.souso.souso.domain.feed.domain.repository.FeedRepository;
 import kr.co.souso.souso.domain.user.domain.User;
 import kr.co.souso.souso.domain.user.exception.NotValidUserException;
 import kr.co.souso.souso.domain.user.facade.UserFacade;
