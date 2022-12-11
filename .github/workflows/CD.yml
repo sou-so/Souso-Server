@@ -53,4 +53,3 @@ jobs:
             S3_SECRET_KEY=${{ secrets.S3_SECRET_KEY }}
             S3_BUCKET=${{ secrets.S3_BUCKET }}
             S3_REGION=${{ secrets.S3_REGION }}
-
