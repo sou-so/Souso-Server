@@ -74,5 +74,5 @@ jobs:
           environment_name: Sousoserver-env
           version_label: Souso-${{steps.current-time.outputs.formattedTime}}
           region: ${{ secrets.AWS_REGION }}
-          deployment_package: Docker.aws.json
+          deployment_package: Dockerrun.aws.json
           wait_for_environment_recovery: 120
