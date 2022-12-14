@@ -3,8 +3,6 @@ name: Souso - CD
 on:
   push:
     branches: [ main ]
-  pull_request:
-    types: [ opened, synchronize, reopened ] # 잠시 EB 테스트
 
 jobs:
   build:
