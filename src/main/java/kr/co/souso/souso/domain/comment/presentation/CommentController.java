@@ -36,12 +36,14 @@ public class CommentController {
     }
 
     @ApiOperation(value = "댓글 수정")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     @PatchMapping("/{comment-id}")
     public void updateComment(@PathVariable("comment-id") Long commentId, @RequestBody @Valid UpdateCommentRequest request) {
         updateCommentService.execute(commentId, request);
     }
 
     @ApiOperation(value = "댓글 삭제")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping("/{comment-id}")
     public void deleteComment(@PathVariable("comment-id") Long commentId) {
         deleteCommentService.execute(commentId);

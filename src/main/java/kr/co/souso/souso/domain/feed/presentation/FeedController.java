@@ -41,12 +41,14 @@ public class FeedController {
     }
 
     @ApiOperation(value = "게시글 수정")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     @PatchMapping("/{feed-id}")
     public void updateFeed(@RequestPart(required = false) List<MultipartFile> images, @RequestPart @Valid UpdateFeedRequest request, @PathVariable("feed-id") Long feedId) {
         updateFeedService.execute(images, request, feedId);
     }
 
     @ApiOperation(value = "게시글 삭제")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping("/{feed-id}")
     public void deleteFeed(@PathVariable("feed-id") Long feedId) {
         deleteFeedService.execute(feedId);
@@ -76,6 +78,7 @@ public class FeedController {
     }
 
     @ApiOperation(value = "게시글 좋아요 취소")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping("/{feed-id}/like")
     public void unlike(@PathVariable("feed-id") Long feedId) {
         subLikeService.execute(feedId);
@@ -89,6 +92,7 @@ public class FeedController {
     }
 
     @ApiOperation(value = "게시글 북마크 취소")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping("/{feed-id}/bookmark")
     public void unBookmark(@PathVariable("feed-id") Long feedId) {
         subBookmarkService.execute(feedId);

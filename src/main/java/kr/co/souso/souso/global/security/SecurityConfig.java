@@ -42,6 +42,9 @@ public class SecurityConfig {
                 .authorizeRequests()
                 .requestMatchers(CorsUtils::isPreFlightRequest).permitAll()
 
+                // base Url
+                .antMatchers(HttpMethod.GET, "/").permitAll()
+
                 // users
                 .antMatchers(HttpMethod.HEAD, "/users/nickname").permitAll()
                 .antMatchers(HttpMethod.HEAD, "/users/email").permitAll()

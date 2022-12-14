@@ -50,12 +50,12 @@ coolsms:
 cloud:
   aws:
     credentials:
-      accessKey: ${S3_ACCESS_KEY}
-      secretKey: ${S3_SECRET_KEY}
+      accessKey: ${AWS_ACCESS_KEY}
+      secretKey: ${AWS_SECRET_KEY}
     s3:
       bucket: ${S3_BUCKET:souso-bucket}
     region:
-      static: ${S3_REGION:ap-northeast-2}
+      static: ${AWS_REGION:ap-northeast-2}
     stack:
       auto: false
 
