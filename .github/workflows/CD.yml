@@ -19,29 +19,25 @@ jobs:
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
 
-      - name: Gradle Build
-        uses: gradle/gradle-build-action@v2
-        with:
-          arguments: |
-            build
-            --no-daemon
+      - name: Build with Gradle
+        run: ./gradlew clean build
 
-      - name: Login to ECR
-        id: ecr
-        uses: elgohr/ecr-login-action@master
-        with:
-          access_key: ${{ secrets.AWS_ACCESS_KEY }}
-          secret_access_key: ${{ secrets.AWS_SECRET_KEY }}
-          region: ${{ secrets.AWS_REGION }}
+      - name: check gradle
+        run: ./gradlew check
 
-      - name: Publish to Souso Registry
-        uses: elgohr/Publish-Docker-Github-Action@master
+      - name: Login to Dockerhub
+        uses: docker/login-action@f054a8b539a109f9f41c372932f1ae047eff08c9
         with:
-          name: souso
-          username: ${{ steps.ecr.outputs.username }}
-          password: ${{ steps.ecr.outputs.password }}
-          registry: ${{ steps.ecr.outputs.registry }}
-          tags: latest
+          username: ${{ secrets.DOCKER_HUB_USERNAME }}
+          password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
+
+      - name: Build and push Docker image
+        uses: docker/build-push-action@ad44023a93711e3deb337508980b4b5e9bcdc5dc
+        with:
+          context: .
+          file: ./Dockerfile
+          push: true
+          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/souso:latest
           build-args: |
             JDBC_URL=${{ secrets.JDBC_URL }}
             DB_USER=${{ secrets.DB_USER }}
@@ -58,21 +54,14 @@ jobs:
             S3_BUCKET=${{ secrets.S3_BUCKET }}
             AWS_REGION=${{ secrets.AWS_REGION }}
 
-      - name: Get current time
-        uses: 1466587594/get-current-time@v2
-        id: current-time
+      - name: Connect EC2 & Souso Docker Image Deploy
+        uses: appleboy/ssh-action@master
         with:
-          format: YYYYMMDD_HH-mm-ss
-          utcOffset: "+09:00"
-
-      - name: Elastic Beanstalk Souso Application Deploy
-        uses: einaregilsson/beanstalk-deploy@v14
-        with:
-          aws_access_key: ${{ secrets.AWS_ACCESS_KEY }}
-          aws_secret_key: ${{ secrets.AWS_SECRET_KEY }}
-          application_name: Souso-Server
-          environment_name: Sousoserver-env
-          version_label: Souso-${{steps.current-time.outputs.formattedTime}}
-          region: ${{ secrets.AWS_REGION }}
-          deployment_package: Dockerrun.aws.json
-          wait_for_environment_recovery: 120
+          host: ${{ secrets.EC2_HOST }}
+          port: ${{ secrets.EC2_PORT }}
+          username: ${{ secrets.EC2_USER }}
+          key: ${{ secrets.EC2_PEM_KEY }}
+          script: |
+            docker pull ${{ secrets.DOCKER_IMAGE }}
+            docker rm -f ${{ secrets.DOCKER_IMAGE }} || true
+            docker run -d --name souso -p ${{ secrets.APPLICATION_PORT }}:8080 ${{ secrets.DOCKER_IMAGE }}
