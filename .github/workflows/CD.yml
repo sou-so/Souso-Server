@@ -60,7 +60,7 @@ jobs:
           host: ${{ secrets.EC2_HOST }}
           port: ${{ secrets.EC2_PORT }}
           username: ${{ secrets.EC2_USER }}
-          key: ${{ secrets.EC2_PEM_KEY }}
+          passphrase: ${{ secrets.EC2_PASSPHRASE }}
           script: |
             docker pull ${{ secrets.DOCKER_IMAGE }}
             docker rm -f ${{ secrets.DOCKER_IMAGE }} || true
