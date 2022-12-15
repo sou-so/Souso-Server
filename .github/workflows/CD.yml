@@ -63,5 +63,5 @@ jobs:
           key: ${{ secrets.EC2_PEM_KEY }}
           script: |
             docker pull ${{ secrets.DOCKER_IMAGE }}
-            docker rm -f ${{ secrets.DOCKER_IMAGE }} || true
-            docker run -d -p ${{ secrets.APPLICATION_PORT }}:8080 ${{ secrets.DOCKER_IMAGE }}
+            docker rm -f souso || true
+            docker run -d --name souso -p ${{ secrets.APPLICATION_PORT }}:8080 ${{ secrets.DOCKER_IMAGE }}
