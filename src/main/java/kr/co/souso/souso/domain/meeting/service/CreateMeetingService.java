@@ -10,7 +10,7 @@ import kr.co.souso.souso.domain.user.domain.User;
 import kr.co.souso.souso.domain.user.facade.UserFacade;
 import kr.co.souso.souso.domain.usercount.domain.MeetingUserCount;
 import kr.co.souso.souso.domain.usercount.domain.repository.MeetingUserCountRepository;
-import kr.co.souso.souso.infrastructure.image.s3.S3Facade;
+import kr.co.souso.souso.infrastructure.image.s3.S3Service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -26,7 +26,7 @@ public class CreateMeetingService {
     private final MeetingRepository meetingRepository;
     private final MeetingImageRepository meetingImageRepository;
     private final MeetingUserCountRepository meetingUserCountRepository;
-    private final S3Facade s3Facade;
+    private final S3Service s3Service;
 
     @Transactional
     public MeetingResponse execute(List<MultipartFile> images, CreateMeetingRequest request) {
@@ -44,7 +44,7 @@ public class CreateMeetingService {
 
         if (images != null) {
             images.stream()
-                    .map(s3Facade::uploadImage)
+                    .map(s3Service::uploadImage)
                     .map(image -> MeetingImage.builder()
                             .meeting(meeting)
                             .imageUrl(image)

@@ -13,7 +13,7 @@ import kr.co.souso.souso.domain.feed.presentation.dto.request.UpdateFeedRequest;
 import kr.co.souso.souso.domain.user.domain.User;
 import kr.co.souso.souso.domain.user.exception.NotValidUserException;
 import kr.co.souso.souso.domain.user.facade.UserFacade;
-import kr.co.souso.souso.infrastructure.image.s3.S3Facade;
+import kr.co.souso.souso.infrastructure.image.s3.S3Service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -30,7 +30,7 @@ public class UpdateFeedService {
     private final CategoryFacade categoryFacade;
     private final FeedCategoryRepository feedCategoryRepository;
     private final FeedImageRepository feedImageRepository;
-    private final S3Facade s3Facade;
+    private final S3Service s3Service;
 
     @Transactional
     public void execute(List<MultipartFile> images, UpdateFeedRequest request, Long feedId) {
@@ -48,7 +48,7 @@ public class UpdateFeedService {
 
         if (images != null) {
             images.stream()
-                    .map(s3Facade::uploadImage)
+                    .map(s3Service::uploadImage)
                     .map(image -> FeedImage.builder()
                             .feed(feed)
                             .imageUrl(image)
