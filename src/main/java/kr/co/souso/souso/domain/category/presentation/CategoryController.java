@@ -7,10 +7,6 @@ import kr.co.souso.souso.domain.category.presentation.dto.response.CategoryListR
 import kr.co.souso.souso.domain.category.presentation.dto.response.QueryFeedCategoryPagesResponse;
 import kr.co.souso.souso.domain.category.service.QueryCategoryService;
 import kr.co.souso.souso.domain.category.service.QueryFeedCategoryPagesService;
-import kr.co.souso.souso.domain.feed.domain.repository.FeedRepository;
-import kr.co.souso.souso.domain.feed.presentation.dto.response.QueryFeedDetailsResponse;
-import kr.co.souso.souso.domain.feed.service.QueryFeedDetailsService;
-import kr.co.souso.souso.domain.feed.service.QueryFeedPagesService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
