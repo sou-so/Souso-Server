@@ -13,7 +13,7 @@ import kr.co.souso.souso.domain.user.domain.User;
 import kr.co.souso.souso.domain.user.facade.UserFacade;
 import kr.co.souso.souso.domain.viewcount.domain.FeedViewCount;
 import kr.co.souso.souso.domain.viewcount.domain.repository.FeedViewCountRepository;
-import kr.co.souso.souso.infrastructure.image.s3.S3Facade;
+import kr.co.souso.souso.infrastructure.image.s3.S3Service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -31,7 +31,7 @@ public class CreateFeedService {
     private final FeedCategoryRepository feedCategoryRepository;
     private final FeedImageRepository feedImageRepository;
     private final FeedViewCountRepository feedViewCountRepository;
-    private final S3Facade s3Facade;
+    private final S3Service s3Service;
 
     @Transactional
     public CreateFeedResponse execute(List<MultipartFile> images, CreateFeedRequest request) {
@@ -45,7 +45,7 @@ public class CreateFeedService {
         feedRepository.save(feed);
         if (images != null) {
             images.stream()
-                    .map(s3Facade::uploadImage)
+                    .map(s3Service::uploadImage)
                     .map(image -> FeedImage.builder()
                             .feed(feed)
                             .imageUrl(image)

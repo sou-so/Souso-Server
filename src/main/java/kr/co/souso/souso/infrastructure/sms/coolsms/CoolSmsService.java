@@ -1,7 +1,7 @@
 package kr.co.souso.souso.infrastructure.sms.coolsms;
 
 import kr.co.souso.souso.global.property.coolsms.CoolSmsProperties;
-import kr.co.souso.souso.infrastructure.sms.SmsUtil;
+import kr.co.souso.souso.infrastructure.sms.SmsService;
 import lombok.RequiredArgsConstructor;
 import net.nurigo.java_sdk.api.Message;
 import net.nurigo.java_sdk.exceptions.CoolsmsException;
@@ -11,7 +11,7 @@ import java.util.HashMap;
 
 @RequiredArgsConstructor
 @Component
-public class CoolSmsService implements SmsUtil {
+public class CoolSmsService implements SmsService {
 
     private final CoolSmsProperties coolSmsProperties;
 

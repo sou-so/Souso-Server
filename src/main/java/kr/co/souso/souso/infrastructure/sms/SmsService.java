@@ -1,6 +1,6 @@
 package kr.co.souso.souso.infrastructure.sms;
 
-public interface SmsUtil {
+public interface SmsService {
 
     void sendCode(String phoneNumber, String code);
 
