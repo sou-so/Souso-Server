@@ -1,12 +1,16 @@
 package kr.co.souso.souso.domain.feed.domain.repository;
 
+import com.querydsl.core.types.ExpressionUtils;
 import com.querydsl.core.types.Order;
 import com.querydsl.core.types.OrderSpecifier;
+import com.querydsl.core.types.Projections;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.core.types.dsl.NumberPath;
+import com.querydsl.jpa.JPAExpressions;
 import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import kr.co.souso.souso.domain.category.domain.repository.vo.QCategoryVO;
+import kr.co.souso.souso.domain.comment.domain.QComment;
 import kr.co.souso.souso.domain.feed.domain.repository.vo.FeedConditionVO;
 import kr.co.souso.souso.domain.feed.domain.repository.vo.FeedDetailsVO;
 import kr.co.souso.souso.domain.feed.domain.repository.vo.QFeedDetailsVO;
@@ -22,6 +26,7 @@ import java.util.List;
 
 import static kr.co.souso.souso.domain.bookmark.domain.QFeedBookmark.feedBookmark;
 import static kr.co.souso.souso.domain.category.domain.QFeedCategory.feedCategory;
+import static kr.co.souso.souso.domain.comment.domain.QComment.comment;
 import static kr.co.souso.souso.domain.feed.domain.QFeed.feed;
 import static kr.co.souso.souso.domain.like.domain.QFeedLike.feedLike;
 import static org.springframework.util.StringUtils.hasText;
@@ -129,9 +134,24 @@ public class FeedRepositoryImpl implements FeedRepositoryCustom {
                         ),
                         feed.content,
                         feed.id,
-                        feed.likeCount,
-                        feed.bookmarkCount,
-                        feed.commentCount,
+                        ExpressionUtils.as(
+                                JPAExpressions.select(
+                                                feedLike.count())
+                                        .from(feedLike)
+                                        .where(feedLike.feed.id.eq(feed.id)),
+                                "feedLikeCount"),
+                        ExpressionUtils.as(
+                                JPAExpressions.select(
+                                                feedBookmark.count())
+                                        .from(feedBookmark)
+                                        .where(feedBookmark.feed.id.eq(feed.id)),
+                                "bookmarkCount"),
+                        ExpressionUtils.as(
+                                JPAExpressions.select(
+                                                comment.count())
+                                        .from(comment)
+                                        .where(comment.feed.id.eq(feed.id)),
+                                "commentCount"),
                         feedLike.isNotNull(),
                         feedBookmark.isNotNull(),
                         feed.createdAt
