@@ -27,7 +27,6 @@ public class AddLikeService {
                 .orElseThrow(() -> FeedNotFoundException.EXCEPTION);
 
         if (isNotAlreadyLike(feed, user)) {
-            feed.addLike();
             feedLikeRepository.save(FeedLike.builder()
                     .feed(feed)
                     .user(user)

@@ -27,7 +27,6 @@ public class AddBookmarkService {
                 .orElseThrow(() -> FeedNotFoundException.EXCEPTION);
 
         if (isNotAlreadyBookmark(feed, user)) {
-            feed.addBookmark();
             feedBookmarkRepository.save(FeedBookmark.builder()
                     .feed(feed)
                     .user(user)

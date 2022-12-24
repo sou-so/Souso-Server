@@ -33,18 +33,6 @@ public class Feed extends BaseTimeEntity {
     @JoinColumn(name = "user_id")
     private User user;
 
-    @NotNull
-    @ColumnDefault("0")
-    private Long likeCount;
-
-    @NotNull
-    @ColumnDefault("0")
-    private Long bookmarkCount;
-
-    @NotNull
-    @ColumnDefault("0")
-    private Long commentCount;
-
     @OneToMany(mappedBy = "feed", cascade = CascadeType.REMOVE)
     private List<Comment> comments;
 
@@ -61,45 +49,13 @@ public class Feed extends BaseTimeEntity {
     private List<FeedCategory> feedCategories;
 
     @Builder
-    public Feed(String content, User user, Long likeCount, Long bookmarkCount) {
+    public Feed(String content, User user) {
         this.content = content;
         this.user = user;
-        this.likeCount = likeCount;
-        this.bookmarkCount = bookmarkCount;
-    }
-
-    @PrePersist
-    public void prePersist() {
-        this.likeCount = this.likeCount == null ? 0 : this.likeCount;
-        this.bookmarkCount = this.bookmarkCount == null ? 0 : this.bookmarkCount;
-        this.commentCount = this.commentCount == null ? 0 : this.commentCount;
     }
 
     public void updateFeed(String content) {
         this.content = content;
     }
 
-    public void addLike() {
-        this.likeCount++;
-    }
-
-    public void subLike(){
-        this.likeCount--;
-    }
-
-    public void addBookmark() {
-        this.bookmarkCount++;
-    }
-
-    public void subBookmark(){
-        this.bookmarkCount--;
-    }
-
-    public void addComment() {
-        this.commentCount++;
-    }
-
-    public void subComment() {
-        this.commentCount--;
-    }
 }

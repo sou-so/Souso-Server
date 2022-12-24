@@ -63,8 +63,8 @@ public class QueryFeedDetailsService {
                 .viewCount(feedViewCount.getViewCount())
                 .commentCount(feedDetailsVO.getCommentCount())
                 .createdAt(feedDetailsVO.getCreatedAt())
-                .likeCount(feed.getLikeCount())
-                .bookmarkCount(feed.getBookmarkCount())
+                .likeCount(feedDetailsVO.getLikeCount())
+                .bookmarkCount(feedDetailsVO.getBookmarkCount())
                 .build();
     }
 

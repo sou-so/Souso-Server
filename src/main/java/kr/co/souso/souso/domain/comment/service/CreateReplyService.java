@@ -47,7 +47,6 @@ public class CreateReplyService {
                 .build();
 
         commentRepository.save(comment);
-        feed.addComment();
         return new CreateReplyResponse(comment.getId());
     }
 }

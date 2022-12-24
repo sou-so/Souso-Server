@@ -27,7 +27,6 @@ public class SubLikeService {
                 .orElseThrow(() -> FeedNotFoundException.EXCEPTION);
 
         if (isAlreadyLike(feed, user)) {
-            feed.subLike();
             feedLikeRepository.delete(FeedLike.builder()
                     .feed(feed)
                     .user(user)

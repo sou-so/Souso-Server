@@ -29,7 +29,6 @@ public class SubBookmarkService {
                 .orElseThrow(() -> FeedNotFoundException.EXCEPTION);
 
         if (isAlreadyBookmark(feed, user)) {
-            feed.subBookmark();
             feedBookmarkRepository.delete(FeedBookmark.builder()
                     .feed(feed)
                     .user(user)
