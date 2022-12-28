@@ -37,7 +37,7 @@ jobs:
           context: .
           file: ./Dockerfile
           push: true
-          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/souso:latest
+          tags: ${{ secrets.DOCKER_IMAGE }}
           build-args: |
             JDBC_URL=${{ secrets.JDBC_URL }}
             DB_USER=${{ secrets.DB_USER }}
