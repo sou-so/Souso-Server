@@ -1,21 +1,18 @@
 package kr.co.souso.souso.domain.feed.domain.repository;
 
-import com.querydsl.core.types.ExpressionUtils;
 import com.querydsl.core.types.Order;
 import com.querydsl.core.types.OrderSpecifier;
-import com.querydsl.core.types.Projections;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.core.types.dsl.NumberPath;
-import com.querydsl.jpa.JPAExpressions;
 import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import kr.co.souso.souso.domain.category.domain.repository.vo.QCategoryVO;
-import kr.co.souso.souso.domain.comment.domain.QComment;
 import kr.co.souso.souso.domain.feed.domain.repository.vo.FeedConditionVO;
 import kr.co.souso.souso.domain.feed.domain.repository.vo.FeedDetailsVO;
 import kr.co.souso.souso.domain.feed.domain.repository.vo.QFeedDetailsVO;
 import kr.co.souso.souso.domain.user.domain.repository.vo.QAuthorVO;
 import kr.co.souso.souso.global.utils.code.PagingSupportUtil;
+import kr.co.souso.souso.global.utils.code.QueryDslSupportUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -26,7 +23,6 @@ import java.util.List;
 
 import static kr.co.souso.souso.domain.bookmark.domain.QFeedBookmark.feedBookmark;
 import static kr.co.souso.souso.domain.category.domain.QFeedCategory.feedCategory;
-import static kr.co.souso.souso.domain.comment.domain.QComment.comment;
 import static kr.co.souso.souso.domain.feed.domain.QFeed.feed;
 import static kr.co.souso.souso.domain.like.domain.QFeedLike.feedLike;
 import static org.springframework.util.StringUtils.hasText;
@@ -134,24 +130,9 @@ public class FeedRepositoryImpl implements FeedRepositoryCustom {
                         ),
                         feed.content,
                         feed.id,
-                        ExpressionUtils.as(
-                                JPAExpressions.select(
-                                                feedLike.count())
-                                        .from(feedLike)
-                                        .where(feedLike.feed.id.eq(feed.id)),
-                                "feedLikeCount"),
-                        ExpressionUtils.as(
-                                JPAExpressions.select(
-                                                feedBookmark.count())
-                                        .from(feedBookmark)
-                                        .where(feedBookmark.feed.id.eq(feed.id)),
-                                "bookmarkCount"),
-                        ExpressionUtils.as(
-                                JPAExpressions.select(
-                                                comment.count())
-                                        .from(comment)
-                                        .where(comment.feed.id.eq(feed.id)),
-                                "commentCount"),
+                        feed.feedLikes.size(),
+                        feed.feedBookmarks.size(),
+                        feed.comments.size(),
                         feedLike.isNotNull(),
                         feedBookmark.isNotNull(),
                         feed.createdAt
@@ -172,22 +153,18 @@ public class FeedRepositoryImpl implements FeedRepositoryCustom {
         if (hasText(feedConditionVO.getOrders())) {
             switch (feedConditionVO.getOrders()) {
                 case "BOOKMARK":
-                    OrderSpecifier<?> orderBookmark = PagingSupportUtil.getSortedColumn(Order.DESC, feedBookmark, "modifiedAt");
+                    OrderSpecifier<?> orderBookmark = QueryDslSupportUtil.getSortedColumn(Order.DESC, feedBookmark, "modifiedAt");
                     ORDERS.add(orderBookmark);
                     break;
-                case "LIKE":
-                    OrderSpecifier<?> orderLike = PagingSupportUtil.getSortedColumn(Order.DESC, feedLike, "modifiedAt");
-                    ORDERS.add(orderLike);
-                    break;
                 case "POPULAR":
-                    OrderSpecifier<?> orderPopular = PagingSupportUtil.getSortedColumn(Order.DESC, feed, "likeCount");
+                    OrderSpecifier<?> orderPopular = QueryDslSupportUtil.getSortedColumn(Order.DESC, feed.feedLikes.size());
                     ORDERS.add(orderPopular);
                     break;
                 default:
                     break;
             }
         }
-        OrderSpecifier<?> orderId = PagingSupportUtil.getSortedColumn(Order.DESC, feed, "id");
+        OrderSpecifier<?> orderId = QueryDslSupportUtil.getSortedColumn(Order.DESC, feed, "id");
         ORDERS.add(orderId);
         return ORDERS;
     }

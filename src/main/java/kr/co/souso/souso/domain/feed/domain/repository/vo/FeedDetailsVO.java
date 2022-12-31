@@ -16,15 +16,15 @@ public class FeedDetailsVO {
     private AuthorVO authorVO;
     private String content;
     private Long feedId;
-    private Long likeCount;
-    private Long bookmarkCount;
-    private Long commentCount;
+    private Integer likeCount;
+    private Integer bookmarkCount;
+    private Integer commentCount;
     private Boolean isLike;
     private Boolean isBookmark;
     private LocalDateTime createdAt;
 
     @QueryProjection
-    public FeedDetailsVO(CategoryVO categoryVO, AuthorVO authorVO, String content, Long feedId, Long likeCount, Long bookmarkCount, Long commentCount, Boolean isLike, Boolean isBookmark, LocalDateTime createdAt) {
+    public FeedDetailsVO(CategoryVO categoryVO, AuthorVO authorVO, String content, Long feedId, Integer likeCount, Integer bookmarkCount, Integer commentCount, Boolean isLike, Boolean isBookmark, LocalDateTime createdAt) {
         this.categoryVO = categoryVO;
         this.authorVO = authorVO;
         this.content = content;

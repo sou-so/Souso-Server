@@ -41,12 +41,12 @@ public class QueryFeedDetailsResponse {
     private Long viewCount;
 
     @ApiModelProperty(value = "좋아요 수", example = "10")
-    private Long likeCount;
+    private Integer likeCount;
 
     @ApiModelProperty(value = "북마크 수", example = "10")
-    private Long bookmarkCount;
+    private Integer bookmarkCount;
 
     @ApiModelProperty(value = "댓글 수", example = "10")
-    private Long commentCount;
+    private Integer commentCount;
 
 }
