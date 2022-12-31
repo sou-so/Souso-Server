@@ -1,17 +1,12 @@
 package kr.co.souso.souso.domain.feed.domain.repository;
 
-import com.querydsl.core.types.ExpressionUtils;
 import com.querydsl.core.types.Order;
 import com.querydsl.core.types.OrderSpecifier;
-import com.querydsl.core.types.Projections;
 import com.querydsl.core.types.dsl.BooleanExpression;
-import com.querydsl.core.types.dsl.Expressions;
 import com.querydsl.core.types.dsl.NumberPath;
-import com.querydsl.jpa.JPAExpressions;
 import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import kr.co.souso.souso.domain.category.domain.repository.vo.QCategoryVO;
-import kr.co.souso.souso.domain.comment.domain.QComment;
 import kr.co.souso.souso.domain.feed.domain.repository.vo.FeedConditionVO;
 import kr.co.souso.souso.domain.feed.domain.repository.vo.FeedDetailsVO;
 import kr.co.souso.souso.domain.feed.domain.repository.vo.QFeedDetailsVO;
@@ -19,18 +14,15 @@ import kr.co.souso.souso.domain.user.domain.repository.vo.QAuthorVO;
 import kr.co.souso.souso.global.utils.code.PagingSupportUtil;
 import kr.co.souso.souso.global.utils.code.QueryDslSupportUtil;
 import lombok.RequiredArgsConstructor;
-import org.aspectj.weaver.ast.Or;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
 
-import java.beans.Expression;
 import java.util.ArrayList;
 import java.util.List;
 
 import static kr.co.souso.souso.domain.bookmark.domain.QFeedBookmark.feedBookmark;
 import static kr.co.souso.souso.domain.category.domain.QFeedCategory.feedCategory;
-import static kr.co.souso.souso.domain.comment.domain.QComment.comment;
 import static kr.co.souso.souso.domain.feed.domain.QFeed.feed;
 import static kr.co.souso.souso.domain.like.domain.QFeedLike.feedLike;
 import static org.springframework.util.StringUtils.hasText;

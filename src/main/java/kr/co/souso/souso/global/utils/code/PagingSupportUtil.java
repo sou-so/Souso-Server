@@ -1,9 +1,5 @@
 package kr.co.souso.souso.global.utils.code;
 
-import com.querydsl.core.types.Order;
-import com.querydsl.core.types.OrderSpecifier;
-import com.querydsl.core.types.Path;
-import com.querydsl.core.types.dsl.Expressions;
 import com.querydsl.jpa.impl.JPAQuery;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
