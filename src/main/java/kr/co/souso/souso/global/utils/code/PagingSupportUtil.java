@@ -47,11 +47,6 @@ public class PagingSupportUtil {
         return hasNext;
     }
 
-    public static OrderSpecifier<?> getSortedColumn(Order order, Path<?> parent, String fieldName) {
-        Path<Object> fieldPath = Expressions.path(Object.class, parent, fieldName);
-        return new OrderSpecifier(order, fieldPath);
-    }
-
     public static Long applyCursorId(Long cursorId) {
         return cursorId == 0 ? DEFAULT_CURSOR_ID : cursorId;
     }
